@@ -17,22 +17,20 @@ email:
 
 spring:
   application:
-    name: rest-with-spring-boot-and-java-erudio
+    name: erp-rest-spring-boot
   datasource:
     drive-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/rest_with_spring_boot_erudio?useTimezone=true&serverTimezone=UTC
+    url: jdbc:postgresql://localhost:5432/erp_oliveira?useTimezone=true&serverTimezone=UTC
     #url: ${JDBC_URL}
     username: postgres
     password: 123456
-    #driver-class-name: org.postgresql.Driver   Recomendação GPT
 
   jpa:
     hibernate:
       ddl-auto: none   # pode ser 'validate', 'create', 'update' ou 'create-drop'
-    #database-platform: org.hibernate.dialect.PostgreSQLDialect    Recomendação GPT
+    #database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
      hibernate:
-       dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false        # opcional, útil para debug
     open-in-view: false
 
@@ -56,7 +54,7 @@ spring:
 #FlyWay
 flyway:
   url=jdbc:postgresql://localhost:5432/
-  schemas=rest_with_spring_boot_udemy
+  schemas=erp_oliveira
   user=postgres
   password=admin123
 
