@@ -1,4 +1,4 @@
-package br.com.willian.model;
+package br.com.oliveirawillian.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;

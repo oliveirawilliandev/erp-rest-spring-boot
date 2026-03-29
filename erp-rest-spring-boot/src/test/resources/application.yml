@@ -1,0 +1,185 @@
+# -------------------------
+# CONFIGURAÇÕES DO SERVIDOR
+# -------------------------
+server:
+  # Porta onde a aplicação Spring Boot irá subir
+  port: 80
+
+
+# -------------------------
+# CONFIGURAÇÕES DE CORS
+# -------------------------
+cors:
+  # Lista de origens permitidas para acessar a API
+  # Ex: front-end React (3000) e aplicações locais (8080)
+  originPatterns: http://localhost:3000,http://localhost:8080
+
+
+# -------------------------
+# CONFIGURAÇÕES DE UPLOAD
+# -------------------------
+file:
+  # Diretório onde os arquivos enviados serão armazenados
+  upload-dir: /Code/UploadDir
+
+
+# -------------------------
+# CONFIGURAÇÕES DE SEGURANÇA (JWT)
+# -------------------------
+security:
+  jwt:
+    token:
+      # Chave secreta usada para assinar e validar o token JWT
+      # IMPORTANTE: em produção, usar variável de ambiente
+      secret-key: 53cr37
+
+      # Tempo de expiração do token em milissegundos
+      # 3600000 ms - 1 hora
+      expire-lenght: 3600000
+
+
+# -------------------------
+# CONFIGURAÇÕES PADRÃO DE EMAIL
+# -------------------------
+email:
+  # Assunto padrão para envio de e-mails
+  subject: "Default Subject"
+
+  # Mensagem padrão para envio de e-mails
+  message: "Default Message"
+
+
+# -------------------------
+# CONFIGURAÇÕES DO SPRING
+# -------------------------
+spring:
+  application:
+    # Nome da aplicação (usado em logs, monitoramento, etc.)
+    name: erp-rest-spring-boot-java
+
+
+  # -------------------------
+  # CONFIGURAÇÕES DO BANCO DE DADOS
+  # -------------------------
+  datasource:
+    # Driver JDBC do PostgreSQL
+    drive-class-name: org.postgresql.Driver
+
+    # URL de conexão com o banco
+    url: jdbc:postgresql://localhost:5432/erp_oliveira
+
+    # Alternativa para uso via variável de ambiente
+    # url: ${JDBC_URL}
+
+    # Usuário do banco
+    username: postgres
+
+    # Senha do banco
+    password: 123456
+
+
+  # -------------------------------
+  # CONFIGURAÇÕES JPA / HIBERNATE
+  #-------------------------------
+  jpa:
+    hibernate:
+      # Controle de criação/validação das tabelas
+      # none -> Hibernate NÃO cria nem altera tabelas
+      # Ideal quando usamos Flyway para versionamento
+      ddl-auto: none
+
+    # Dialeto pode ser configurado manualmente se necessário
+    # database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+    properties:
+      hibernate:
+      # Propriedades extras do Hibernate (vazio por enquanto)
+
+    # Exibe as queries SQL no console
+    show-sql: false
+
+    # Evita manter sessão aberta durante requisição HTTP
+    # Boa prática para evitar problemas de performance
+    open-in-view: false
+
+
+  # -------------------------
+  # CONFIGURAÇÕES DE EMAIL (SMTP)
+  # -------------------------
+  mail:
+    # Servidor SMTP (Gmail)
+    host: smtp.gmail.com
+
+    # Porta TLS
+    port: 587
+
+    # Usuário do email (variável de ambiente)
+    username: ${EMAIL_USERNAME}
+
+    # Senha do email (variável de ambiente)
+    password: ${EMAIL_PASSWORD}
+
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enabled: true
+      mail.smtp.starttls.required: true
+
+
+  # -------------------------
+  # CONFIGURAÇÕES DE UPLOAD MULTIPART
+  # -------------------------
+  servlet:
+    multipart:
+      # Habilita upload de arquivos
+      enabled: true
+
+      # Tamanho mínimo para gravar arquivo em disco
+      file-size-threshold: 2KB
+
+      # Tamanho máximo de um único arquivo
+      max-file-size: 200MB
+
+      # Tamanho máximo da requisição inteira
+      max-request-size: 215MB
+
+
+# -------------------------
+# CONFIGURAÇÕES DO FLYWAY
+# -------------------------
+flyway:
+  # URL base do banco (sem schema)
+  url: jdbc:postgresql://localhost:5432/
+  # Schema que será versionado
+  schemas: erp_oliveira
+  # Usuário do banco
+  user: postgres
+  # Senha do banco
+  password: admin123
+
+
+# -------------------------
+# CONFIGURAÇÕES DE LOG
+# -------------------------
+logging:
+  level:
+    # Nível padrão de log da aplicação
+    root: INFO
+
+    # Exemplos para debug específico:
+    # org.springframework.boot: TRACE
+    # net.sf.jasperreports.engine.*: TRACE
+    # br.com.willian: DEBUG
+
+
+# -------------------------
+# CONFIGURAÇÕES DO SPRINGDOC / SWAGGER
+# -------------------------
+spring-doc:
+  paths-to-match:
+    # Endpoints que aparecerão na documentação
+    - /auth/**
+    - /api/**/v1/**
+
+  swagger-ui:
+    # Faz o Swagger abrir na raiz da aplicação
+    use-root-path: true
