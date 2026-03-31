@@ -1,4 +1,4 @@
-package br.com.oliveirawillian.exception;
+package br.com.willian.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

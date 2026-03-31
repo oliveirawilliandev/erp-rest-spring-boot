@@ -1,0 +1,71 @@
+version: '3.4' # Versão do formato do docker-compose
+
+services: # Define os containers (serviços) que serão criados
+
+  postgresql-db-docker: # Nome do serviço do banco de dados
+    image: postgres:15 # Usa a imagem oficial do PostgreSQL versão 15
+    container_name: postgres_db # Nome fixo do container (ao invés de nome aleatório)
+    restart: always # Reinicia automaticamente se o container parar
+    environment: # Variáveis de ambiente do container
+      TZ: America/Sao_Paulo # Define timezone
+      POSTGRES_USER: postgres # Usuário do banco
+      POSTGRES_PASSWORD: 123456 # Senha do banco
+      POSTGRES_DB: erp_oliveira # Nome do banco criado ao iniciar
+    ports:
+      - "5434:5432" # Porta externa 5434 -> interna 5432 do postgres
+    expose:
+      - 5432 # Expõe a porta apenas para outros containers (não externo)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Volume para persistir dados
+    networks:
+      - erp.oliveira-network # Rede docker usada pelos containers
+
+  # =========================
+
+  erp-oliveira-service: # Nome do serviço da sua API
+    image: oliveirawilliandev0/erp-oliveira-image # Nome da imagem
+    restart: always # Reinicia automaticamente
+    build: ./erp-rest-spring-boot/ # Builda a imagem usando o arquivo "Dockerfile" da pasta "ERP\erp-rest-spring-boot\Dockerfile"
+    working_dir: /erp-oliveira-dir # Diretório de trabalho dentro do container
+
+    environment: # Variáveis de ambiente do Spring Boot
+      TZ: America/Sao_Paulo # Timezone
+      SPRING.DATASOURCE.URL: jdbc:postgresql://postgresql-db-docker:5432/erp_oliveira
+      # ↑ conecta no container "postgresql-db-docker" porta 5432 na POSTGRES_DB "erp_oliveira"
+  
+
+      SPRING.DATASOURCE.USERNAME: postgres # Usuário do banco
+      SPRING.DATASOURCE.PASSWORD: 123456 # Senha do banco
+
+    command: mvn spring-boot:run # Comando executado ao subir container
+    ports:
+      - "80:80" # Porta externa 80 -> porta 80 do container
+    depends_on:
+      - postgresql-db-docker # Sobe somente depois do container db iniciar
+    networks:
+      - erp.oliveira-network # mesma rede do banco
+
+  # =========================
+
+  portainer: # Container do Portainer (interface web docker)
+    image: portainer/portainer-ce:latest # imagem oficial
+    restart: always # reinicia automaticamente
+    ports:
+      - "9000:9000" # acesso via http://localhost:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # permite controlar docker
+      - partainer_data:/data # volume persistente do portainer
+    networks:
+      - erp.oliveira-network # mesma rede
+
+# =========================
+
+volumes: # Volumes persistentes
+  postgres_data: # volume do postgres (dados não são perdidos)
+  partainer_data: # volume do portainer
+
+# =========================
+
+networks: # redes docker
+  erp.oliveira-network: # nome da rede
+    driver: bridge # tipo de rede (containers se comunicam entre si)

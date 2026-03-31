@@ -1,23 +1,28 @@
-package br.com.willian.integrationtests.controllers.withxml;
+package br.com.willian.integrationtests.controllers.withyaml;
 
 import br.com.willian.config.TestConfigs;
+import br.com.willian.integrationtests.controllers.withyaml.mapper.YAMLMapper;
+import br.com.willian.integrationtests.dto.AccountCredentialsDTO;
 import br.com.willian.integrationtests.dto.EmployeesDTO;
-import br.com.willian.integrationtests.dto.wrappers.xml.Employees.PageModelEmployees;
+import br.com.willian.integrationtests.dto.TokenDTO;
 import br.com.willian.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.EncoderConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import br.com.willian.integrationtests.dto.wrappers.yaml.employees.PageModelEmployeesYAML;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -36,17 +41,15 @@ import static org.junit.jupiter.api.Assertions.*;
  * Os testes utilizam:
  * - Testcontainers (AbstractIntegrationTest)
  * - RestAssured para chamadas HTTP
- * - Jackson para serialização/deserialização XML
+ * - Jackson para serialização/deserialização YAML
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class EmployeesControllerXmlTest extends AbstractIntegrationTest {
+class EmployeesControllerYamlTest extends AbstractIntegrationTest { // Base comum de testes com container
 
     //Configuração base das requisições HTTP do RestAssured
     private static RequestSpecification specification;
 
-    // ObjectMapper para conversão XML <-> Objeto
-    private static ObjectMapper objectMapper;
 
     // DTO usado nos testes de criação e consulta
     private static EmployeesDTO employeesDTO;
@@ -54,16 +57,55 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
     //variavel de geração de CPF aleatorio
     private static String cpf;
 
-    // Mapper do Jackson usado para converter XML em objeto Java e objeto Java em XML.
-    private static XmlMapper xmlMapper;
+    // Mapper do Jackson usado para converter YAML em objeto Java e objeto Java em YAML.
+    private static YAMLMapper objectMapper;
+
+    private static TokenDTO tokenDTO;
+
 
     // Inicialização global antes da execução dos testes
     @BeforeAll
     static void setUp() {
-        objectMapper = new XmlMapper();
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES); // Evita erro caso a API retorne campos não mapeados no DTO
+        objectMapper = new YAMLMapper();
 
         employeesDTO = new EmployeesDTO();
+        tokenDTO = new TokenDTO();
+
+
+    }
+
+
+    @Test
+    @Order(0)
+    void signin() throws JsonProcessingException {
+        AccountCredentialsDTO accountCredentialsDTO = new AccountCredentialsDTO("leandro", "admin123");
+
+        tokenDTO = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+
+
+                .basePath("/auth/signin")
+                .port(TestConfigs.SERVER_PORT)
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
+                .accept(MediaType.APPLICATION_YAML_VALUE)
+                .body(accountCredentialsDTO,objectMapper)
+                .when()
+                .post()
+                .then()
+                .statusCode(200)
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
+                .extract()
+                .body()
+                .as(TokenDTO.class, objectMapper);
+
+
+
+        assertNotNull(tokenDTO.getAccessToken());
+        assertNotNull(tokenDTO.getRefreshToken());
+
+
     }
 
     // ======================================================
@@ -85,6 +127,7 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
         // Configuração da requisição
         specification = new RequestSpecBuilder() // cria config da requisição
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_OLIVEIRAWILLIANDEV)  // header Origin (CORS)
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION,"Bearer " + tokenDTO.getAccessToken())
                 .setBasePath("/api/employee/v1")  // path base da API
                 .setPort(TestConfigs.SERVER_PORT)  // porta da aplicação
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))  // log da requisição
@@ -92,21 +135,25 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
                 .build();  // finaliza config
 
         // Execução da requisição POST
-        var content = given(specification)  // inicia requisição
-                .contentType(MediaType.APPLICATION_XML_VALUE)  // informa XML no body
-                .accept(MediaType.APPLICATION_XML_VALUE)  // aceita XML
-                .body(employeesDTO)  // dados enviados
+        var content = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+                .spec(specification)  // inicia requisição
+                .contentType(MediaType.APPLICATION_YAML_VALUE)  // informa YAML no body
+                .accept(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML
+                .body(employeesDTO,objectMapper)  // dados enviados
                 .when()  // executa requisição
                 .post()  // metodo POST
                 .then()  // inicia validações
-                .statusCode(200)  // espera sucesso
-                .contentType(MediaType.APPLICATION_XML_VALUE)
+                .statusCode(201)  // espera sucesso
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
                 .extract()  // extrai resposta
                 .body()  // acessa body
-                .asString();  // converte em String
+                .as(EmployeesDTO.class, objectMapper);  // desserializa o body da resposta para EmployeesDTO usando o ObjectMapper informado
 
         // Converte resposta para DTO
-        EmployeesDTO created = objectMapper.readValue(content, EmployeesDTO.class);
+        EmployeesDTO created = content;
         employeesDTO = created;
 
         // Validações
@@ -139,21 +186,27 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
 
 
         // Execução da requisição POST
-        var content = given(specification)  // inicia requisição
-                .contentType(MediaType.APPLICATION_XML_VALUE)  // informa XML no body
-                .accept(MediaType.APPLICATION_XML_VALUE)  // aceita XML
-                .body(employeesDTO)  // dados enviados
+        var content = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+
+                .spec(specification) // inicia requisição
+                .contentType(MediaType.APPLICATION_YAML_VALUE)  // informa YAML no body
+                .accept(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML
+                .body(employeesDTO,objectMapper)  // dados enviados
                 .when()  // executa requisição
                 .put()  // metodo PUT
                 .then()  // inicia validações
                 .statusCode(200)  // espera sucesso
-                .contentType(MediaType.APPLICATION_XML_VALUE)
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
                 .extract()  // extrai resposta
                 .body()  // acessa body
-                .asString();  // converte em String
+                .as(EmployeesDTO.class, objectMapper);  // desserializa o body da resposta para EmployeesDTO usando o ObjectMapper informado
+
 
         // Converte resposta para DTO
-        EmployeesDTO created = objectMapper.readValue(content, EmployeesDTO.class);
+        EmployeesDTO created = content;
         employeesDTO = created;
 
         // Validações
@@ -185,20 +238,25 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
 
 
 
-        var content = given(specification)  // inicia requisição
-                .contentType(MediaType.APPLICATION_XML_VALUE)  // aceita XML
-                .accept(MediaType.APPLICATION_XML_VALUE)  // aceita XML
+        var content = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+
+                .spec(specification)  // inicia requisição
+                .contentType(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML
+                .accept(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML
                 .pathParam("id", employeesDTO.getId())  // ID do employee
                 .when()  // executa
                 .get("{id}")  // GET por ID
                 .then()  // validações
                 .statusCode(200)  // sucesso
-                .contentType(MediaType.APPLICATION_XML_VALUE)
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
                 .extract()  // extrai resposta
                 .body()  // acessa body
-                .asString();  // converte em String
+                .as(EmployeesDTO.class, objectMapper);  // desserializa o body da resposta para EmployeesDTO usando o ObjectMapper informado
 
-        EmployeesDTO found = objectMapper.readValue(content, EmployeesDTO.class);
+        EmployeesDTO found = content;
 
         // Validações
         assertEquals(employeesDTO.getId(), found.getId());
@@ -226,20 +284,25 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
 
 
 
-        var content = given(specification)  // inicia requisição
-                .contentType(MediaType.APPLICATION_XML_VALUE)  // aceita XML
-                .accept(MediaType.APPLICATION_XML_VALUE)  // aceita XML
+        var content = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+
+                .spec(specification)  // inicia requisição
+                .contentType(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML
+                .accept(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML
                 .pathParam("id", employeesDTO.getId())  // ID do employee
                 .when()  // executa
                 .patch("{id}")  // PATCH por ID
                 .then()  // validações
                 .statusCode(200)  // sucesso
-                .contentType(MediaType.APPLICATION_XML_VALUE)
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
                 .extract()  // extrai resposta
                 .body()  // acessa body
-                .asString();  // converte em String
+                .as(EmployeesDTO.class, objectMapper);  // desserializa o body da resposta para EmployeesDTO usando o ObjectMapper informado
 
-        EmployeesDTO found = objectMapper.readValue(content, EmployeesDTO.class);
+        EmployeesDTO found = content;
 
         // Validações
         assertEquals(employeesDTO.getId(), found.getId());
@@ -268,7 +331,12 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
 
 
 
-        var content = given(specification)  // inicia requisição
+        var content = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+
+                .spec(specification)  // inicia requisição
                 .pathParam("id", employeesDTO.getId())  // ID do employee
                 .when()  // executa
                 .delete("{id}")  // DELETE por ID
@@ -288,7 +356,7 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
      *
      *   A API aceita requisições da origem configurada
      *    Retorna status HTTP 200 (OK)
-     *    Retorna o conteúdo no formato XML correto  
+     *    Retorna o conteúdo no formato YAML correto  
      *    A paginação funciona conforme os parâmetros fornecidos  
      *    Os dados retornados possuem estrutura válida  
      *   
@@ -301,12 +369,12 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
      *   Ordem de execução:  6 - Executado após testes de CRUD individuais e antes de
      * testes com origens não permitidas.
      *
-     * see EmployeesControllerXMLTest#setup() Configuração inicial do teste
-     * see EmployeesControllerXMLTest#specification Configuração do RestAssured
+     * see EmployeesControllerYAMLTest#setup() Configuração inicial do teste
+     * see EmployeesControllerYAMLTest#specification Configuração do RestAssured
      * see WrapperEmployeesDTO Wrapper para resposta paginada
      * see EmployeesDTO DTO do funcionário
      *
-     * throws JsonProcessingException Se houver erro na desserialização do XML
+     * throws JsonProcessingException Se houver erro na desserialização do YAML
      */
     @Test
     @Order(6)
@@ -318,25 +386,32 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
         // Realiza requisição GET para o endpoint de listagem de funcionários
         // com parâmetros de paginação e ordenação
 
-        var content = given(specification)  // Usa configuração compartilhada do RestAssured
-                .accept(MediaType.APPLICATION_XML_VALUE)  // aceita XML  // aceita XML
-                .queryParam("page", 0,"size",12,"direction","asc")
+        var content = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+
+                .spec(specification) // Usa configuração compartilhada do RestAssured
+                .accept(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML  // aceita YAML
+                .queryParam("page", 0)                // Número da página (paginação começa em 0)
+                .queryParam("size", 12)                // Quantidade máxima de registros retornados por página
+                .queryParam("direction", "asc")       // Direção da ordenação (ascendente)
                 .when()  // executa
-                .get()  // GET
+                .get("")// Endpoint GET
                 .then()  // validações
                 .statusCode(200)  // sucesso
-                .contentType(MediaType.APPLICATION_XML_VALUE)
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
                 .extract()  // extrai resposta
                 .body()  // acessa body
-                .asString();  // converte em String
+                .as(PageModelEmployeesYAML.class, objectMapper);  // desserializa o body da resposta para EmployeesDTO usando o ObjectMapper informado
 
         // ======================================================
-        // 2. PROCESSAMENTO DA RESPOSTA XML
+        // 2. PROCESSAMENTO DA RESPOSTA YAML
         // ======================================================
 
-        // Desserializa o XML da resposta para o objeto wrapper que contém
+        // Desserializa o YAML da resposta para o objeto wrapper que contém
         // a estrutura paginada com metadados HATEOAS
-        PageModelEmployees wrapper = objectMapper.readValue(content,PageModelEmployees.class);
+        PageModelEmployeesYAML wrapper = content;
 
         // Extrai a lista de funcionários do wrapper
         // O wrapper contém um objeto "_embedded" com a propriedade "employeesDTOList"
@@ -346,6 +421,171 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
 
         // Validação de tamanho da página
         assertEquals(12, employeesDTOList.size(),
+                "A página deve conter exatamente 12 registros conforme solicitado");
+
+        // Validação de que a lista não está vazia
+        assertFalse(employeesDTOList.isEmpty(),
+                "A lista de funcionários não deve estar vazia");
+
+
+        // Obtém o primeiro funcionário da lista paginada
+        // A ordenação padrão é por firstName ascendente
+
+        EmployeesDTO employeeOne = employeesDTOList.get(0);
+
+        // ======================================================
+        // 3. VALIDAÇÕES DOS DADOS RETORNADOS
+        // ======================================================
+
+        // Validações básicas do objeto funcionário
+
+        assertNotNull(employeeOne.getId());
+        assertTrue(employeeOne.getId() > 0);
+
+        // Validações de estrutura de dados
+        assertEquals(4, employeeOne.getId());
+        assertEquals("Ana", employeeOne.getFirstName());
+        assertEquals("Pereira", employeeOne.getLastName());
+        assertEquals("São Paulo", employeeOne.getCity());
+        assertEquals("SP", employeeOne.getState());
+        assertEquals("Assistente", employeeOne.getJobTitle());
+        assertTrue(employeeOne.getActive()); // "O funcionário deve estar ativo
+
+
+        // [EMPLOYEETWO]
+        // Obtém o Segundo funcionário da lista paginada
+        // A ordenação padrão é por firstName ascendente
+
+        EmployeesDTO employeeTwo = employeesDTOList.get(1);
+
+        // ======================================================
+        // 3. VALIDAÇÕES DOS DADOS RETORNADOS
+        // ======================================================
+
+        // Validações básicas do objeto funcionário
+
+        assertNotNull(employeeTwo.getId());
+        assertTrue(employeeTwo.getId() > 0);
+
+        // Validações de estrutura de dados
+        assertEquals(6, employeeTwo.getId());
+        assertEquals("Beatriz", employeeTwo.getFirstName());
+        assertEquals("Costa", employeeTwo.getLastName());
+        assertEquals("São Paulo", employeeTwo.getCity());
+        assertEquals("SP", employeeTwo.getState());
+        assertEquals("Analista", employeeTwo.getJobTitle());
+        assertTrue(employeeTwo.getActive()); // "O funcionário deve estar ativo
+
+
+
+        // [EMPLOYEE FOUR]
+        // Obtém o primeiro funcionário da lista paginada
+        // A ordenação padrão é por firstName ascendente
+
+        EmployeesDTO employeeFour = employeesDTOList.get(3);
+
+        // ======================================================
+        // 3. VALIDAÇÕES DOS DADOS RETORNADOS
+        // ======================================================
+
+        // Validações básicas do objeto funcionário
+
+        assertNotNull(employeeFour.getId());
+        assertTrue(employeeFour.getId() > 0);
+
+        // Validações de estrutura de dados
+        assertEquals(3, employeeFour.getId());
+        assertEquals("Carlos", employeeFour.getFirstName());
+        assertEquals("Souza", employeeFour.getLastName());
+        assertEquals("São Paulo", employeeFour.getCity());
+        assertEquals("SP", employeeFour.getState());
+        assertEquals("Coordenador", employeeFour.getJobTitle());
+        assertTrue(employeeFour.getActive()); // "O funcionário deve estar ativo
+
+
+
+    }
+
+
+
+    // ======================================================
+    // FIND By Name - ORIGIN PERMITIDA
+    // ======================================================
+
+    /**
+     * Teste de integração para o endpoint de listagem paginada de funcionários (GET /api/employee/v1)
+     * com uma origem (Origin header) permitida pela política CORS.
+     *
+     * Este teste verifica que:
+     *
+     *   A API aceita requisições da origem configurada
+     *    Retorna status HTTP 200 (OK)
+     *    Retorna o conteúdo no formato YAML correto
+     *    A paginação funciona conforme os parâmetros fornecidos
+     *    Os dados retornados possuem estrutura válida
+     *
+     *
+     *   Cenário testado:  Listagem de funcionários com paginação (página 0, tamanho 12,
+     * ordenação ascendente e informação de um nome pelo pathParam firstName) a partir de uma origem autorizada.
+     *
+     *   Dependências:  Espera que o banco de dados tenha dados populados para validação.
+     *
+     *   Ordem de execução: 6 - Executado após testes de CRUD individuais e antes de
+     * testes com origens não permitidas.
+     *
+     * see EmployeesControllerYAMLTest#setup() Configuração inicial do teste
+     * see EmployeesControllerYAMLTest#specification Configuração do RestAssured
+     * see WrapperEmployeesDTO Wrapper para resposta paginada
+     * see EmployeesDTO DTO do funcionário
+     *
+     * throws JsonProcessingException Se houver erro na desserialização do YAML
+     */
+    @Test
+    @Order(7)
+    void findByNameWithAllowedOrigin() throws JsonProcessingException {
+        // ======================================================
+        // 1. EXECUÇÃO DA REQUISIÇÃO HTTP
+        // ======================================================
+
+        // Realiza requisição GET para o endpoint de listagem de funcionários
+        // com parâmetros de paginação e ordenação
+
+        var content = given().config(
+                        RestAssuredConfig.config()
+                                .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(MediaType.APPLICATION_YAML_VALUE, ContentType.TEXT))
+                )
+
+                .spec(specification) // Usa configuração compartilhada do RestAssured
+                .accept(MediaType.APPLICATION_YAML_VALUE)  // aceita YAML  // aceita YAML
+                .pathParam("firstName", "a")          // Path Param usado para filtrar funcionários pelo primeiro nome
+                .queryParam("page", 0)                // Número da página (paginação começa em 0)
+                .queryParam("size", 4)                // Quantidade máxima de registros retornados por página
+                .queryParam("direction", "asc")       // Direção da ordenação (ascendente)
+                .when()  // executa
+                .get("findEmployeeByName/{firstName}")// Endpoint GET com injeção do path param "firstName"
+                .then()  // validações
+                .statusCode(200)  // sucesso
+                .contentType(MediaType.APPLICATION_YAML_VALUE)
+                .extract()  // extrai resposta
+                .body()  // acessa body
+                .as(PageModelEmployeesYAML.class, objectMapper);  // desserializa o body da resposta para EmployeesDTO usando o ObjectMapper informado
+
+        // ======================================================
+        // 2. PROCESSAMENTO DA RESPOSTA YAML
+        // ======================================================
+
+        // Desserializa o YAML da resposta para o objeto wrapper que contém
+        // a estrutura paginada com metadados HATEOAS
+        PageModelEmployeesYAML wrapper = content;
+
+        // Extrai a lista de funcionários do wrapper
+        // O wrapper contém um objeto "_embedded" com a propriedade "employeesDTOList"
+
+        List<EmployeesDTO> employeesDTOList = wrapper.getContent();
+
+
+        // Validação de tamanho da página
+        assertEquals(4, employeesDTOList.size(),
                 "A página deve conter exatamente 12 registros conforme solicitado");
 
         // Validação de que a lista não está vazia
@@ -456,6 +696,7 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
 
         dto.setCpf(cpf);
         dto.setEmail("willian"+email+"@teste.com");
+        dto.setGender("MALE");
         dto.setPhone("4730000000");
         dto.setMobilePhone("47999999999");
 
@@ -469,11 +710,11 @@ class EmployeesControllerXmlTest extends AbstractIntegrationTest {
         dto.setDepartment("TI");
         dto.setActive(true);
 
-        dto.setBirthDate(new Date(631152000000L)); // 01/01/1990
-        dto.setHireDate(new Date());
+        dto.setBirthDate(LocalDate.of(1990,1,1)); // 01/01/1990
+        dto.setHireDate(LocalDate.now());
         dto.setTerminationDate(null);
-        dto.setCreatedAt(new Date());
-        dto.setUpdatedAt(new Date());
+        dto.setCreatedAt(OffsetDateTime.now());
+        dto.setUpdatedAt(OffsetDateTime.now());
         return  dto;
     }
 

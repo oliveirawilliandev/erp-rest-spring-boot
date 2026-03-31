@@ -1,12 +1,19 @@
-package br.com.oliveirawillian.file.importer.contract;
+package br.com.willian.file.importer.contract;
 
-import br.com.oliveirawillian.data.dto.v1.PersonDTO;
+import br.com.willian.dto.v1.EmployeesDTO;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+// Contrato para implementação de importadores de arquivos.
+// As implementações desta interface devem processar diferentes formatos de arquivo [CSV, Excel]
 
 public interface FileImporter {
-
-    List<PersonDTO> importFile(InputStream inputStream) throws Exception;
+    /**
+     * Processa o arquivo de entrada e retorna os dados convertidos.
+     *
+     * @param inputStream Stream do arquivo a ser processado
+     * @return Lista de EmployeesDTO com os dados do arquivo
+     * @throws Exception Erro durante o processamento do arquivo
+     */
+    List<EmployeesDTO> importFile(InputStream inputStream) throws Exception;
 }

@@ -1,9 +1,10 @@
-package br.com.willian.integrationtests.dto.wrappers.xml.Employees;
+package br.com.willian.integrationtests.dto.wrappers.xml.employees;
 
 import br.com.willian.integrationtests.dto.EmployeesDTO;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.List;
@@ -44,8 +45,9 @@ import java.util.List;
 // Define o nome do elemento raiz do XML que será associado a esta classe.
 // Neste caso, informa ao Jackson que todo_ o XML começa com a tag <PagedModel>,
 // permitindo que a desserialização funcione corretamente quando a resposta da API utiliza esse elemento como nó raiz (padrão do Spring HATEOAS em XML).
+@XmlRootElement
 @JacksonXmlRootElement(localName = "PagedModel")
-public class PageModelEmployees implements Serializable {
+public class PageModelEmployeesXML implements Serializable {
 
     // Controle de versão da serialização
     private static final long serialVersionUID = 1L;
@@ -66,7 +68,7 @@ public class PageModelEmployees implements Serializable {
      * Utilizado durante o processo de desserialização
      * da resposta XML para objeto Java.
      */
-    public PageModelEmployees() {
+    public PageModelEmployeesXML() {
     }
 
     /*

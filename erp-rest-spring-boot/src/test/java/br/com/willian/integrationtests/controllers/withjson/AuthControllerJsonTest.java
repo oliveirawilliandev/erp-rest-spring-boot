@@ -1,15 +1,16 @@
-package br.com.oliveirawillian.integrationtests.controllers.withjson;
+package br.com.willian.integrationtests.controllers.withjson;
 
-import br.com.oliveirawillian.config.TestConfigs;
-import br.com.oliveirawillian.integrationtests.dto.AccountCredentialsDTO;
-import br.com.oliveirawillian.integrationtests.dto.TokenDTO;
-import br.com.oliveirawillian.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.willian.config.TestConfigs;
+import br.com.willian.integrationtests.dto.AccountCredentialsDTO;
+import br.com.willian.integrationtests.dto.TokenDTO;
+import br.com.willian.integrationtests.testcontainers.AbstractIntegrationTest;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AuthControllerJsonTest extends AbstractIntegrationTest {

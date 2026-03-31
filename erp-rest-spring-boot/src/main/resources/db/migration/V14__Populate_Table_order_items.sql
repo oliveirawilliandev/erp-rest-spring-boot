@@ -1,17 +1,14 @@
-CREATE TABLE order_items (
-                             id BIGSERIAL PRIMARY KEY,
-
-                             order_id BIGINT NOT NULL,
-                             product_id BIGINT NOT NULL,
-                             quantity INT NOT NULL,
-                             unit_price NUMERIC(10,2) NOT NULL,
-
-                             CONSTRAINT fk_order_items_order
-                                 FOREIGN KEY (order_id)
-                                     REFERENCES orders(id)
-                                     ON DELETE CASCADE,
-
-                             CONSTRAINT fk_order_items_product
-                                 FOREIGN KEY (product_id)
-                                     REFERENCES products(id)
-);
+INSERT INTO order_items (order_id, product_id, quantity, unit_price)
+VALUES
+    (1,1,2,100.00),
+    (1,2,1,200.00),
+    (2,3,3,150.00),
+    (2,4,2,300.00),
+    (3,5,5,50.00),
+    (4,6,1,500.00),
+    (5,7,4,75.00),
+    (6,8,2,90.00),
+    (7,9,1,250.00),
+    (8,10,3,120.00),
+    (9,11,4,200.00),
+    (10,12,1,155.00);

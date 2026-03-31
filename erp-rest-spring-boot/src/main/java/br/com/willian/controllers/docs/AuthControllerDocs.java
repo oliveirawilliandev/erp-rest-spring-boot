@@ -1,15 +1,11 @@
-package br.com.oliveirawillian.controllers.docs;
+package br.com.willian.controllers.docs;
 
-import br.com.oliveirawillian.data.dto.v1.BooksDTO;
-import br.com.oliveirawillian.data.dto.v1.security.AccountCredentialsDTO;
+import br.com.willian.dto.v1.security.AccountCredentialAdminDTO;
+import br.com.willian.dto.v1.security.AccountCredentialsDTO;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 public interface AuthControllerDocs {
     @Operation(
@@ -41,7 +37,7 @@ public interface AuthControllerDocs {
     @Operation(
             summary = "Create a new User",
             description = "Registers a new user in the system with the provided credentials.",
-            tags = {"User Management"},
+            tags = {"Authentication"},
             responses = {
                     @ApiResponse(description = "Created", responseCode = "201", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -49,5 +45,17 @@ public interface AuthControllerDocs {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
             }
     )
-    AccountCredentialsDTO create( AccountCredentialsDTO credentialsDTO);
+    ResponseEntity<AccountCredentialsDTO> create(AccountCredentialsDTO credentialsDTO);
+    @Operation(
+            summary = "Create a new User power Admin",
+            description = "Registers a new user Power Admin in the system with the provided credentials.",
+            tags = {"Authentication"},
+            responses = {
+                    @ApiResponse(description = "Created", responseCode = "201", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Conflict", responseCode = "409", content = @Content),
+                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+            }
+    )
+    ResponseEntity<AccountCredentialAdminDTO> createAdmin( AccountCredentialAdminDTO credentialsDTO);
 }

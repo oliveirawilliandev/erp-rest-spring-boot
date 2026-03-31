@@ -1,4 +1,4 @@
-package br.com.willian.unitetests;
+package br.com.willian.unittests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,7 +9,8 @@ import java.util.List;
 import br.com.willian.dto.v1.EmployeesDTO;
 import br.com.willian.mapper.EmployeesMapper;
 import br.com.willian.model.Employees;
-import br.com.willian.unitetests.mapper.MockEmployees;
+import br.com.willian.model.enums.Gender;
+import br.com.willian.unittests.mapper.MockEmployees;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -38,6 +39,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 0", employeesDTO.getLastName());
         assertEquals("12345678900", employeesDTO.getCpf());
         assertEquals("employee0@email.com", employeesDTO.getEmail());
+        assertEquals("MALE", employeesDTO.getGender());
         assertEquals("1133330000", employeesDTO.getPhone());
         assertEquals("11999990000", employeesDTO.getMobilePhone());
         assertEquals("01000-000", employeesDTO.getZipCode());
@@ -69,6 +71,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 0", outputZero.getLastName());
         assertEquals("12345678900", outputZero.getCpf());
         assertEquals("employee0@email.com", outputZero.getEmail());
+        assertEquals("MALE", outputZero.getGender());
         assertEquals("1133330000", outputZero.getPhone());
         assertEquals("11999990000", outputZero.getMobilePhone());
         assertEquals("01000-000", outputZero.getZipCode());
@@ -94,6 +97,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 7", outputSeven.getLastName());
         assertEquals("12345678907", outputSeven.getCpf());
         assertEquals("employee7@email.com", outputSeven.getEmail());
+        assertEquals("MALE", outputSeven.getGender());
         assertEquals("1133330007", outputSeven.getPhone());
         assertEquals("11999990007", outputSeven.getMobilePhone());
         assertEquals("01000-007", outputSeven.getZipCode());
@@ -119,6 +123,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 12", outputTwelve.getLastName());
         assertEquals("123456789012", outputTwelve.getCpf());
         assertEquals("employee12@email.com", outputTwelve.getEmail());
+        assertEquals("MALE", outputTwelve.getGender());
         assertEquals("11333300012", outputTwelve.getPhone());
         assertEquals("119999900012", outputTwelve.getMobilePhone());
         assertEquals("01000-0012", outputTwelve.getZipCode());
@@ -148,6 +153,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 0", output.getLastName());
         assertEquals("12345678900", output.getCpf());
         assertEquals("employee0@email.com", output.getEmail());
+        assertEquals(Gender.MALE, output.getGender());
         assertEquals("1133330000", output.getPhone());
         assertEquals("11999990000", output.getMobilePhone());
         assertEquals("01000-000", output.getZipCode());
@@ -179,6 +185,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 0", outputZero.getLastName());
         assertEquals("12345678900", outputZero.getCpf());
         assertEquals("employee0@email.com", outputZero.getEmail());
+        assertEquals(Gender.MALE, outputZero.getGender());
         assertEquals("1133330000", outputZero.getPhone());
         assertEquals("11999990000", outputZero.getMobilePhone());
         assertEquals("01000-000", outputZero.getZipCode());
@@ -204,6 +211,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 7", outputSeven.getLastName());
         assertEquals("12345678907", outputSeven.getCpf());
         assertEquals("employee7@email.com", outputSeven.getEmail());
+        assertEquals(Gender.MALE, outputSeven.getGender());
         assertEquals("1133330007", outputSeven.getPhone());
         assertEquals("11999990007", outputSeven.getMobilePhone());
         assertEquals("01000-007", outputSeven.getZipCode());
@@ -229,6 +237,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 12", outputTwelve.getLastName());
         assertEquals("123456789012", outputTwelve.getCpf());
         assertEquals("employee12@email.com", outputTwelve.getEmail());
+        assertEquals(Gender.MALE, outputTwelve.getGender());
         assertEquals("11333300012", outputTwelve.getPhone());
         assertEquals("119999900012", outputTwelve.getMobilePhone());
         assertEquals("01000-0012", outputTwelve.getZipCode());

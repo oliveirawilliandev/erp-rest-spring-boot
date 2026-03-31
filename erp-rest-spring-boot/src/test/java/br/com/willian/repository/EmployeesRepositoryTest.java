@@ -1,7 +1,7 @@
-package br.com.oliveirawillian.repository;
+package br.com.willian.repository;
 
-import br.com.oliveirawillian.integrationtests.testcontainers.AbstractIntegrationTest;
-import br.com.oliveirawillian.model.Person;
+import br.com.willian.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.willian.model.Employees;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,55 +12,76 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 
 import static org.junit.jupiter.api.Assertions.*;
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace =AutoConfigureTestDatabase.Replace.NONE)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PersonRepositoryTest extends AbstractIntegrationTest {
+@ExtendWith(SpringExtension.class) // Habilita integração do JUnit 5 com o contexto do Spring
+@DataJpaTest // Configura teste focado na camada JPA (Repositories)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // Usa o banco real (Testcontainers)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class) // Garante execução dos testes na ordem definida
+class EmployeesRepositoryTest extends AbstractIntegrationTest { // Base comum de testes com container
 
     @Autowired
-    PersonRepository personRepository;
-    private static Person person;
+    EmployeesRepository employeesRepository; // Repositório JPA a ser testado
+
+    private static Employees employees; // Entidade compartilhada entre os testes
+
     @BeforeAll
     static void setUp() {
-    person = new Person();
+        employees = new Employees(); // Inicializa objeto base antes da execução dos testes
     }
-
-
 
     @Test
     @Order(1)
-    void findPeopleByName() {
-        Pageable pageable = PageRequest.of(0, 12, Sort.by(Sort.Direction.ASC, "firstName"));
-        person = personRepository.FindPeopleByName("rei",pageable).getContent().get(0);
-        assertNotNull(person);
-        assertNotNull(person.getId());
-        assertEquals("Perreira",person.getFirstName());
-        assertEquals("Martins",person.getLastName());
-        assertEquals("5481232",person.getAddress());
-        assertEquals("Male",person.getGender());
-        assertTrue(person.getEnabled());
+    void findEmployeesByName() {
 
+        Pageable pageable = PageRequest.of(
+                0,                                  // Página inicial (index começa em 0)
+                4,                                  // Quantidade máxima de registros por página
+                Sort.by(Sort.Direction.ASC,         // Ordenação crescente
+                        "firstName")                // Campo usado na ordenação
+        );
+
+        // Executa busca paginada por funcionários cujo nome contenha "a"
+        employees = employeesRepository
+                .findEmployeesByName("a", pageable) // Chamada ao método customizado do repositório
+                .getContent()                        // Obtém o conteúdo da página
+                .get(0);                             // Recupera o primeiro registro
+
+        // ============================
+        // Validações do funcionário
+        // ============================
+
+        assertNotNull(employees);                    // Funcionário não deve ser nulo
+        assertNotNull(employees.getId());            // ID deve existir
+        assertEquals("Ana", employees.getFirstName());
+        assertEquals("Pereira", employees.getLastName());
+        assertEquals("São Paulo", employees.getCity());
+        assertEquals("Assistente", employees.getJobTitle());
+        assertTrue(employees.getActive());            // Funcionário deve estar ativo
     }
 
     @Test
     @Order(2)
-    void disablePerson() {
-        Long id = person.getId();
-        personRepository.disablePerson(id);
+    void disableEmployees() {
 
-        var result = personRepository.findById(id);
-        person = result.get();
+        Long id = employees.getId();                  // Recupera ID do funcionário criado no teste anterior
 
-        assertNotNull(person);
-        assertNotNull(person.getId());
-        assertEquals("Perreira",person.getFirstName());
-        assertEquals("Martins",person.getLastName());
-        assertEquals("5481232",person.getAddress());
-        assertEquals("Male",person.getGender());
-        assertFalse(person.getEnabled());
+        employeesRepository.disableEmployee(id);      // Executa atualização lógica (disable)
+
+        var result = employeesRepository.findById(id); // Busca novamente o funcionário no banco
+        employees = result.get();                      // Obtém entidade atualizada
+
+        // ============================
+        // Validações após o disable
+        // ============================
+
+        assertNotNull(employees);
+        assertNotNull(employees.getId());
+        assertEquals("Ana", employees.getFirstName());
+        assertEquals("Pereira", employees.getLastName());
+        assertEquals("São Paulo", employees.getCity());
+        assertEquals("Assistente", employees.getJobTitle());
+
+        assertFalse(employees.getActive());            // Funcionário deve estar desativado
     }
 }

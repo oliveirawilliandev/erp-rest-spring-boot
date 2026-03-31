@@ -1,4 +1,9 @@
 package br.com.willian.dto.v1.request;
 
-public record VerifyEmailCodeRequestDTO() {
+import java.io.Serializable;
+
+public record VerifyEmailCodeRequestDTO(String email,
+                                        String code) implements Serializable {
+    private static final long serialVersionUID = 1L;
+
 }

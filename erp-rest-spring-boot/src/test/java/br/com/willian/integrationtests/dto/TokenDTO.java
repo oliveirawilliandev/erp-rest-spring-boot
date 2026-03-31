@@ -1,7 +1,10 @@
-package br.com.willian.dto.v1.security;
+package br.com.willian.integrationtests.dto;
 
-import java.util.Date; // Representa datas de criação e expiração do token
-import java.util.Objects; // Utilitário para equals e hashCode
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+import java.util.Date;
+import java.util.Objects;
+@XmlRootElement
 
 public class TokenDTO {
 

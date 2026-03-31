@@ -1,39 +1,71 @@
-package br.com.oliveirawillian.security.jwt;
+package br.com.willian.security.jwt; // Pacote da camada de segurança JWT
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import jakarta.servlet.FilterChain; // Cadeia de filtros
+import jakarta.servlet.ServletException; // Exceção de servlet
+import jakarta.servlet.ServletRequest; // Requisição genérica
+import jakarta.servlet.ServletResponse; // Resposta genérica
+import jakarta.servlet.http.HttpServletRequest; // Requisição HTTP
+import org.apache.commons.lang3.StringUtils; // Utilitários para string
+import org.slf4j.Logger; // Interface de logging
+import org.slf4j.LoggerFactory; // Factory para logger
+import org.springframework.beans.factory.annotation.Autowired; // Injeção de dependência
+import org.springframework.security.core.Authentication; // Interface de autenticação
+import org.springframework.security.core.context.SecurityContextHolder; // Contexto de segurança
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.stereotype.Service;
+import org.springframework.web.filter.GenericFilterBean; // Filtro genérico Spring
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import java.io.IOException;
+import java.io.IOException; // Exceção de I/O
+@Service
+public class JwtTokenFilter extends GenericFilterBean { // Filtro para processar tokens JWT
+
+    // Logger para rastreamento
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
+
+    @Autowired // Injeção de dependência
+    private JwtTokenProvider jwtTokenProvider; // Provider para operações com tokens
 
 
-public class JwtTokenFilter extends GenericFilterBean {
-
-    @Autowired
-    private JwtTokenProvider tokenProvider;
-
+    // [JWT-FILTER-001] Construtor com injeção
     public JwtTokenFilter(JwtTokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
+        logger.debug("[JWT-FILTER-001] Inicializando JwtTokenFilter");
+        this.jwtTokenProvider = tokenProvider; // Atribui provider
     }
 
+    // [JWT-FILTER-002] Filtro principal executado em cada requisição
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter)
             throws IOException, ServletException {
-        var token = tokenProvider.resolveToken((HttpServletRequest) request);
-        if (StringUtils.isNotBlank(token) && tokenProvider.validateToken(token)) {
-            Authentication authentication = tokenProvider.getAuthentication(token);
-            if (authentication != null) {
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        logger.debug("[JWT-FILTER-002] Processando requisição");
+
+        // Extrai token do header Authorization
+        String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
+
+        if (StringUtils.isNotBlank(token)) { // Se token existe
+            logger.debug("[JWT-FILTER-002] Token encontrado, validando");
+
+            if (jwtTokenProvider.validateToken(token)) { // Valida token
+                logger.debug("[JWT-FILTER-002] Token válido, obtendo autenticação");
+
+                Authentication authentication = jwtTokenProvider.getAuthentication(token); // Obtém autenticação
+
+                if (authentication != null) {
+                    // Define autenticação no contexto de segurança
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    logger.debug("[JWT-FILTER-002] Autenticação estabelecida | user={}",
+                            authentication.getName());
+                }
+            } else {
+                logger.debug("[JWT-FILTER-002] Token inválido ou expirado");
             }
+        } else {
+            logger.debug("[JWT-FILTER-002] Nenhum token encontrado na requisição");
         }
+
+        // Continua a cadeia de filtros
         filter.doFilter(request, response);
+        logger.trace("[JWT-FILTER-002] Requisição prosseguida na cadeia de filtros");
     }
 }

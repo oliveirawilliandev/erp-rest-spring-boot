@@ -1,4 +1,5 @@
 ﻿INSERT INTO permission (description) VALUES
-                                         ('ADMIN'),
-                                         ('MANAGER'),
-                                         ('COMMON_USER');
+                                         ('ROLE_CREATE_USERS'),
+                                         ('ROLE_ADMIN'),
+                                         ('ROLE_MANAGER'),
+                                         ('ROLE_COMMON_USER');

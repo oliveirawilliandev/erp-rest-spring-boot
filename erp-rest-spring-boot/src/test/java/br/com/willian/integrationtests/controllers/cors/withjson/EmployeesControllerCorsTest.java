@@ -1,7 +1,9 @@
-package br.com.willian.integrationtests.controllers.withjson;
+package br.com.willian.integrationtests.controllers.cors.withjson;
 
 import br.com.willian.config.TestConfigs;
+import br.com.willian.integrationtests.dto.AccountCredentialsDTO;
 import br.com.willian.integrationtests.dto.EmployeesDTO;
+import br.com.willian.integrationtests.dto.TokenDTO;
 import br.com.willian.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -15,7 +17,9 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+
 import java.util.Random;
 
 import static io.restassured.RestAssured.given;
@@ -36,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class EmployeesControllerCorsTest extends AbstractIntegrationTest {
+class EmployeesControllerCorsTest extends AbstractIntegrationTest { // Base comum de testes com container
 
     //Configuração base das requisições HTTP do RestAssured
     private static RequestSpecification specification;
@@ -50,12 +54,16 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
     private static String cpf;
 
     // Inicialização global antes da execução dos testes
+    private static TokenDTO tokenDTO;
     @BeforeAll
     static void setUp() {
         objectMapper = new ObjectMapper();
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES); // Evita erro caso a API retorne campos não mapeados no DTO
-
+        // Habilita automaticamente módulos do Jackson (ex: JavaTimeModule),
+        // permitindo suporte a LocalDate, OffsetDateTime e outros tipos do Java 8+.
+        objectMapper.findAndRegisterModules();
         employeesDTO = new EmployeesDTO();
+        tokenDTO = new TokenDTO();
     }
 
     // ======================================================
@@ -68,6 +76,30 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
      * - Status 200
      * - Retorno do objeto criado corretamente
      */
+
+    @Test
+    @Order(0)
+    void signin() {
+        AccountCredentialsDTO accountCredentialsDTO = new AccountCredentialsDTO("leandro", "admin123");
+        tokenDTO = given()
+                .basePath("/auth/signin")
+                .port(TestConfigs.SERVER_PORT)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(accountCredentialsDTO)
+                .when()
+                .post()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(TokenDTO.class);
+
+        assertNotNull(tokenDTO.getAccessToken());
+        assertNotNull(tokenDTO.getRefreshToken());
+
+
+    }
+
     @Test
     @Order(1)
     void createWithAllowedOrigin() throws JsonProcessingException {
@@ -77,6 +109,7 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
         // Configuração da requisição
         specification = new RequestSpecBuilder() // cria config da requisição
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_OLIVEIRAWILLIANDEV)  // header Origin (CORS)
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION,"Bearer " + tokenDTO.getAccessToken())
                 .setBasePath("/api/employee/v1")  // path base da API
                 .setPort(TestConfigs.SERVER_PORT)  // porta da aplicação
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))  // log da requisição
@@ -90,7 +123,7 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
                 .when()  // executa requisição
                 .post()  // metodo POST
                 .then()  // inicia validações
-                .statusCode(200)  // espera sucesso
+                .statusCode(201)  // espera sucesso
                 .extract()  // extrai resposta
                 .body()  // acessa body
                 .asString();  // converte em String
@@ -127,6 +160,8 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
 
         specification = new RequestSpecBuilder() // cria config da requisição
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_ERUDIO)  // origem bloqueada
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION,"Bearer " + tokenDTO.getAccessToken())
+
                 .setBasePath("/api/employee/v1")  // path da API
                 .setPort(TestConfigs.SERVER_PORT)  // porta da aplicação
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))  // log da requisição
@@ -163,6 +198,8 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
 
         specification = new RequestSpecBuilder()  // cria config da requisição
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_LOCAL)  // origem permitida
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION,"Bearer " + tokenDTO.getAccessToken())
+
                 .setBasePath("/api/employee/v1")  // path da API
                 .setPort(TestConfigs.SERVER_PORT)  // porta da aplicação
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))  // log da requisição
@@ -207,6 +244,8 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
 
         specification = new RequestSpecBuilder()  // cria config da requisição
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_ERUDIO)  // origem bloqueada
+                .addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION,"Bearer " + tokenDTO.getAccessToken())
+
                 .setBasePath("/api/employee/v1")  // path da API
                 .setPort(TestConfigs.SERVER_PORT)  // porta da aplicação
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))  // log da requisição
@@ -247,6 +286,7 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
 
         dto.setCpf(cpf);
         dto.setEmail("willian"+email+"@teste.com");
+        dto.setGender("MALE");
         dto.setPhone("4730000000");
         dto.setMobilePhone("47999999999");
 
@@ -260,11 +300,11 @@ class EmployeesControllerCorsTest extends AbstractIntegrationTest {
         dto.setDepartment("TI");
         dto.setActive(true);
 
-        dto.setBirthDate(new Date(631152000000L)); // 01/01/1990
-        dto.setHireDate(new Date());
+        dto.setBirthDate(LocalDate.of(1990,1,1)); // 01/01/1990
+        dto.setHireDate(LocalDate.now());
         dto.setTerminationDate(null);
-        dto.setCreatedAt(new Date());
-        dto.setUpdatedAt(new Date());
+        dto.setCreatedAt(OffsetDateTime.now());
+        dto.setUpdatedAt(OffsetDateTime.now());
         return  dto;
     }
 }

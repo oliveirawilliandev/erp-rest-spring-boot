@@ -5,7 +5,8 @@ CREATE TABLE employees (
                            first_name VARCHAR(150) NOT NULL,
                            last_name VARCHAR(150),
                            cpf VARCHAR(14) UNIQUE,
-                           birth_date DATE,
+                           gender VARCHAR(20) NOT NULL,
+                           birth_date DATE NOT NULL,
 
     -- Contact
                            email VARCHAR(150) UNIQUE,
@@ -29,6 +30,12 @@ CREATE TABLE employees (
                            active BOOLEAN DEFAULT TRUE,
 
     -- Audit
-                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                           updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+  -- Photo / Bar Codes
+                           photo_url VARCHAR(255) DEFAULT 'https://raw.githubusercontent.com/oliveirawilliandev/img/refs/heads/main/00_some_person.jpg',
+                           qr_code VARCHAR(255) DEFAULT 'https://www.linkedin.com/in/oliveirawilliandev/',
+                           bar_code VARCHAR(255) DEFAULT '0000000000000'
+
 );

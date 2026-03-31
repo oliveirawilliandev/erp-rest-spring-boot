@@ -1,8 +1,10 @@
-package br.com.willian.unitetests.mapper;
+package br.com.willian.unittests.mapper;
 
 import br.com.willian.dto.v1.EmployeesDTO;
 import br.com.willian.model.Employees;
+import br.com.willian.model.enums.Gender;
 
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 // Classe mock utilizada exclusivamente para testes do MapStruct.
 // Seu objetivo é validar se as conversões entre Employees e EmployeesDTO
 // estão sendo realizadas corretamente pelo mapper.
+
 public class MockEmployees {
 
     public Employees mockEntity() {
@@ -44,6 +47,7 @@ public class MockEmployees {
         employees.setLastName("Last Name Test " + number);
         employees.setCpf("1234567890" + number);
         employees.setEmail("employee" + number + "@email.com");
+        employees.setGender(Gender.MALE);
         employees.setPhone("113333000" + number);
         employees.setMobilePhone("1199999000" + number);
 
@@ -62,11 +66,11 @@ public class MockEmployees {
         employees.setActive(true);
 
         // Datas
-        employees.setBirthDate(new Date(631152000000L)); // 01/01/1990
-        employees.setHireDate(new Date());
+        employees.setBirthDate(LocalDate.of(1990,1,1)); // 01/01/1990
+        employees.setHireDate(LocalDate.now());
         employees.setTerminationDate(null);
-        employees.setCreatedAt(new Date());
-        employees.setUpdatedAt(new Date());
+        employees.setCreatedAt(Instant.now());
+        employees.setUpdatedAt(Instant.now());
 
         return employees;
     }
@@ -79,6 +83,7 @@ public class MockEmployees {
         employees.setLastName("Last Name Test " + number);
         employees.setCpf("1234567890" + number);
         employees.setEmail("employee" + number + "@email.com");
+        employees.setGender("MALE");
         employees.setPhone("113333000" + number);
         employees.setMobilePhone("1199999000" + number);
 
@@ -97,11 +102,11 @@ public class MockEmployees {
         employees.setActive(true);
 
         // Datas
-        employees.setBirthDate(new Date(631152000000L));
-        employees.setHireDate(new Date());
+        employees.setBirthDate(LocalDate.of(1990,1,1)); // 01/01/1990
+        employees.setHireDate(LocalDate.now());
         employees.setTerminationDate(null);
-        employees.setCreatedAt(new Date());
-        employees.setUpdatedAt(new Date());
+        employees.setCreatedAt(OffsetDateTime.now());
+        employees.setUpdatedAt(OffsetDateTime.now());
 
         return employees;
     }

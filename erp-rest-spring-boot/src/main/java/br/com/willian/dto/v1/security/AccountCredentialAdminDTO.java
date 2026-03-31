@@ -1,21 +1,26 @@
 package br.com.willian.dto.v1.security;
 
-import java.io.Serializable; // Permite serialização do objeto (transporte/cache)
-import java.util.Objects; // Utilitário para equals e hashCode
+import br.com.willian.dto.v1.security.enums.RoleEnum;
 
-public class AccountCredentialsDTO implements Serializable {
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+public class AccountCredentialAdminDTO implements Serializable {
 
     private static final long serialVersionUID = 1L; // Versão da serialização
 
     private String userName;   // Username usado para autenticação
     private String fullName;   // Nome completo do usuário
     private String password;   // Senha em texto puro (apenas para login/cadastro)
+    private Set<RoleEnum> roles;
 
-    public AccountCredentialsDTO() {
+    public AccountCredentialAdminDTO() {
         // Construtor padrão necessário para frameworks de serialização (Jackson)
     }
 
-    public AccountCredentialsDTO(
+    public AccountCredentialAdminDTO(
             String password,  // Senha informada pelo usuário
             String fullName,  // Nome completo
             String userName   // Username
@@ -49,20 +54,22 @@ public class AccountCredentialsDTO implements Serializable {
         this.password = password; // Define senha (não persistir em texto puro)
     }
 
+    public Set<RoleEnum> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEnum> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof AccountCredentialsDTO that)) return false; // Verifica tipo
-        return Objects.equals(userName, that.userName) &&
-                Objects.equals(fullName, that.fullName) &&
-                Objects.equals(password, that.password); // Compara campos
+        if (!(o instanceof AccountCredentialAdminDTO that)) return false;
+        return Objects.equals(userName, that.userName) && Objects.equals(fullName, that.fullName) && Objects.equals(password, that.password) && Objects.equals(roles, that.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                userName,
-                fullName,
-                password
-        ); // Gera hash consistente com equals
+        return Objects.hash(userName, fullName, password, roles);
     }
 }

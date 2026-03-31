@@ -1,26 +1,54 @@
-package br.com.oliveirawillian.integrationtests.dto.wrappers.json.Person;
+package br.com.willian.integrationtests.dto.wrappers.json.employees;
 
-import br.com.oliveirawillian.integrationtests.dto.PersonDTO;
+import br.com.willian.integrationtests.dto.EmployeesDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class PersonEmbeddedDTO implements Serializable {
+// DTO responsável por mapear a parte "_embedded" da resposta JSON
+// utilizada no endpoint de listagem de Employeess.
+//
+// Essa classe existe para dar suporte a respostas no padrão HAL / HATEOAS,
+// onde os dados principais vêm aninhados dentro de um objeto "_embedded".
+//
+// Exemplo de JSON esperado:
+//
+// {
+//   "_embedded": {
+//     "employeesDTOList": [
+//       { "id": 1, "firstName": "João", ... }
+//     ]
+//   }
+// }
+public class EmployeesEmbeddedDTO implements Serializable {
+
+    // Controle de versão da serialização
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("people")
-    private List<PersonDTO> people;
+    // Lista de Employeess retornada pela API
+    // O nome "employeesDTOList" deve corresponder exatamente
+    // à chave presente no JSON retornado pelo backend
 
-    public PersonEmbeddedDTO() {
+    @JsonProperty("employees")
+    private List<EmployeesDTO> employees;
 
+    // Construtor vazio obrigatório para o Jackson
+    // Utilizado durante o processo de desserialização JSON -> Objeto
+
+    public EmployeesEmbeddedDTO() {
     }
 
-    public List<PersonDTO> getPeople() {
-        return people;
+    // Retorna a lista de Employeess desserializada do JSON
+    public List<EmployeesDTO> getEmployees() {
+        return employees;
     }
 
-    public void setPeople(List<PersonDTO> people) {
-        this.people = people;
+    // Define a lista de Employeess
+    // Normalmente chamado automaticamente pelo Jackson
+    // durante a conversão do JSON
+
+    public void setEmployees(List<EmployeesDTO> Employees) {
+        this.employees = Employees;
     }
 }

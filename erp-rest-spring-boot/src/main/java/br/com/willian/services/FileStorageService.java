@@ -1,75 +1,134 @@
-package br.com.oliveirawillian.services;
+package br.com.willian.services; // Pacote da camada de serviço
 
-import br.com.oliveirawillian.config.FileStorageConfig;
-import br.com.oliveirawillian.exception.FileNotFoundException;
-import br.com.oliveirawillian.exception.FileStorageException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
+import br.com.willian.config.FileStorageConfig; // Configurações de diretório de upload
+import br.com.willian.exception.FileNotFoundException; // Exceção para arquivo não encontrado
+import br.com.willian.exception.FileStorageException; // Exceção para erro de armazenamento
+import org.slf4j.Logger; // Interface de logging
+import org.slf4j.LoggerFactory; // Fábrica de loggers
+import org.springframework.beans.factory.annotation.Autowired; // Injeção de dependência
+import org.springframework.core.io.Resource; // Representa um recurso (arquivo)
+import org.springframework.core.io.UrlResource; // Recurso baseado em URL
+import org.springframework.stereotype.Service; // Marca a classe como Service
+import org.springframework.util.StringUtils; // Utilitários para String
+import org.springframework.web.multipart.MultipartFile; // Arquivo enviado via upload
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.Files; // Manipulação de arquivos
+import java.nio.file.Path; // Representação de caminho
+import java.nio.file.Paths; // Criação de caminhos
+import java.nio.file.StandardCopyOption; // Opções de cópia de arquivos
 
-@Service
+@Service // Serviço gerenciado pelo Spring
 public class FileStorageService {
-    private final Path fileStorageLocation;
 
-    private static final Logger logger = LoggerFactory.getLogger(FileStorageService.class);
+    private final Path fileStorageLocation; // Caminho base para armazenamento dos arquivos
 
+    private static final Logger logger = LoggerFactory.getLogger(FileStorageService.class); // Logger da classe
 
-    @Autowired
+    // [SERVICE-TRACE: FILE-SRV-001]
+    // Construtor com injeção da configuração de storage
+    @Autowired // Injeta dependência da configuração
     public FileStorageService(FileStorageConfig fileStorageConfig) {
-        Path path = Paths.get(fileStorageConfig.getUploadDir()).toAbsolutePath().toAbsolutePath().normalize();
+
+        logger.info("[FILE-SRV-001] Inicializando FileStorageService | uploadDir={}",
+                fileStorageConfig.getUploadDir()); // Log do diretório configurado
+
+        Path path = Paths.get(fileStorageConfig.getUploadDir()) // Diretório configurado
+                .toAbsolutePath()                       // Caminho absoluto
+                .normalize();                           // Normaliza o caminho
+
         this.fileStorageLocation = path;
-        try {
-            logger.info("Creating Directory {}", this.fileStorageLocation);
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (Exception e) {
-            logger.error("could not create the directory where files will be stored");
-            throw new FileStorageException("could not create the directory where files will be stored", e);
+        logger.debug("[FILE-SRV-001] Caminho absoluto normalizado: {}", this.fileStorageLocation); // Log do caminho final
 
+        try {
+            logger.debug("[FILE-SRV-001] Criando diretório: {}", this.fileStorageLocation); // Log de criação
+            Files.createDirectories(this.fileStorageLocation); // Cria o diretório se não existir
+            logger.debug("[FILE-SRV-001] Diretório criado/verificado com sucesso"); // Log de sucesso
+        } catch (Exception e) {
+            logger.error("[FILE-SRV-001] Falha ao criar diretório: {}", this.fileStorageLocation, e); // Log de erro
+            throw new FileStorageException(
+                    "Could not create the directory where files will be stored", e); // Exceção
         }
 
     }
 
+    // [SERVICE-TRACE: FILE-SRV-002]
+    // Salva um arquivo no disco
     public String storeFile(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        try {
 
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename()); // Limpa o nome do arquivo
+        logger.info("[FILE-SRV-002] StoreFile iniciado | originalName={} | cleanedName={} | size={} bytes | contentType={}",
+                file.getOriginalFilename(), fileName, file.getSize(), file.getContentType()); // Log detalhado do upload
+
+        // Validação de arquivo vazio
+        if (file.isEmpty()) {
+            logger.warn("[FILE-SRV-002] Arquivo vazio recebido para armazenamento | fileName={}", fileName); // Log de aviso
+        }
+
+        try {
+            // Proteção contra path traversal
             if (fileName.contains("..")) {
-                logger.error("sorry! Filename contains invalid path sequence " + fileName);
-                throw new FileStorageException("sorry! Filename contains invalid path sequence " + fileName);
+                logger.error("[FILE-SRV-002] Path traversal detectado | fileName={}", fileName); // Log de erro de segurança
+                throw new FileStorageException(
+                        "Sorry! Filename contains invalid path sequence " + fileName); // Exceção
             }
-            logger.info("Salving file in disk {}", fileName);
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return fileName;
+
+            logger.debug("[FILE-SRV-002] Salvando arquivo no disco | fileName={} | targetDir={}",
+                    fileName, this.fileStorageLocation); // Log de operação
+
+            Path targetLocation = this.fileStorageLocation.resolve(fileName); // Caminho final do arquivo
+            logger.debug("[FILE-SRV-002] Caminho alvo: {}", targetLocation); // Log do caminho
+
+            Files.copy(
+                    file.getInputStream(),                       // Conteúdo do arquivo
+                    targetLocation,                              // Destino
+                    StandardCopyOption.REPLACE_EXISTING          // Substitui se existir
+            );
+
+            logger.debug("[FILE-SRV-002] Arquivo armazenado com sucesso | fileName={} | size={} bytes | target={}",
+                    fileName, file.getSize(), targetLocation); // Log de sucesso
+
+            return fileName; // Retorna o nome do arquivo salvo
+
         } catch (Exception e) {
-            logger.error("could not store the file" + fileName + "please try again!");
-            throw new FileStorageException("could not store the file" + fileName + "please try again!", e);
+            logger.error("[FILE-SRV-002] Falha ao armazenar arquivo | fileName={} | erro={}",
+                    fileName, e.getMessage(), e); // Log de erro
+            throw new FileStorageException(
+                    "Could not store the file " + fileName + ". Please try again!", e); // Exceção
         }
     }
-public Resource loadFileAsResource(String fileName) {
+
+    // [SERVICE-TRACE: FILE-SRV-003]
+    // Carrega um arquivo como Resource
+    public Resource loadFileAsResource(String fileName) {
+
+        logger.info("[FILE-SRV-003] LoadFile iniciado | fileName={}", fileName); // Log da tentativa
+
         try {
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
+            Path filePath = this.fileStorageLocation
+                    .resolve(fileName) // Resolve o caminho do arquivo
+                    .normalize();      // Normaliza o caminho
+            logger.debug("[FILE-SRV-003] Caminho resolvido: {}", filePath); // Log do caminho
+
+            Resource resource = new UrlResource(filePath.toUri()); // Cria o recurso a partir da URI
+            logger.debug("[FILE-SRV-003] Resource criado | exists={} | readable={} | uri={}",
+                    resource.exists(), resource.isReadable(), filePath.toUri()); // Log detalhado
+
             if (resource.exists() && resource.isReadable()) {
-                return resource;
-            }else  {
-                throw new FileNotFoundException("Could not read file: " + fileName);
+                logger.info("[FILE-SRV-003] Arquivo carregado com sucesso | fileName={} | path={}",
+                        fileName, filePath); // Log de sucesso
+                return resource; // Retorna o arquivo se estiver acessível
+            } else {
+                logger.warn("[FILE-SRV-003] Arquivo não encontrado ou não legível | fileName={} | exists={} | readable={}",
+                        fileName, resource.exists(), resource.isReadable()); // Log de aviso
+                throw new FileNotFoundException(
+                        "Could not read file: " + fileName); // Exceção
             }
 
-        }catch (Exception e) {
-            logger.error("could not load the file" + fileName + "please try again!");
-            throw new FileNotFoundException("could not load the file" + fileName + "please try again!");
+        } catch (Exception e) {
+            logger.error("[FILE-SRV-003] Falha ao carregar arquivo | fileName={} | erro={}",
+                    fileName, e.getMessage(), e); // Log de erro
+            throw new FileNotFoundException(
+                    "Could not load the file " + fileName + ". Please try again!"); // Exceção
         }
-}
-
+    }
 }

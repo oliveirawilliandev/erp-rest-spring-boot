@@ -1,6 +1,6 @@
-package br.com.oliveirawillian.repository;
+package br.com.willian.repository;
 
-import br.com.oliveirawillian.model.User;
+import br.com.willian.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

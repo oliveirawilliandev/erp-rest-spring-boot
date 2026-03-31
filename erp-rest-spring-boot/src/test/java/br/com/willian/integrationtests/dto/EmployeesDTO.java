@@ -1,12 +1,28 @@
-package br.com.willian.dto.v1;
+package br.com.willian.integrationtests.dto;
 
-import org.springframework.hateoas.RepresentationModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.Objects;
-// Extends RepresentationModel<EmployeesDTO> :  suporte a HATEOAS
-public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements Serializable {
+
+// Indica que esta classe pode ser usada como elemento raiz de um XML.
+// Essa anotação é do JAXB e define que a classe representa a tag raiz
+// do documento XML durante a serialização e desserialização.
+@XmlRootElement
+
+// Define que o JAXB deve acessar diretamente os atributos da classe
+// (campos) para fazer o mapeamento XML, em vez de usar getters e setters.
+// Isso evita a necessidade de anotar cada metodo individualmente.
+
+@XmlAccessorType(XmlAccessType.FIELD)
+
+public class EmployeesDTO  implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
 
@@ -17,6 +33,8 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
     private String cpf;
 
     private String email;
+
+    private String gender;
 
     private String phone;
 
@@ -42,15 +60,22 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
 
     private Boolean active;
     //DATE
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    private Date  hireDate;
+    private LocalDate hireDate;
 
-    private Date  terminationDate;
+    private LocalDate terminationDate;
 
-    private Date  createdAt;
+    private OffsetDateTime createdAt;
 
-    private Date  updatedAt;
+    private OffsetDateTime updatedAt;
+
+    // photo - QrCode - bar Codes
+    private String photoUrl;
+
+    private String qrCode;
+
+    private String barCode;
 
     public EmployeesDTO() {
     }
@@ -168,8 +193,6 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
     }
 
 
-
-
     public String getJobTitle() {
         return jobTitle;
     }
@@ -194,55 +217,94 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
         this.active = active;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getHireDate() {
+    public LocalDate getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 
-    public Date getTerminationDate() {
+    public LocalDate getTerminationDate() {
         return terminationDate;
     }
 
-    public void setTerminationDate(Date terminationDate) {
+    public void setTerminationDate(LocalDate terminationDate) {
         this.terminationDate = terminationDate;
     }
 
-    public Date getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public OffsetDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
+
+    //CAMPO NECESSARIO PARA GERA O NOME COMPLETO NO PDF
+    @JsonIgnore
+    public String getName() {
+        return (firstName != null ? firstName : "") + " " +
+                (lastName != null ? lastName : "");
+
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof EmployeesDTO that)) return false;
-        if (!super.equals(o)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(cpf, that.cpf) && Objects.equals(email, that.email) && Objects.equals(phone, that.phone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(zipCode, that.zipCode) && Objects.equals(street, that.street) && Objects.equals(streetNumber, that.streetNumber) && Objects.equals(addressComplement, that.addressComplement) && Objects.equals(neighborhood, that.neighborhood) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(jobTitle, that.jobTitle) && Objects.equals(department, that.department) && Objects.equals(active, that.active) && Objects.equals(birthDate, that.birthDate) && Objects.equals(hireDate, that.hireDate) && Objects.equals(terminationDate, that.terminationDate) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+        if (!(o instanceof EmployeesDTO dto)) return false;
+        return Objects.equals(id, dto.id) && Objects.equals(firstName, dto.firstName) && Objects.equals(lastName, dto.lastName) && Objects.equals(cpf, dto.cpf) && Objects.equals(email, dto.email) && Objects.equals(gender, dto.gender) && Objects.equals(phone, dto.phone) && Objects.equals(mobilePhone, dto.mobilePhone) && Objects.equals(zipCode, dto.zipCode) && Objects.equals(street, dto.street) && Objects.equals(streetNumber, dto.streetNumber) && Objects.equals(addressComplement, dto.addressComplement) && Objects.equals(neighborhood, dto.neighborhood) && Objects.equals(city, dto.city) && Objects.equals(state, dto.state) && Objects.equals(jobTitle, dto.jobTitle) && Objects.equals(department, dto.department) && Objects.equals(active, dto.active) && Objects.equals(birthDate, dto.birthDate) && Objects.equals(hireDate, dto.hireDate) && Objects.equals(terminationDate, dto.terminationDate) && Objects.equals(createdAt, dto.createdAt) && Objects.equals(updatedAt, dto.updatedAt) && Objects.equals(photoUrl, dto.photoUrl) && Objects.equals(qrCode, dto.qrCode) && Objects.equals(barCode, dto.barCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, firstName, lastName, cpf, email, phone, mobilePhone, zipCode, street, streetNumber, addressComplement, neighborhood, city, state, jobTitle, department, active, birthDate, hireDate, terminationDate, createdAt, updatedAt);
+        return Objects.hash(id, firstName, lastName, cpf, email, gender, phone, mobilePhone, zipCode, street, streetNumber, addressComplement, neighborhood, city, state, jobTitle, department, active, birthDate, hireDate, terminationDate, createdAt, updatedAt, photoUrl, qrCode, barCode);
     }
 }

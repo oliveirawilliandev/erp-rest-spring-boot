@@ -1,10 +1,10 @@
-package br.com.oliveirawillian.integrationtests.controllers.withyaml;
+package br.com.willian.integrationtests.controllers.withyaml;
 
-import br.com.oliveirawillian.config.TestConfigs;
-import br.com.oliveirawillian.integrationtests.controllers.withyaml.mapper.YAMLMapper;
-import br.com.oliveirawillian.integrationtests.dto.AccountCredentialsDTO;
-import br.com.oliveirawillian.integrationtests.dto.TokenDTO;
-import br.com.oliveirawillian.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.willian.config.TestConfigs;
+import br.com.willian.integrationtests.controllers.withyaml.mapper.YAMLMapper;
+import br.com.willian.integrationtests.dto.AccountCredentialsDTO;
+import br.com.willian.integrationtests.dto.TokenDTO;
+import br.com.willian.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.config.EncoderConfig;
 import io.restassured.config.RestAssuredConfig;

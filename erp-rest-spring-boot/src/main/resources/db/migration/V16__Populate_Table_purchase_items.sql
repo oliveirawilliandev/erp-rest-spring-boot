@@ -1,18 +1,14 @@
-CREATE TABLE purchase_items (
-                                id BIGSERIAL PRIMARY KEY,
-
-                                purchase_id BIGINT NOT NULL,
-                                product_id BIGINT NOT NULL,
-
-                                quantity INT NOT NULL,
-                                unit_price NUMERIC(10,2) NOT NULL,
-
-                                CONSTRAINT fk_purchase_items_purchase
-                                    FOREIGN KEY (purchase_id)
-                                        REFERENCES purchases(id)
-                                        ON DELETE CASCADE,
-
-                                CONSTRAINT fk_purchase_items_product
-                                    FOREIGN KEY (product_id)
-                                        REFERENCES products(id)
-);
+INSERT INTO purchase_items (purchase_id, product_id, quantity, unit_price)
+VALUES
+    (1,1,5,100.00),
+    (1,2,2,200.00),
+    (2,3,3,150.00),
+    (3,4,1,300.00),
+    (4,5,10,50.00),
+    (5,6,1,500.00),
+    (6,7,4,75.00),
+    (7,8,2,90.00),
+    (8,9,1,250.00),
+    (9,10,3,120.00),
+    (10,10,1,280.00),
+    (11,11,5,80.00);

@@ -1,18 +1,118 @@
-name: Continuous Integration and Delivery with GitHub Actions
+name: Continuus Integration and Delivery with Github Actions # Nome do workflow exibido no GitHub Actions
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: # Define quando o workflow será executado
+  push: # Evento de push
+    branches:
+      - "main" # Executa apenas quando houver push na branch main
 
-jobs:
 
-  build:
+jobs: # Define os jobs do workflow
+  build: # Nome do job (build + deploy)
+    runs-on: ubuntu-latest # Usa uma máquina virtual Ubuntu mais recente fornecida pelo GitHub
 
-    runs-on: ubuntu-latest
+    steps: # Passos executados sequencialmente dentro do job
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      # =========================
+
+      - name: Checkout repository # Nome do passo
+        uses: actions/checkout@v4 # Clona o repositório atual para dentro da VM do GitHub Actions
+
+      # =========================
+
+      - name: Login to Docker Hub # Nome do passo de login no Docker Hub
+        uses: docker/login-action@v3 # Action oficial para login no Docker Hub
+        with: # Parâmetros da action
+          username: ${{ secrets.DOCKER_USERNAME }} # Username armazenado nos Secrets do GitHub
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }} # Token de acesso do Docker Hub armazenado nos Secrets
+
+      # =========================
+# AWS DESATIVADA
+#      - name: Configure AWS credentials # Nome do passo de configuração da AWS
+#        uses: aws-actions/configure-aws-credentials@v4 # Action oficial para configurar credenciais AWS
+#        with: # Parâmetros da AWS
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} # Access Key da AWS armazenada nos Secrets
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Secret Key da AWS armazenada nos Secrets
+#          aws-region: ${{ secrets.AWS_DEFAULT_REGION }} # Região AWS (ex: us-east-1)
+
+      # =========================
+# AWS ECR DESATIVADA 
+#      - name: Login to Amazon ECR # Nome do passo de login no ECR
+#        id: login-ecr # ID do step para ser referenciado depois se necessário
+#        uses: aws-actions/amazon-ecr-login@v2 # Action oficial para login no Amazon Elastic Container Registry
+
+      # =========================
+
+      - name: Setup Java 21 # Nome do passo para configurar Java
+        uses: actions/setup-java@v3 # Action oficial para instalar Java
+        with: # Configuração do Java
+          java-version: '21' # Versão do Java que será instalada
+          distribution: 'adopt' # Distribuição do Java (AdoptOpenJDK)
+          cache: maven # Ativa cache das dependências Maven para builds mais rápidos
+
+      # =========================
+
+      - name: Build Application .jar # Nome do passo de build
+        working-directory: ./ERP/erp-rest-spring-boot/erp-rest-spring-boot # Diretório onde está o projeto Maven (onde fica o pom.xml)
+        run: mvn clean package -DskipTests # Executa build Maven gerando o .jar sem rodar testes
+
+      # =========================
+
+      - name: Docker Compose Build # Nome do passo de build Docker
+        working-directory: ./ # Executa na raiz do repositório
+        run: docker compose up -d --build # Builda as imagens e sobe containers definidos no docker-compose.yml
+
+      # =========================
+
+#      - name: Tag and Push Docker Image to Amazon Container Registry - ECR # Nome do passo de push para ECR
+#        run: | # Executa múltiplos comandos shell
+#          docker tag ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:latest ${{ secrets.IMAGE_REPO_URL}}:latest
+#          # Cria tag "latest" da imagem local para o repositório ECR
+#
+#          docker tag ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:latest ${{ secrets.IMAGE_REPO_URL}}:${{github.run_id}}
+#          # Cria tag versionada usando o ID único do build
+#
+#          docker push ${{ secrets.IMAGE_REPO_URL}}:latest
+#          # Envia a imagem com tag latest para o Amazon ECR
+#
+#          docker push ${{ secrets.IMAGE_REPO_URL}}:${{github.run_id}}
+#          # Envia a imagem com tag versionada para o Amazon ECR
+
+      # =========================
+
+#      - name: Download task definition # Nome do passo
+#        run: | # Executa comandos shell
+#          aws ecs describe-task-definition --task-definition ${{ secrets.TASK_DEFINITION_NAME}} --query taskDefinition > task-definition.json
+#          # Baixa a task definition atual do ECS e salva no arquivo task-definition.json
+
+      # =========================
+
+#      - name: Fill in the new image ID in the Amazon ECS task definition # Nome do passo
+#        id: task-def # ID para referenciar saída do step
+#        uses: aws-actions/amazon-ecs-render-task-definition@v1 # Action que atualiza imagem na task definition
+#        with: # Parâmetros da action
+#          task-definition: task-definition.json # Arquivo da task definition baixado anteriormente
+#          container-name: ${{ secrets.CONTAINER_NAME}} # Nome do container dentro da task definition
+#          image: ${{ secrets.IMAGE_REPO_URL}}:latest # Nova imagem que será usada no deploy
+
+      # =========================
+
+#      - name: Deploy Amazon ECS task definition # Nome do passo de deploy
+#        uses: aws-actions/amazon-ecs-deploy-task-definition@v2 # Action oficial para deploy no ECS
+#        with: # Parâmetros do deploy
+#          task-definition: ${{ steps.task-def.outputs.task-definition }} # Task definition atualizada com nova imagem
+#          service: ${{ secrets.SERVICE_NAME}} # Nome do serviço ECS
+#          cluster: ${{ secrets.CLUSTER_NAME}} # Nome do cluster ECS
+#          wait-for-service-stability: true # Aguarda até o serviço estabilizar após deploy
+
+      # =========================
+
+      - name: Push to Docker Hub Container Registry # Nome do passo push Docker Hub
+        run: | # Executa múltiplos comandos
+          docker tag ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-and-java-erudio:${{github.run_id}}
+          # Cria tag versionada da imagem para Docker Hub
+
+          docker push ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:latest
+          # Envia imagem latest para Docker Hub
+
+          docker push ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:${{github.run_id}}
+          # Envia imagem versionada para Docker Hub

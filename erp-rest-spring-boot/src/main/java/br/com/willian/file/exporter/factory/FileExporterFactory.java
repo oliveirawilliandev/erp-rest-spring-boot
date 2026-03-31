@@ -1,17 +1,23 @@
-package br.com.oliveirawillian.file.exporter.factory;
+package br.com.willian.file.exporter.factory;
 
-import br.com.oliveirawillian.exception.BadRequestException;
-import br.com.oliveirawillian.file.exporter.MediaTypes;
-import br.com.oliveirawillian.file.exporter.contract.PersonExporter;
-import br.com.oliveirawillian.file.exporter.impl.CsvExporter;
-import br.com.oliveirawillian.file.exporter.impl.PdfExporter;
-import br.com.oliveirawillian.file.exporter.impl.XlsxExporter;
+import br.com.willian.exception.BadRequestException;
+import br.com.willian.file.exporter.MediaTypes;
+import br.com.willian.file.exporter.contract.EmployeesExporter;
+import br.com.willian.file.exporter.impl.CsvExporter;
+import br.com.willian.file.exporter.impl.PdfExporter;
+import br.com.willian.file.exporter.impl.XlsxExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-
+/**
+ * Fábrica responsável por retornar o importador adequado baseado na extensão do arquivo.
+ *
+ * Formatos suportados:
+ * - .xlsx -> XlsxImporter (Excel)
+ * - .csv  -> CsvImporter
+ */
 
 @Component
 public class FileExporterFactory {
@@ -19,7 +25,14 @@ public class FileExporterFactory {
     @Autowired
     private ApplicationContext context;
 
-    public PersonExporter getExporter(String acceptHeader) throws Exception{
+    /**
+     * Retorna o importador correspondente à extensão do arquivo.
+     *
+     * param fileName Nome do arquivo (ex: dados.csv, planilha.xlsx)
+     * return FileImporter para processar o arquivo
+     * throws BadRequestException Se a extensão não for .xlsx ou .csv
+     */
+    public EmployeesExporter getExporter(String acceptHeader) throws Exception{
         if (acceptHeader.equalsIgnoreCase(MediaTypes.APPLICATION_XLSX_VALUE)) {
             return context.getBean(XlsxExporter.class);
            // return new XlsxImporter();
@@ -28,7 +41,7 @@ public class FileExporterFactory {
            // return new CsvImporter();
         }else if (acceptHeader.equalsIgnoreCase(MediaTypes.APPLICATION_PDF_VALUE)) {
             return context.getBean(PdfExporter.class);
-           // return new CsvImporter();
+           // return new PdfImporter();
         }else {
             throw new BadRequestException();
         }

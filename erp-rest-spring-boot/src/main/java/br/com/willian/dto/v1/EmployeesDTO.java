@@ -1,14 +1,48 @@
-package br.com.willian.dto;
+package br.com.willian.dto.v1;
 
-import jakarta.persistence.*;
+import br.com.willian.model.PurchaseMock;
+import br.com.willian.model.enums.Gender;
+import br.com.willian.services.EmployeesService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Objects;
+// Extends RepresentationModel<EmployeesDTO> :  suporte a HATEOAS
+
+/**
+ * Define o nome da coleção exposta no JSON quando este DTO é serializado
+ * usando Spring HATEOAS / Spring Data REST (HAL).
+ *
+ * Sem essa anotação, o framework gera automaticamente o nome da coleção
+ * (ex: employeesDTOList), o que pode causar inconsistência no contrato da API.
+ *
+ * Com @Relation(collectionRelation = "employees"), garantimos que o conteúdo
+ * dentro de "_embedded" seja exposto como:
+ *
+ * "_embedded": {
+ *     "employees": [ ... ]
+ * }
+ *
+ * Isso mantém o nome do recurso estável, legível e alinhado ao padrão da API.
+ */
+@Relation(collectionRelation = "employees")
 public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static Logger logger = LoggerFactory.getLogger(EmployeesService.class.getName());
+
     private Long id;
 
     private String firstName;
@@ -18,6 +52,8 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
     private String cpf;
 
     private String email;
+
+    private String gender;
 
     private String phone;
 
@@ -41,18 +77,26 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
 
     private String department;
 
-    private String active;
+    private Boolean active;
+
     //DATE
-    private Date birthDate;
+    private LocalDate birthDate;
 
+    private LocalDate  hireDate;
 
-    private Date  hireDate;
+    private LocalDate  terminationDate;
 
+    private OffsetDateTime createdAt;
 
-    private Date  terminationDate;
-    private Date  createdAt;
+    private OffsetDateTime  updatedAt;
 
-    private Date  updatedAt;
+    // photo - QrCode - bar Codes
+    private String photoUrl;
+
+    private String qrCode;
+
+    private String barCode;
+
 
     public EmployeesDTO() {
     }
@@ -169,9 +213,6 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
         this.state = state;
     }
 
-
-
-
     public String getJobTitle() {
         return jobTitle;
     }
@@ -188,63 +229,121 @@ public class EmployeesDTO extends RepresentationModel<EmployeesDTO> implements S
         this.department = department;
     }
 
-    public String getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getHireDate() {
+    public LocalDate getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 
-    public Date getTerminationDate() {
+    public LocalDate getTerminationDate() {
         return terminationDate;
     }
 
-    public void setTerminationDate(Date terminationDate) {
+    public void setTerminationDate(LocalDate terminationDate) {
         this.terminationDate = terminationDate;
     }
 
-    public Date getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public OffsetDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    //Mock teste isso deve ser deletado !
+    @JsonIgnore
+    private List<PurchaseMock> items ;
+
+    public void setItems(List<PurchaseMock> items) {
+        logger.info("Code: 12312 EmployeesDTO MOCK PurchaseMock DESATIVA ISSO. MOTIVO DA CRIAÇÂO TESTE JASPER");
+
+        this.items = items;
+    }
+
+    public List<PurchaseMock> getItems() {
+        logger.info("getItems() foi chamado - tamanho da lista: " + (items == null ? 0 : items.size()));
+        logger.info("Code: 12312 EmployeesDTO MOCK PurchaseMock DESATIVA ISSO. MOTIVO DA CRIAÇÂO TESTE JASPER");
+
+        return items;
+    }
+
+    //CAMPO NECESSARIO PARA GERA O NOME COMPLETO NO PDF
+    @JsonIgnore
+    public String getName() {
+        return (firstName != null ? firstName : "") + " " +
+         (lastName != null ? lastName : "");
+
+    }
+
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof EmployeesDTO that)) return false;
         if (!super.equals(o)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(cpf, that.cpf) && Objects.equals(email, that.email) && Objects.equals(phone, that.phone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(zipCode, that.zipCode) && Objects.equals(street, that.street) && Objects.equals(streetNumber, that.streetNumber) && Objects.equals(addressComplement, that.addressComplement) && Objects.equals(neighborhood, that.neighborhood) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(jobTitle, that.jobTitle) && Objects.equals(department, that.department) && Objects.equals(active, that.active) && Objects.equals(birthDate, that.birthDate) && Objects.equals(hireDate, that.hireDate) && Objects.equals(terminationDate, that.terminationDate) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(cpf, that.cpf) && Objects.equals(email, that.email) && Objects.equals(gender, that.gender) && Objects.equals(phone, that.phone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(zipCode, that.zipCode) && Objects.equals(street, that.street) && Objects.equals(streetNumber, that.streetNumber) && Objects.equals(addressComplement, that.addressComplement) && Objects.equals(neighborhood, that.neighborhood) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(jobTitle, that.jobTitle) && Objects.equals(department, that.department) && Objects.equals(active, that.active) && Objects.equals(birthDate, that.birthDate) && Objects.equals(hireDate, that.hireDate) && Objects.equals(terminationDate, that.terminationDate) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(photoUrl, that.photoUrl) && Objects.equals(qrCode, that.qrCode) && Objects.equals(barCode, that.barCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, firstName, lastName, cpf, email, phone, mobilePhone, zipCode, street, streetNumber, addressComplement, neighborhood, city, state, jobTitle, department, active, birthDate, hireDate, terminationDate, createdAt, updatedAt);
+        return Objects.hash(super.hashCode(), id, firstName, lastName, cpf, email, gender, phone, mobilePhone, zipCode, street, streetNumber, addressComplement, neighborhood, city, state, jobTitle, department, active, birthDate, hireDate, terminationDate, createdAt, updatedAt, photoUrl, qrCode, barCode);
     }
 }

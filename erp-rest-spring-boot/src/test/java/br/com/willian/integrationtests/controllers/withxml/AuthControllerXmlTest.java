@@ -1,9 +1,9 @@
 package br.com.willian.integrationtests.controllers.withxml;
 
-import br.com.oliveirawillian.config.TestConfigs;
-import br.com.oliveirawillian.integrationtests.dto.AccountCredentialsDTO;
-import br.com.oliveirawillian.integrationtests.dto.TokenDTO;
-import br.com.oliveirawillian.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.willian.config.TestConfigs;
+import br.com.willian.integrationtests.dto.AccountCredentialsDTO;
+import br.com.willian.integrationtests.dto.TokenDTO;
+import br.com.willian.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;

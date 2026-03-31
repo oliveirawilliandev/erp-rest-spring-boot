@@ -1,171 +1,209 @@
-package br.com.oliveirawillian.model;
+package br.com.willian.model; // Pacote da camada de modelo/entidade
 
-import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import jakarta.persistence.*; // Anotações JPA para mapeamento objeto-relacional
+import org.springframework.security.core.GrantedAuthority; // Interface do Spring Security para autoridades
+import org.springframework.security.core.userdetails.UserDetails; // Interface do Spring Security para detalhes do usuário
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.io.Serializable; // Interface para serialização
+import java.util.*;
 
-@Entity
-@Table(name = "users")
-public class User implements UserDetails,Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Entity // Define a classe como uma entidade JPA
+@Table(name = "users") // Mapeia para a tabela "users" no banco de dados
+public class User implements UserDetails, Serializable { // Implementa interfaces do Spring Security e Serializable
+    private static final long serialVersionUID = 1L; // Versão de serialização
 
-    @Column(name = "user_name",unique = true, length = 80)
-    private String userName;
+    @Id // Define como chave primária
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Geração automática de ID (auto-increment)
+    private Long id; // Identificador único do usuário
 
-    @Column(name = "password", length = 25)
-    private String password;
+    @Column(name = "user_name", unique = true, length = 80) // Coluna única com tamanho máximo 80
+    private String userName; // Nome de usuário para login
 
-    @Column(name = "full_name")
-    private String fullName;
+    @Column(name = "password", length = 25) // Coluna com tamanho máximo 25
+    private String password; // Senha do usuário (criptografada)
 
-    @Column(name = "account_non_expired", length = 10)
-    private Boolean accountNonExpired;
+    @Column(name = "full_name") // Coluna para nome completo
+    private String fullName; // Nome completo do usuário
 
-    @Column(name = "account_non_locked", length = 10)
-    private Boolean accountNonLocked;
+    @Column(name = "account_non_expired", length = 10) // Coluna com tamanho 10
+    private Boolean accountNonExpired; // Indica se a conta não expirou
 
-    @Column(name = "credentials_non_expired", length = 10)
-    private Boolean credentialsNonExpired;
+    @Column(name = "account_non_locked", length = 10) // Coluna com tamanho 10
+    private Boolean accountNonLocked; // Indica se a conta não está bloqueada
 
-    @Column(name = "enabled", length = 10)
-    private Boolean enabled;
+    @Column(name = "credentials_non_expired", length = 10) // Coluna com tamanho 10
+    private Boolean credentialsNonExpired; // Indica se as credenciais não expiraram
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_permission", joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_permission"))
-    private List<Permission> permissions;
+    @Column(name = "enabled", length = 10) // Coluna com tamanho 10
+    private Boolean enabled; // Indica se a conta está habilitada
 
-    public List<String> getRoles(){
-        List<String> roles = new ArrayList<>();
-        for(Permission permission : this.permissions){
-            roles.add(permission.getDescription());
+    @ManyToMany(fetch = FetchType.EAGER) // Relacionamento muitos-para-muitos com carregamento imediato
+    @JoinTable( // Tabela de junção para o relacionamento
+            name = "user_permission", // Nome da tabela de junção
+            joinColumns = @JoinColumn(name = "id_user"), // Coluna que referencia esta entidade
+            inverseJoinColumns = @JoinColumn(name = "id_permission") // Coluna que referencia a outra entidade
+    )
+    private Set<Permission> permissions; // Lista de permissões do usuário
+
+    // Converte a lista de permissões para uma lista de descrições (roles)
+    public List<String> getRoles() {
+        List<String> roles = new ArrayList<>(); // Inicializa lista de roles
+        for (Permission permission : this.permissions) { // Itera sobre as permissões
+            roles.add(permission.getDescription()); // Adiciona a descrição da permissão
         }
-        return roles;
+        return roles; // Retorna lista de roles
     }
 
+    // Construtor padrão (obrigatório para JPA)
     public User() {
     }
 
+    // Método do Spring Security que retorna as autoridades (permissões) do usuário
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.permissions;
+        return this.permissions; // Retorna a lista de permissões
     }
 
+    // Método do Spring Security que retorna a senha
     @Override
     public String getPassword() {
-        return this.password;
+        return this.password; // Retorna a senha
     }
 
+    // Método do Spring Security que retorna o nome de usuário
     @Override
     public String getUsername() {
-        return this.userName;
+        return this.userName; // Retorna o nome de usuário
     }
 
+    // Método do Spring Security que indica se a conta não expirou
     @Override
     public boolean isAccountNonExpired() {
-        return this.accountNonExpired;
+        return this.accountNonExpired; // Retorna o status
     }
 
+    // Método do Spring Security que indica se a conta não está bloqueada
     @Override
     public boolean isAccountNonLocked() {
-        return this.accountNonLocked;
+        return this.accountNonLocked; // Retorna o status
     }
 
+    // Método do Spring Security que indica se as credenciais não expiraram
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired;
+        return this.credentialsNonExpired; // Retorna o status
     }
 
+    // Método do Spring Security que indica se a conta está habilitada
     @Override
     public boolean isEnabled() {
-        return this.enabled;
+        return this.enabled; // Retorna o status
     }
 
+    // Getter para nome completo
     public String getFullName() {
-        return fullName;
+        return fullName; // Retorna nome completo
     }
 
+    // Setter para nome completo
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.fullName = fullName; // Define nome completo
     }
 
+    // Getter para ID
     public Long getId() {
-        return id;
+        return id; // Retorna ID
     }
 
+    // Setter para ID
     public void setId(Long id) {
-        this.id = id;
+        this.id = id; // Define ID
     }
 
+    // Getter para nome de usuário
     public String getUserName() {
-        return userName;
+        return userName; // Retorna nome de usuário
     }
 
+    // Setter para nome de usuário
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName; // Define nome de usuário
     }
 
+    // Setter para senha
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password; // Define senha
     }
 
+    // Getter para accountNonExpired
     public Boolean getAccountNonExpired() {
-        return accountNonExpired;
+        return accountNonExpired; // Retorna status
     }
 
+    // Setter para accountNonExpired
     public void setAccountNonExpired(Boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
+        this.accountNonExpired = accountNonExpired; // Define status
     }
 
+    // Getter para accountNonLocked
     public Boolean getAccountNonLocked() {
-        return accountNonLocked;
+        return accountNonLocked; // Retorna status
     }
 
+    // Setter para accountNonLocked
     public void setAccountNonLocked(Boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
+        this.accountNonLocked = accountNonLocked; // Define status
     }
 
+    // Getter para credentialsNonExpired
     public Boolean getCredentialsNonExpired() {
-        return credentialsNonExpired;
+        return credentialsNonExpired; // Retorna status
     }
 
+    // Setter para credentialsNonExpired
     public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
+        this.credentialsNonExpired = credentialsNonExpired; // Define status
     }
 
+    // Getter para enabled
     public Boolean getEnabled() {
-        return enabled;
+        return enabled; // Retorna status
     }
 
+    // Setter para enabled
     public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+        this.enabled = enabled; // Define status
     }
 
-    public List<Permission> getPermissions() {
-        return permissions;
+    // Getter para permissões
+    public Set<Permission> getPermissions() {
+        return permissions; // Retorna lista de permissões
     }
 
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
+    // Setter para permissões
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions; // Define lista de permissões
     }
 
+    // equals baseado em todos os campos
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && Objects.equals(fullName, user.fullName) && Objects.equals(accountNonExpired, user.accountNonExpired) && Objects.equals(accountNonLocked, user.accountNonLocked) && Objects.equals(credentialsNonExpired, user.credentialsNonExpired) && Objects.equals(enabled, user.enabled) && Objects.equals(permissions, user.permissions);
+        if (!(o instanceof User user)) return false; // Verifica tipo
+        return Objects.equals(id, user.id) && // Compara ID
+                Objects.equals(userName, user.userName) && // Compara userName
+                Objects.equals(password, user.password) && // Compara password
+                Objects.equals(fullName, user.fullName) && // Compara fullName
+                Objects.equals(accountNonExpired, user.accountNonExpired) && // Compara accountNonExpired
+                Objects.equals(accountNonLocked, user.accountNonLocked) && // Compara accountNonLocked
+                Objects.equals(credentialsNonExpired, user.credentialsNonExpired) && // Compara credentialsNonExpired
+                Objects.equals(enabled, user.enabled) && // Compara enabled
+                Objects.equals(permissions, user.permissions); // Compara permissions
     }
 
+    // hashCode baseado em todos os campos
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, fullName, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, permissions);
+        return Objects.hash(id, userName, password, fullName, accountNonExpired,
+                accountNonLocked, credentialsNonExpired, enabled, permissions); // Gera hash
     }
 }

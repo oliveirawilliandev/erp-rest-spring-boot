@@ -1,8 +1,10 @@
-package br.com.willian.dto.v1.security;
+package br.com.willian.integrationtests.dto;
 
-import java.io.Serializable; // Permite serialização do objeto (transporte/cache)
-import java.util.Objects; // Utilitário para equals e hashCode
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.io.Serializable;
+import java.util.Objects;
+@XmlRootElement
 public class AccountCredentialsDTO implements Serializable {
 
     private static final long serialVersionUID = 1L; // Versão da serialização
@@ -16,12 +18,20 @@ public class AccountCredentialsDTO implements Serializable {
     }
 
     public AccountCredentialsDTO(
+            String userName,   // Username
             String password,  // Senha informada pelo usuário
-            String fullName,  // Nome completo
-            String userName   // Username
+            String fullName  // Nome completo
     ) {
         this.password = password; // Define senha
         this.fullName = fullName; // Define nome completo
+        this.userName = userName; // Define username
+    }
+
+    public AccountCredentialsDTO(String userName , // Username
+            String password  // Senha informada pelo usuário
+
+    ) {
+        this.password = password; // Define senha
         this.userName = userName; // Define username
     }
 

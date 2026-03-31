@@ -3,7 +3,7 @@
 # -------------------------
 server:
   # Porta onde a aplicação Spring Boot irá subir
-  port: 80
+  port: 8888
 
 
 # -------------------------
@@ -12,7 +12,8 @@ server:
 cors:
   # Lista de origens permitidas para acessar a API
   # Ex: front-end React (3000) e aplicações locais (8080)
-  originPatterns: http://localhost:3000,http://localhost:8080
+  originPatterns: http://localhost:3000,http://localhost:8080,https://oliveirawilliandev.com.br
+
 
 
 # -------------------------
@@ -20,7 +21,7 @@ cors:
 # -------------------------
 file:
   # Diretório onde os arquivos enviados serão armazenados
-  upload-dir: /Code/UploadDir
+  upload-dir: /home/runner/work/erp-rest-spring-boot/Code/UploadDir
 
 
 # -------------------------
@@ -65,17 +66,6 @@ spring:
     # Driver JDBC do PostgreSQL
     drive-class-name: org.postgresql.Driver
 
-    # URL de conexão com o banco
-    url: jdbc:postgresql://localhost:5432/erp_oliveira
-
-    # Alternativa para uso via variável de ambiente
-    # url: ${JDBC_URL}
-
-    # Usuário do banco
-    username: postgres
-
-    # Senha do banco
-    password: 123456
 
 
   # -------------------------------

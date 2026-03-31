@@ -1,10 +1,12 @@
-package br.com.willian.dto.v1.security;
+package br.com.willian.integrationtests.dto;
 
 import br.com.willian.dto.v1.security.enums.RoleEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+@XmlRootElement
 
 public class AccountCredentialAdminDTO implements Serializable {
 
@@ -26,6 +28,14 @@ public class AccountCredentialAdminDTO implements Serializable {
     ) {
         this.password = password; // Define senha
         this.fullName = fullName; // Define nome completo
+        this.userName = userName; // Define username
+    }
+
+    public AccountCredentialAdminDTO(
+            String password,  // Senha informada pelo usuário
+            String userName   // Username
+    ) {
+        this.password = password; // Define senha
         this.userName = userName; // Define username
     }
 
