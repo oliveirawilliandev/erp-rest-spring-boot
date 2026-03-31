@@ -108,7 +108,7 @@ jobs: # Define os jobs do workflow
 
       - name: Push to Docker Hub Container Registry # Nome do passo push Docker Hub
         run: | # Executa múltiplos comandos
-          docker tag ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-and-java-erudio:${{github.run_id}}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:latest ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:${{github.run_id}}
           # Cria tag versionada da imagem para Docker Hub
 
           docker push ${{ secrets.DOCKER_USERNAME }}/erp-oliveira-image:latest
