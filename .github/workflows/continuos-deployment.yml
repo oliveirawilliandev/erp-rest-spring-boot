@@ -52,7 +52,7 @@ jobs: # Define os jobs do workflow
       # =========================
 
       - name: Build Application .jar # Nome do passo de build
-        working-directory: ./ERP/erp-rest-spring-boot/erp-rest-spring-boot # Diretório onde está o projeto Maven (onde fica o pom.xml)
+        working-directory: ./ERP # Diretório onde está o projeto Maven (onde fica o pom.xml)
         run: mvn clean package -DskipTests # Executa build Maven gerando o .jar sem rodar testes
 
       # =========================
