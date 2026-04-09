@@ -1,0 +1,35 @@
+<!-- [HTML-001] Declaração do tipo de documento (HTML5) -->
+<!DOCTYPE html>
+
+<!-- [HTML-002] Tag raiz do documento com idioma definido como inglês -->
+<html lang="en">
+  
+  <!-- [HTML-003] Cabeçalho da página (metadados, título, etc) -->
+  <head>
+    <!-- [HTML-004] Define codificação de caracteres como UTF-8 -->
+    <meta charset="utf-8" />
+    
+    <!-- [HTML-005] Ícone da aba do navegador (favicon) -->
+    <!-- %PUBLIC_URL% é substituído pelo caminho base da aplicação -->
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    
+    <!-- [HTML-006] Configura viewport para responsividade em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- [HTML-007] Define cor do tema para navegadores mobile (status bar) -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- [HTML-008] Título exibido na aba do navegador -->
+    <title>React REST Client</title>
+  </head>
+  
+  <!-- [HTML-009] Corpo da página (conteúdo visível) -->
+  <body>
+    <!-- [HTML-010] Exibido quando JavaScript está desabilitado no navegador -->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <!-- [HTML-011] Div raiz onde a aplicação React será montada -->
+    <!-- ReactDOM.createRoot(document.getElementById('root')) -->
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+/* [CSS-001] Importa a fonte Roboto do Google Fonts (vários pesos e estilos) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* [CSS-002] Reset CSS - remove margens/paddings padrão e define box-sizing */
+* {
+    margin: 0; /* Remove margem padrão */
+    padding: 0; /* Remove padding padrão */
+    outline: 0; /* Remove outline padrão */
+    box-sizing: border-box; /* Inclui bordas e paddings no tamanho total */
+}
+
+/* [CSS-003] Estilos globais do corpo da página */
+body {
+    font: 400 14px Roboto, sans-serif; /* Fonte padrão: Roboto, fallback sans-serif */
+    background: #F0f0F5; /* Cor de fundo cinza claro */
+    -webkit-font-smoothing: antialiased; /* Suaviza fontes no WebKit (Chrome/Safari) */
+}
+
+/* [CSS-004] Estilos para campos de formulário */
+input, button, textarea {
+    font: 400 18px Roboto, sans-serif; /* Fonte maior para campos interativos */
+}
+
+/* [CSS-005] Estilo para botões (cursor pointer) */
+button {
+    cursor: pointer; /* Muda cursor para mão ao passar sobre botões */
+}
+
+/* [CSS-006] Estilo para inputs de formulário */
+form input {
+    width: 100%; /* Largura total do container */
+    height: 60px; /* Altura fixa */
+    color: #333333; /* Cor do texto cinza escuro */
+    border: 1px solid #dcdce6; /* Borda cinza claro */
+    border-radius: 8px; /* Cantos arredondados */
+    padding: 0 24px; /* Padding horizontal */
+    margin-top: 16px; /* Espaçamento superior */
+}
+
+/* [CSS-007] Estilo para botões primários */
+.button { 
+    width: 100%; /* Largura total */
+    height: 60px; /* Altura fixa */
+    background: #251fc5; /* Cor de fundo azul */
+    border: 0; /* Remove borda */
+    border-radius: 8px; /* Cantos arredondados */
+    color: #FFF; /* Texto branco */
+    font-weight: 700; /* Negrito */
+    margin-top: 16px; /* Espaçamento superior */
+    display: inline-block; /* Exibe como bloco inline */
+    text-align: center; /* Centraliza texto */
+    text-decoration: nome; /* Corrigir: provavelmente "none" */
+    font-size: 18px; /* Tamanho da fonte */
+    line-height: 60px; /* Altura da linha igual à altura do botão */
+    transition: filter 0.2s; /* Transição suave para efeito hover */
+}
+
+/* [CSS-008] Efeito hover para botões primários */
+.button:hover {
+    filter: brightness(80%); /* Escurece o botão ao passar o mouse */
+}

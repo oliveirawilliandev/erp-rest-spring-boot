@@ -1,0 +1,113 @@
+/* [BOOKS-CSS-001] Container principal da lista de livros */
+.book-container {
+    width: 100%; /* Largura total */
+    max-width: 1180px; /* Largura máxima para telas grandes */
+    padding: 0 30px; /* Padding horizontal */
+    margin: 32px auto; /* Margem superior/inferior 32px, centralizado horizontalmente */
+}
+
+/* [BOOKS-CSS-002] Cabeçalho da página */
+.book-container header {
+    display: flex; /* Layout flexível */
+    align-items: center; /* Alinha itens verticalmente ao centro */
+}
+
+/* [BOOKS-CSS-003] Texto de boas-vindas no cabeçalho */
+.book-container header span {
+    font-size: 20px; /* Tamanho da fonte */
+    margin-left: 24px; /* Espaçamento à esquerda */
+}
+
+/* [BOOKS-CSS-004] Nome do usuário em negrito no cabeçalho */
+.book-container header strong {
+    color: #251FC5; /* Cor azul */
+}
+
+/* [BOOKS-CSS-005] Logo no cabeçalho */
+.book-container header img {
+    height: 64px; /* Altura fixa (largura automática) */
+}
+
+/* [BOOKS-CSS-006] Link do botão "Add New Book" */
+.book-container header a {
+    text-decoration: none; /* Remove sublinhado */
+    width: 260px; /* Largura fixa */
+    margin-left: auto; /* Empurra para a direita (espaço automático à esquerda) */
+    margin-top: 0; /* Remove margem superior */
+}
+
+/* [BOOKS-CSS-007] Botão de logout no cabeçalho */
+.book-container header button {
+    height: 60px; /* Altura fixa */
+    width: 60px; /* Largura fixa (quadrado) */
+    border-radius: 4px; /* Cantos levemente arredondados */
+    border: 1px solid #DCDCE6; /* Borda cinza claro */
+    background: transparent; /* Fundo transparente */
+    margin-left: 16px; /* Espaçamento à esquerda */
+    transition: border-color 0.5s; /* Transição suave para cor da borda */
+}
+
+/* [BOOKS-CSS-008] Efeito hover do botão de logout */
+.book-container header button:hover {
+    border-color: #251FC5; /* Borda azul ao passar o mouse */
+}
+
+/* [BOOKS-CSS-009] Título "Registered Books" */
+.book-container h1 {
+    margin-top: 80px; /* Espaçamento superior */
+    margin-bottom: 24px; /* Espaçamento inferior */
+}
+
+/* [BOOKS-CSS-010] Lista de livros (grid) */
+.book-container ul {
+    display: grid; /* Layout grid */
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas de largura igual */
+    grid-gap: 24px; /* Espaçamento entre os cards */
+    list-style: none; /* Remove marcadores da lista */
+}
+
+/* [BOOKS-CSS-011] Card de cada livro */
+.book-container ul li {
+    background: #FFFFFF; /* Fundo branco */
+    padding: 24px; /* Espaçamento interno */
+    border-radius: 8px; /* Cantos arredondados */
+    position: relative; /* Permite posicionamento absoluto dos botões internos */
+}
+
+/* [BOOKS-CSS-012] Botões de ação (editar/deletar) dentro do card */
+.book-container ul li button {
+    position: absolute; /* Posicionamento absoluto relativo ao li */
+    right: 24px; /* Distância da borda direita */
+    top: 24px; /* Distância do topo */
+    border: 0; /* Remove borda */
+    background: transparent; /* Fundo transparente */
+}
+
+/* [BOOKS-CSS-013] Segundo botão (deletar) - posicionado abaixo do primeiro */
+.book-container ul li button + button {
+    top: 50px; /* Distância maior do topo (abaixo do primeiro botão) */
+}
+
+/* [BOOKS-CSS-014] Efeito hover dos botões de ação */
+.book-container ul li button:hover {
+    opacity: 0.8; /* Leve transparência ao passar o mouse */
+}
+
+/* [BOOKS-CSS-015] Labels dos campos (strong) */
+.book-container ul li strong {
+    display: block; /* Exibe como bloco (quebra linha) */
+    margin-bottom: 16px; /* Espaçamento inferior */
+    color: #41414D; /* Cor cinza escuro */
+}
+
+/* [BOOKS-CSS-016] Espaçamento entre campos (p + strong) */
+.book-container ul li p + strong {
+    margin-top: 32px; /* Espaçamento superior quando strong vem após um p */
+}
+
+/* [BOOKS-CSS-017] Valores dos campos (p) */
+.book-container ul li p {
+    color: #737380; /* Cor cinza médio */
+    line-height: 21px; /* Altura da linha */
+    font-size: 16px; /* Tamanho da fonte */
+}
