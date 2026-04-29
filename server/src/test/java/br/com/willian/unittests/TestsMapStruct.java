@@ -6,66 +6,66 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
-import br.com.willian.dto.v1.EmployeesDTO;
-import br.com.willian.mapper.EmployeesMapper;
-import br.com.willian.model.Employees;
-import br.com.willian.model.enums.Gender;
+import br.com.willian.dto.v1.EmployeeDTO;
+import br.com.willian.mapper.EmployeeMapper;
+import br.com.willian.model.Employee;
+import br.com.willian.model.enums.GenderType;
 import br.com.willian.unittests.mapper.MockEmployees;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 // Classe mock utilizada exclusivamente para testes do MapStruct.
-// Seu objetivo é validar se as conversões entre Employees e EmployeesDTO
+// Seu objetivo é validar se as conversões entre Employee e EmployeeDTO
 // estão sendo realizadas corretamente pelo mapper.
 
 public class TestsMapStruct {
 
     MockEmployees inputObject;
-    EmployeesMapper mapStruct;
+    EmployeeMapper mapStruct;
 
     @BeforeEach
     public void setUp() {
         inputObject = new MockEmployees();
-        mapStruct = Mappers.getMapper(EmployeesMapper.class);
+        mapStruct = Mappers.getMapper(EmployeeMapper.class);
     }
 
     @Test
     public void parseEntityToDTOTest() {
-        EmployeesDTO employeesDTO = mapStruct.toDTO(inputObject.mockEntity());
+        EmployeeDTO employeeDTO = mapStruct.toDTO(inputObject.mockEntity());
 
-        assertNotNull(employeesDTO);
-        assertEquals(0L, employeesDTO.getId());
-        assertEquals("First Name Test 0", employeesDTO.getFirstName());
-        assertEquals("Last Name Test 0", employeesDTO.getLastName());
-        assertEquals("12345678900", employeesDTO.getCpf());
-        assertEquals("employee0@email.com", employeesDTO.getEmail());
-        assertEquals("MALE", employeesDTO.getGender());
-        assertEquals("1133330000", employeesDTO.getPhone());
-        assertEquals("11999990000", employeesDTO.getMobilePhone());
-        assertEquals("01000-000", employeesDTO.getZipCode());
-        assertEquals("Test Street 0", employeesDTO.getStreet());
-        assertEquals("100", employeesDTO.getStreetNumber());
-        assertEquals("Apt 0", employeesDTO.getAddressComplement());
-        assertEquals("Test Neighborhood", employeesDTO.getNeighborhood());
-        assertEquals("São Paulo", employeesDTO.getCity());
-        assertEquals("SP", employeesDTO.getState());
-        assertEquals("Software Engineer", employeesDTO.getJobTitle());
-        assertEquals("Technology", employeesDTO.getDepartment());
-        assertEquals(true, employeesDTO.getActive());
-        assertNotNull(employeesDTO.getBirthDate());
-        assertNotNull(employeesDTO.getHireDate());
-        assertNull(employeesDTO.getTerminationDate());
-        assertNotNull(employeesDTO.getCreatedAt());
-        assertNotNull(employeesDTO.getUpdatedAt());
+        assertNotNull(employeeDTO);
+        assertEquals(0L, employeeDTO.getId());
+        assertEquals("First Name Test 0", employeeDTO.getFirstName());
+        assertEquals("Last Name Test 0", employeeDTO.getLastName());
+        assertEquals("12345678900", employeeDTO.getCpf());
+        assertEquals("employee0@email.com", employeeDTO.getEmail());
+        assertEquals("MALE", employeeDTO.getGender());
+        assertEquals("1133330000", employeeDTO.getPhone());
+        assertEquals("11999990000", employeeDTO.getMobilePhone());
+        assertEquals("01000-000", employeeDTO.getZipCode());
+        assertEquals("Test Street 0", employeeDTO.getStreet());
+        assertEquals("100", employeeDTO.getStreetNumber());
+        assertEquals("Apt 0", employeeDTO.getAddressComplement());
+        assertEquals("Test Neighborhood", employeeDTO.getNeighborhood());
+        assertEquals("São Paulo", employeeDTO.getCity());
+        assertEquals("SP", employeeDTO.getState());
+        assertEquals("Software Engineer", employeeDTO.getJobTitle());
+        assertEquals("Technology", employeeDTO.getDepartment());
+        assertEquals(true, employeeDTO.getActive());
+        assertNotNull(employeeDTO.getBirthDate());
+        assertNotNull(employeeDTO.getHireDate());
+        assertNull(employeeDTO.getTerminationDate());
+        assertNotNull(employeeDTO.getCreatedAt());
+        assertNotNull(employeeDTO.getUpdatedAt());
     }
 
     @Test
     public void parseEntityListToDTOListTest() {
 
-        List<EmployeesDTO> outputList = mapStruct.toDTOList(inputObject.mockEntityList());
+        List<EmployeeDTO> outputList = mapStruct.toDTOList(inputObject.mockEntityList());
 
         // Teste para posição 0
-        EmployeesDTO outputZero = outputList.get(0);
+        EmployeeDTO outputZero = outputList.get(0);
         assertEquals(0L, outputZero.getId());
         assertEquals("First Name Test 0", outputZero.getFirstName());
         assertEquals("Last Name Test 0", outputZero.getLastName());
@@ -91,7 +91,7 @@ public class TestsMapStruct {
         assertNotNull(outputZero.getUpdatedAt());
 
         // Teste para posição 7 com TODOS os atributos
-        EmployeesDTO outputSeven = outputList.get(7);
+        EmployeeDTO outputSeven = outputList.get(7);
         assertEquals(7L, outputSeven.getId());
         assertEquals("First Name Test 7", outputSeven.getFirstName());
         assertEquals("Last Name Test 7", outputSeven.getLastName());
@@ -117,7 +117,7 @@ public class TestsMapStruct {
         assertNotNull(outputSeven.getUpdatedAt());
 
         // Teste para posição 12 com TODOS os atributos
-        EmployeesDTO outputTwelve = outputList.get(12);
+        EmployeeDTO outputTwelve = outputList.get(12);
         assertEquals(12L, outputTwelve.getId());
         assertEquals("First Name Test 12", outputTwelve.getFirstName());
         assertEquals("Last Name Test 12", outputTwelve.getLastName());
@@ -145,7 +145,7 @@ public class TestsMapStruct {
 
     @Test
     public void parseDTOToEntityTest() {
-        Employees output = mapStruct.toEntity(inputObject.mockDTO());
+        Employee output = mapStruct.toEntity(inputObject.mockDTO());
 
         assertNotNull(output);
         assertEquals(0L, output.getId());
@@ -153,7 +153,7 @@ public class TestsMapStruct {
         assertEquals("Last Name Test 0", output.getLastName());
         assertEquals("12345678900", output.getCpf());
         assertEquals("employee0@email.com", output.getEmail());
-        assertEquals(Gender.MALE, output.getGender());
+        assertEquals(GenderType.MALE, output.getGender());
         assertEquals("1133330000", output.getPhone());
         assertEquals("11999990000", output.getMobilePhone());
         assertEquals("01000-000", output.getZipCode());
@@ -176,16 +176,16 @@ public class TestsMapStruct {
     @Test
     public void parserDTOListToEntityListTest() {
 
-        List<Employees> outputList = mapStruct.toEntityList(inputObject.mockDTOList());
+        List<Employee> outputList = mapStruct.toEntityList(inputObject.mockDTOList());
 
         // Teste para posição 0
-        Employees outputZero = outputList.get(0);
+        Employee outputZero = outputList.get(0);
         assertEquals(0L, outputZero.getId());
         assertEquals("First Name Test 0", outputZero.getFirstName());
         assertEquals("Last Name Test 0", outputZero.getLastName());
         assertEquals("12345678900", outputZero.getCpf());
         assertEquals("employee0@email.com", outputZero.getEmail());
-        assertEquals(Gender.MALE, outputZero.getGender());
+        assertEquals(GenderType.MALE, outputZero.getGender());
         assertEquals("1133330000", outputZero.getPhone());
         assertEquals("11999990000", outputZero.getMobilePhone());
         assertEquals("01000-000", outputZero.getZipCode());
@@ -205,13 +205,13 @@ public class TestsMapStruct {
         assertNotNull(outputZero.getUpdatedAt());
 
         // Teste para posição 7 com TODOS os atributos
-        Employees outputSeven = outputList.get(7);
+        Employee outputSeven = outputList.get(7);
         assertEquals(7L, outputSeven.getId());
         assertEquals("First Name Test 7", outputSeven.getFirstName());
         assertEquals("Last Name Test 7", outputSeven.getLastName());
         assertEquals("12345678907", outputSeven.getCpf());
         assertEquals("employee7@email.com", outputSeven.getEmail());
-        assertEquals(Gender.MALE, outputSeven.getGender());
+        assertEquals(GenderType.MALE, outputSeven.getGender());
         assertEquals("1133330007", outputSeven.getPhone());
         assertEquals("11999990007", outputSeven.getMobilePhone());
         assertEquals("01000-007", outputSeven.getZipCode());
@@ -231,13 +231,13 @@ public class TestsMapStruct {
         assertNotNull(outputSeven.getUpdatedAt());
 
         // Teste para posição 12 com TODOS os atributos
-        Employees outputTwelve = outputList.get(12);
+        Employee outputTwelve = outputList.get(12);
         assertEquals(12L, outputTwelve.getId());
         assertEquals("First Name Test 12", outputTwelve.getFirstName());
         assertEquals("Last Name Test 12", outputTwelve.getLastName());
         assertEquals("123456789012", outputTwelve.getCpf());
         assertEquals("employee12@email.com", outputTwelve.getEmail());
-        assertEquals(Gender.MALE, outputTwelve.getGender());
+        assertEquals(GenderType.MALE, outputTwelve.getGender());
         assertEquals("11333300012", outputTwelve.getPhone());
         assertEquals("119999900012", outputTwelve.getMobilePhone());
         assertEquals("01000-0012", outputTwelve.getZipCode());

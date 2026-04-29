@@ -1,6 +1,6 @@
 package br.com.willian.file.exporter.impl; // Pacote da implementação de exportadores
 
-import br.com.willian.dto.v1.EmployeesDTO; // DTO de funcionários
+import br.com.willian.dto.v1.EmployeeDTO;
 import br.com.willian.file.exporter.contract.EmployeesExporter; // Contrato para exportadores
 import org.apache.poi.ss.usermodel.*; // Classes do Apache POI para Excel
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; // Implementação para Excel XLSX
@@ -22,13 +22,13 @@ public class XlsxExporter implements EmployeesExporter { // Implementa o contrat
     // [EMP-EXPORTER-XLSX-006]
     // Gera arquivo Excel com todos os funcionários
     @Override // Sobrescreve método da interface
-    public Resource exportEmployees(List<EmployeesDTO> employeesDTOList) throws Exception {
+    public Resource exportEmployees(List<EmployeeDTO> employeeDTOList) throws Exception {
 
         logger.info("[EMP-EXPORTER-XLSX-006] Exportação XLSX iniciada | totalRegistros={}",
-                employeesDTOList != null ? employeesDTOList.size() : 0); // Log da quantidade
+                employeeDTOList != null ? employeeDTOList.size() : 0); // Log da quantidade
 
         // Validação da lista
-        if (employeesDTOList == null || employeesDTOList.isEmpty()) {
+        if (employeeDTOList == null || employeeDTOList.isEmpty()) {
             logger.warn("[EMP-EXPORTER-XLSX-006] Lista de funcionários vazia ou nula | gerando XLSX vazio"); // Log de aviso
         }
 
@@ -38,12 +38,12 @@ public class XlsxExporter implements EmployeesExporter { // Implementa o contrat
 
             logger.debug("[EMP-EXPORTER-XLSX-006] Workbook XSSF criado"); // Log da criação
 
-            Sheet sheet = workbook.createSheet("Employees"); // cria aba chamada "Employees"
-            logger.debug("[EMP-EXPORTER-XLSX-006] Sheet 'Employees' criada"); // Log da aba
+            Sheet sheet = workbook.createSheet("Employee"); // cria aba chamada "Employee"
+            logger.debug("[EMP-EXPORTER-XLSX-006] Sheet 'Employee' criada"); // Log da aba
 
             // Cabeçalho com todos os campos do DTO
             String[] headers = {
-                    "ID", "First Name", "Last Name", "CPF", "Email", "Gender", "Phone", "Mobile Phone",
+                    "ID", "First Name", "Last Name", "CPF", "Email", "GenderType", "Phone", "Mobile Phone",
                     "Zip Code", "Street", "Street Number", "Address Complement", "Neighborhood",
                     "City", "State", "Job Title", "Department", "Active", "Birth Date",
                     "Hire Date", "Termination Date", "Created At", "Updated At"
@@ -66,7 +66,7 @@ public class XlsxExporter implements EmployeesExporter { // Implementa o contrat
             int rowIndex = 1; // Começa na linha 1 (após cabeçalho)
             int registrosProcessados = 0; // Contador para log
 
-            for (EmployeesDTO employee : employeesDTOList) {
+            for (EmployeeDTO employee : employeeDTOList) {
                 Row row = sheet.createRow(rowIndex++); // Cria nova linha
 
                 // Mapeia campos do DTO para colunas
@@ -139,7 +139,7 @@ public class XlsxExporter implements EmployeesExporter { // Implementa o contrat
     // [EMP-EXPORTER-XLSX-007]
     // Exporta um único funcionário (reaproveita o método de lista)
     @Override // Sobrescreve método da interface
-    public Resource exportEmployee(EmployeesDTO employee) throws Exception {
+    public Resource exportEmployee(EmployeeDTO employee) throws Exception {
 
         logger.info("[EMP-EXPORTER-XLSX-007] Exportação XLSX de funcionário único | id={} | nome={} {}",
                 employee.getId(), employee.getFirstName(), employee.getLastName()); // Log detalhado

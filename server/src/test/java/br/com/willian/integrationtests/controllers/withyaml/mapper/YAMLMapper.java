@@ -77,7 +77,7 @@ public class YAMLMapper implements ObjectMapper {
         // Converte o corpo da resposta para String (YAML)
         var content = context.getDataToDeserialize().asString();
 
-        // Tipo esperado para desserialização (ex: EmployeesDTO.class)
+        // Tipo esperado para desserialização (ex: EmployeeDTO.class)
         Class type = (Class) context.getType();
 
         try {

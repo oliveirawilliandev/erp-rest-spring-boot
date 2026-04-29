@@ -1,0 +1,905 @@
+/* pages/Purchases/PurchaseForm.css - VERSÃO COMPLETAMENTE CORRIGIDA */
+
+.purchase-form-container {
+    width: 100%;
+    max-width: 1120px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.purchase-form-container .purchase-form-content {
+    width: 100%;
+    background: #F0F0F5;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 60px;
+}
+
+.purchase-form-container .purchase-form-content section {
+    width: 100%;
+    max-width: 380px;
+}
+
+.purchase-form-container .purchase-form-content section img {
+    width: 60%;
+    margin: 0 auto;
+    display: block;
+}
+
+.purchase-form-container .purchase-form-content section h1 {
+    margin: 40px 0 20px;
+    font-size: 32px;
+    color: #333;
+}
+
+.purchase-form-container .purchase-form-content section p {
+    font-size: 18px;
+    color: #737380;
+    line-height: 32px;
+}
+
+.purchase-form-container .purchase-form-content form {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Form Row */
+.purchase-form-container .purchase-form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.purchase-form-container .purchase-form-row .purchase-form-input-group {
+    flex: 1;
+}
+
+/* Input groups */
+.purchase-form-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.purchase-form-input-group label {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+/* ============================================ */
+/* CORREÇÃO PRINCIPAL: SELECT COM ALTURA AJUSTÁVEL */
+/* ============================================ */
+.purchase-form-container .purchase-form-content form select {
+    width: 100%;
+    min-height: 56px;
+    height: auto;
+    padding: 12px 20px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.4;
+    /* Remove aparência padrão para melhor controle */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Seta personalizada */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+}
+
+/* CORREÇÃO: Options com quebra de texto e altura automática */
+.purchase-form-container .purchase-form-content form select option {
+    font-size: 14px;
+    padding: 12px 16px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+    min-height: auto;
+    height: auto;
+    /* Permite múltiplas linhas */
+    white-space: pre-wrap;
+    background: white;
+}
+
+/* CORREÇÃO: Inputs com altura ajustável */
+.purchase-form-container .purchase-form-content form input {
+    width: 100%;
+    min-height: 56px;
+    height: auto;
+    padding: 12px 20px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.purchase-form-container .purchase-form-content form input:focus,
+.purchase-form-container .purchase-form-content form select:focus {
+    border-color: #20B2AA;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.1);
+}
+
+/* Add Item Section */
+.purchase-form-add-item-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdce6;
+    transition: all 0.3s ease;
+}
+
+.purchase-form-add-item-section h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+}
+
+/* Add Item Row */
+.purchase-form-add-item-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.purchase-form-add-item-row .product-select {
+    flex: 3;
+    min-width: 250px;
+}
+
+/* Select de produtos dentro da seção Add Products */
+.purchase-form-add-item-row .product-select select {
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 32px 10px 16px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.3;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+}
+
+/* Options do select de produtos - COM ALTURA AUTOMÁTICA */
+.purchase-form-add-item-row .product-select select option {
+    font-size: 13px;
+    padding: 10px 12px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.3;
+    min-height: auto;
+    height: auto;
+    white-space: pre-wrap;
+}
+
+.purchase-form-add-item-row .quantity-input {
+    flex: 0 0 120px;
+    min-width: 120px;
+}
+
+.purchase-form-add-item-row .quantity-input input {
+    text-align: center;
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 12px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.purchase-form-add-item-row select:focus,
+.purchase-form-add-item-row input:focus {
+    border-color: #20B2AA;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.1);
+}
+
+/* Botão Add Item - ALTURA CORRIGIDA */
+.purchase-form-add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 24px;
+    min-height: 48px;
+    height: auto;
+    background: #20B2AA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.purchase-form-add-btn:hover {
+    background: #1a8f88;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(32, 178, 170, 0.3);
+}
+
+.purchase-form-add-btn:active {
+    transform: translateY(0);
+}
+
+/* Items List */
+.purchase-form-items-list {
+    margin-bottom: 20px;
+}
+
+.purchase-form-items-list h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.purchase-form-items-table {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.purchase-form-items-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 0.8fr;
+    background: #f8f9fa;
+    padding: 12px 20px;
+    font-weight: bold;
+    color: #666;
+    border-bottom: 1px solid #e0e0e0;
+    gap: 10px;
+}
+
+.purchase-form-item-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 0.8fr;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+    transition: background 0.2s ease;
+    gap: 10px;
+}
+
+.purchase-form-item-row:hover {
+    background: #f9f9f9;
+}
+
+.purchase-form-item-row:last-child {
+    border-bottom: none;
+}
+
+.purchase-form-product-name {
+    font-weight: 500;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.purchase-form-quantity,
+.purchase-form-unit-price,
+.purchase-form-subtotal {
+    color: #666;
+}
+
+.purchase-form-subtotal {
+    font-weight: 500;
+    color: #28a745;
+}
+
+.purchase-form-items-footer {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 0.8fr;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 2px solid #e0e0e0;
+    font-weight: bold;
+    gap: 10px;
+}
+
+.purchase-form-total-label {
+    text-align: right;
+    padding-right: 20px;
+    color: #666;
+}
+
+.purchase-form-grand-total {
+    color: #28a745;
+    font-size: 18px;
+}
+
+.purchase-form-remove-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    min-width: 36px;
+}
+
+.purchase-form-remove-btn:hover {
+    color: #c82333;
+    transform: scale(1.1);
+}
+
+/* Submit Button - ALTURA CORRIGIDA */
+.purchase-form-submit-button {
+    width: 100%;
+    min-height: 56px;
+    height: auto;
+    background: #20B2AA;
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 16px;
+    padding: 16px 20px;
+}
+
+.purchase-form-submit-button:hover:not(:disabled) {
+    background: #1a8f88;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(32, 178, 170, 0.3);
+}
+
+.purchase-form-submit-button:active {
+    transform: translateY(0);
+}
+
+.purchase-form-submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Back Link */
+.purchase-form-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+    color: #41414D;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.purchase-form-back-link:hover {
+    color: #20B2AA;
+}
+
+/* Purchase Details Card (View Only) */
+.purchase-form-details-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.purchase-form-details-header {
+    background: linear-gradient(135deg, #20B2AA 0%, #1a8f88 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.purchase-form-details-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.purchase-form-purchase-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.purchase-form-status-completed {
+    background: #28a745;
+    color: white;
+}
+
+.purchase-form-status-cancelled {
+    background: #dc3545;
+    color: white;
+}
+
+.purchase-form-status-pending {
+    background: #ffc107;
+    color: #333;
+}
+
+.purchase-form-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    background: #f8f9fa;
+}
+
+.purchase-form-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.purchase-form-info-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.purchase-form-info-icon {
+    font-size: 24px;
+    color: #20B2AA;
+}
+
+.purchase-form-info-item label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.purchase-form-info-value {
+    font-size: 16px;
+    color: #333;
+}
+
+.purchase-form-info-value strong {
+    color: #20B2AA;
+}
+
+.purchase-form-total-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.purchase-form-items-section {
+    padding: 30px;
+}
+
+.purchase-form-items-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.purchase-form-no-items-message {
+    text-align: center;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #666;
+}
+
+/* ============================================ */
+/* RESPONSIVIDADE COMPLETA */
+/* ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .purchase-form-container .purchase-form-content {
+        padding: 50px 40px;
+    }
+}
+
+/* Tablet e Mobile Grande (768px) */
+@media (max-width: 768px) {
+    .purchase-form-container .purchase-form-content {
+        padding: 40px 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .purchase-form-container .purchase-form-content section {
+        text-align: center;
+    }
+    
+    .purchase-form-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .purchase-form-add-item-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .purchase-form-add-item-row .product-select,
+    .purchase-form-add-item-row .quantity-input,
+    .purchase-form-add-btn {
+        width: 100%;
+        min-width: auto;
+        flex: auto;
+        max-width: none;
+    }
+    
+    .purchase-form-items-header,
+    .purchase-form-item-row,
+    .purchase-form-items-footer {
+        grid-template-columns: 2fr 0.8fr 0.8fr 1fr 0.8fr;
+        font-size: 12px;
+        gap: 8px;
+    }
+    
+    .purchase-form-product-name {
+        white-space: normal;
+        word-break: break-word;
+    }
+    
+    .purchase-form-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .purchase-form-details-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+    .purchase-form-container {
+        padding: 20px 12px;
+    }
+    
+    .purchase-form-container .purchase-form-content {
+        padding: 25px 16px;
+    }
+    
+    .purchase-form-container .purchase-form-content section h1 {
+        font-size: 24px;
+        margin: 20px 0 15px;
+    }
+    
+    .purchase-form-container .purchase-form-content section p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+    
+    /* CORREÇÃO ESPECÍFICA PARA SELECTS EM MOBILE */
+    .purchase-form-container .purchase-form-content form select {
+        min-height: 48px;
+        padding: 10px 32px 10px 16px;
+        font-size: 14px;
+    }
+    
+    .purchase-form-container .purchase-form-content form select option {
+        font-size: 12px;
+        padding: 10px 12px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+    
+    /* Tabela em mobile - transforma em cards */
+    .purchase-form-items-header {
+        display: none;
+    }
+    
+    .purchase-form-item-row {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        margin-bottom: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: white;
+        gap: 8px;
+    }
+    
+    .purchase-form-item-row > span {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 6px 0;
+        border-bottom: 1px dashed #eee;
+    }
+    
+    .purchase-form-item-row > span:last-child {
+        border-bottom: none;
+    }
+    
+    .purchase-form-item-row > span::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #666;
+        font-size: 12px;
+    }
+    
+    .purchase-form-items-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 15px;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    
+    .purchase-form-total-label {
+        text-align: right;
+        padding-right: 0;
+    }
+    
+    /* Adiciona labels aos spans da tabela */
+    .purchase-form-item-row .purchase-form-product-name::before {
+        content: "Ingredient:";
+    }
+    
+    .purchase-form-item-row .purchase-form-quantity::before {
+        content: "Quantity:";
+    }
+    
+    .purchase-form-item-row .purchase-form-unit-price::before {
+        content: "Unit Price:";
+    }
+    
+    .purchase-form-item-row .purchase-form-subtotal::before {
+        content: "Subtotal:";
+    }
+    
+    /* Botão remove em mobile */
+    .purchase-form-remove-btn {
+        margin-top: 8px;
+        justify-content: flex-end;
+        min-height: 44px;
+    }
+    
+    .purchase-form-add-item-row .product-select select option {
+        font-size: 12px;
+        padding: 10px 12px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+}
+
+/* Mobile muito pequeno (375px) */
+@media (max-width: 375px) {
+    .purchase-form-container .purchase-form-content {
+        padding: 20px 12px;
+    }
+    
+    .purchase-form-container .purchase-form-content section h1 {
+        font-size: 20px;
+    }
+    
+    .purchase-form-submit-button {
+        font-size: 14px;
+        padding: 14px 16px;
+    }
+    
+    .purchase-form-add-btn {
+        font-size: 13px;
+        padding: 0 16px;
+    }
+}
+
+/* Adicione estas classes ao final do arquivo PurchaseForm.css */
+
+/* Hint para campos */
+.input-hint {
+    font-size: 11px;
+    color: #737380;
+    margin-top: 6px;
+    display: block;
+}
+
+/* Estilo para os grupos de formulário com label */
+.purchase-form-container .form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.purchase-form-container .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #20B2AA;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+}
+
+.purchase-form-container .form-group label span {
+    color: #F44336;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+/* Campo de quantidade no add item */
+.purchase-form-add-item-row .quantity-input .form-group {
+    width: 100%;
+}
+
+.purchase-form-add-item-row .quantity-input .form-group input {
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 12px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.purchase-form-add-item-row .product-select .form-group {
+    width: 100%;
+}
+
+.purchase-form-add-item-row .product-select .form-group select {
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 32px 10px 16px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.3;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+}
+
+/* Empty cart message */
+.purchase-form-empty-cart {
+    text-align: center;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin: 20px 0;
+    color: #666;
+}
+
+.purchase-form-empty-cart p {
+    margin: 12px 0 4px;
+    font-weight: 500;
+}
+
+.purchase-form-empty-cart small {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Labels na seção de input groups do formulário principal */
+.purchase-form-input-group label {
+    font-weight: 600;
+    color: #20B2AA;
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.purchase-form-input-group label span {
+    color: #F44336;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+/* Título da seção add item */
+.purchase-form-add-item-section h3 {
+    display: flex;
+    align-items: center;
+    color: #20B2AA;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Título da lista de itens */
+.purchase-form-items-list h3 {
+    display: flex;
+    align-items: center;
+    color: #20B2AA;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Responsivo para mobile - ajustes extras */
+@media (max-width: 768px) {
+    .purchase-form-add-item-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .purchase-form-add-item-row .product-select,
+    .purchase-form-add-item-row .quantity-input,
+    .purchase-form-add-btn {
+        width: 100%;
+        min-width: auto;
+        flex: auto;
+        max-width: none;
+    }
+    
+    .purchase-form-add-item-row .quantity-input .form-group input {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .purchase-form-empty-cart {
+        padding: 30px 20px;
+    }
+    
+    .purchase-form-empty-cart svg {
+        width: 36px;
+        height: 36px;
+    }
+}

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration; // Registra a class
 public class FileStorageConfig {
 
     private String uploadDir; // Diretório base onde os arquivos serão armazenados
+    private String userPhotoDir; // Diretório base onde as Fotos do usuario serão armazenados
 
     public FileStorageConfig() {
         // Construtor padrão necessário para o bind automático das propriedades
@@ -19,5 +20,13 @@ public class FileStorageConfig {
 
     public void setUploadDir(String uploadDir) {
         this.uploadDir = uploadDir; // Define o diretório onde os arquivos serão salvos
+    }
+
+    public String getUserPhotoDir() {
+        return userPhotoDir; // Retorna o diretório configurado para upload de arquivos
+    }
+
+    public void setUserPhotoDir(String userPhotoDir) {
+        this.userPhotoDir = userPhotoDir;  // Define o diretório onde os arquivos serão salvos
     }
 }

@@ -1,8 +1,7 @@
 package br.com.willian.file.importer.impl; // Pacote da implementação de importadores
 
-import br.com.willian.dto.v1.EmployeesDTO; // DTO de funcionários
+import br.com.willian.dto.v1.EmployeeDTO;
 import br.com.willian.file.importer.contract.FileImporter; // Contrato para importadores
-import br.com.willian.model.enums.Gender; // Enum de gêneros válidos
 import org.apache.commons.csv.CSVFormat; // Formatação CSV
 import org.apache.commons.csv.CSVRecord; // Registro CSV
 import org.slf4j.Logger; // Interface de logging SLF4J
@@ -25,7 +24,7 @@ public class CsvImporter extends AbstractFileImporter implements FileImporter { 
     // [EMP-IMPORTER-CSV-001]
     // Importa dados de um arquivo CSV
     @Override // Sobrescreve método da interface
-    public List<EmployeesDTO> importFile(InputStream inputStream) throws Exception {
+    public List<EmployeeDTO> importFile(InputStream inputStream) throws Exception {
 
         logger.info("[EMP-IMPORTER-CSV-001] Importação CSV iniciada"); // Log de início
 
@@ -54,7 +53,7 @@ public class CsvImporter extends AbstractFileImporter implements FileImporter { 
         Iterable<CSVRecord> records = format.parse(new InputStreamReader(inputStream)); // Parse do arquivo
 
         // Converte registros para lista de DTOs
-        List<EmployeesDTO> result = parseRecordsToEmployeesDTO(records); // Chama método de conversão
+        List<EmployeeDTO> result = parseRecordsToEmployeesDTO(records); // Chama método de conversão
 
         long endTime = System.currentTimeMillis(); // Finaliza contagem
         long duration = endTime - startTime; // Calcula duração
@@ -66,12 +65,12 @@ public class CsvImporter extends AbstractFileImporter implements FileImporter { 
     }
 
     // [EMP-IMPORTER-CSV-002]
-    // Converte cada linha do CSV para EmployeesDTO
-    private List<EmployeesDTO> parseRecordsToEmployeesDTO(Iterable<CSVRecord> records) throws ParseException {
+    // Converte cada linha do CSV para EmployeeDTO
+    private List<EmployeeDTO> parseRecordsToEmployeesDTO(Iterable<CSVRecord> records) throws ParseException {
 
         logger.debug("[EMP-IMPORTER-CSV-002] Iniciando conversão de registros CSV para DTOs"); // Log de início
 
-        List<EmployeesDTO> employeesDTOS = new ArrayList<>(); // Lista de DTOs
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>(); // Lista de DTOs
         int linhaAtual = 1; // Contador de linhas (começa em 1 pois cabeçalho é linha 0)
         int registrosProcessados = 0; // Contador de registros processados
         int errosEncontrados = 0; // Contador de erros
@@ -82,7 +81,7 @@ public class CsvImporter extends AbstractFileImporter implements FileImporter { 
             try {
                 logger.debug("[EMP-IMPORTER-CSV-002] Processando linha {}", linhaAtual); // Log da linha atual
 
-                EmployeesDTO employees = new EmployeesDTO(); // Cria novo DTO
+                EmployeeDTO employees = new EmployeeDTO(); // Cria novo DTO
 
                 // Mapeia colunas do CSV pelos nomes do cabeçalho
                 employees.setFirstName(record.get("firstName")); // Primeiro nome
@@ -127,7 +126,7 @@ public class CsvImporter extends AbstractFileImporter implements FileImporter { 
                 String activeStr = record.get("active"); // Status ativo
                 employees.setActive(Boolean.parseBoolean(activeStr)); // string "true"/"false"
 
-                employeesDTOS.add(employees); // Adiciona à lista
+                employeeDTOS.add(employees); // Adiciona à lista
                 registrosProcessados++; // Incrementa contador de sucesso
 
                 logger.debug("[EMP-IMPORTER-CSV-002] Linha {} processada com sucesso | email={}",
@@ -149,6 +148,6 @@ public class CsvImporter extends AbstractFileImporter implements FileImporter { 
                     registrosProcessados, errosEncontrados); // Log de aviso
         }
 
-        return employeesDTOS; // Retorna lista de DTOs
+        return employeeDTOS; // Retorna lista de DTOs
     }
 }

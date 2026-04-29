@@ -12,7 +12,7 @@ server:
 cors:
   # Lista de origens permitidas para acessar a API
   # Ex: front-end React (3000) e aplicações locais (8080)
-  originPatterns: http://localhost:3000,http://localhost:8080,https://oliveirawilliandev.com.br
+  originPatterns: http://localhost:3000,http://localhost:8080,https://oliveirawilliandev.com.br,http://192.168.0.2:3000
 
 
 # -------------------------
@@ -21,6 +21,9 @@ cors:
 file:
   # Diretório onde os arquivos enviados serão armazenados
   upload-dir: /Code/UploadDir
+
+  # Diretório onde as fotos de usuário serão armazenadas
+  user-photo-dir: /Code/UserPhoto
 
 
 # -------------------------

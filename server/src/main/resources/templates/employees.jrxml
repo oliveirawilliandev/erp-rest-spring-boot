@@ -1,5 +1,5 @@
 <!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
-<jasperReport name="employees" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38b796c0-644e-49d8-a909-9671714c2318">
+<jasperReport name="employee" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38b796c0-644e-49d8-a909-9671714c2318">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="ZW1wbG95ZWVzIEFTICw2NSw2NCwxMGIwNmEyOS1hOWU1LTQxMTEtOWQ0MC1lNThmMzk0ODgzZmE7"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgresSQL Connection"/>
 	<style name="ZebraStyle">
@@ -14,11 +14,11 @@
 	state,
 	department,
 	active
-FROM employees]]></query>
+FROM employee]]></query>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="name"/>
@@ -27,27 +27,27 @@ FROM employees]]></query>
 	<field name="gender" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="gender"/>
 		<property name="com.jaspersoft.studio.field.label" value="gender"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="mobilePhone" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="mobile_phone"/>
 		<property name="com.jaspersoft.studio.field.label" value="mobile_phone"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="state" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="state"/>
 		<property name="com.jaspersoft.studio.field.label" value="state"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="department" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="department"/>
 		<property name="com.jaspersoft.studio.field.label" value="department"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<field name="active" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.name" value="active"/>
 		<property name="com.jaspersoft.studio.field.label" value="active"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
 	</field>
 	<background splitType="Stretch"/>
 	<title height="129" splitType="Stretch">

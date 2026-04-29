@@ -1,6 +1,6 @@
 package br.com.willian.file.exporter.impl; // Pacote da implementação de exportadores
 
-import br.com.willian.dto.v1.EmployeesDTO; // DTO de funcionários
+import br.com.willian.dto.v1.EmployeeDTO;
 import br.com.willian.file.exporter.contract.EmployeesExporter; // Contrato para exportadores
 import org.apache.commons.csv.CSVFormat; // Formatação CSV
 import org.apache.commons.csv.CSVPrinter; // Impressão CSV
@@ -25,13 +25,13 @@ public class CsvExporter implements EmployeesExporter { // Implementa o contrato
     // [EMP-EXPORTER-CSV-001]
     // Gera arquivo CSV com todos os funcionários
     @Override // Sobrescreve método da interface
-    public Resource exportEmployees(List<EmployeesDTO> employeesDTOList) throws Exception {
+    public Resource exportEmployees(List<EmployeeDTO> employeeDTOList) throws Exception {
 
         logger.info("[EMP-EXPORTER-CSV-001] Exportação CSV iniciada | totalRegistros={}",
-                employeesDTOList != null ? employeesDTOList.size() : 0); // Log da quantidade
+                employeeDTOList != null ? employeeDTOList.size() : 0); // Log da quantidade
 
         // Validação da lista
-        if (employeesDTOList == null || employeesDTOList.isEmpty()) {
+        if (employeeDTOList == null || employeeDTOList.isEmpty()) {
             logger.warn("[EMP-EXPORTER-CSV-001] Lista de funcionários vazia ou nula | retornando CSV vazio"); // Log de aviso
         }
 
@@ -53,7 +53,7 @@ public class CsvExporter implements EmployeesExporter { // Implementa o contrato
         // Configura formato CSV: cabeçalho com todos os campos do DTO
         CSVFormat csvFormat = CSVFormat.Builder.create()
                 .setHeader( // Define cabeçalho com todos os campos
-                        "ID", "First Name", "Last Name", "CPF", "Email", "Gender",
+                        "ID", "First Name", "Last Name", "CPF", "Email", "GenderType",
                         "Phone", "Mobile Phone", "Zip Code", "Street", "Street Number",
                         "Address Complement", "Neighborhood", "City", "State",
                         "Job Title", "Department", "Active", "Birth Date",
@@ -72,7 +72,7 @@ public class CsvExporter implements EmployeesExporter { // Implementa o contrato
             logger.debug("[EMP-EXPORTER-CSV-001] CSVPrinter inicializado"); // Log de inicialização
 
             // Para cada funcionário, imprime uma linha no CSV
-            for(EmployeesDTO employee : employeesDTOList){
+            for(EmployeeDTO employee : employeeDTOList){
                 csvPrinter.printRecord( // Imprime uma linha
                         employee.getId(), // ID
                         employee.getFirstName(), // Primeiro nome
@@ -129,7 +129,7 @@ public class CsvExporter implements EmployeesExporter { // Implementa o contrato
     // [EMP-EXPORTER-CSV-002]
     // Exporta um único funcionário (reaproveita método de lista)
     @Override // Sobrescreve método da interface
-    public Resource exportEmployee(EmployeesDTO employee) throws Exception {
+    public Resource exportEmployee(EmployeeDTO employee) throws Exception {
 
         logger.info("[EMP-EXPORTER-CSV-002] Exportação CSV de funcionário único | id={} | nome={} {}",
                 employee.getId(), employee.getFirstName(), employee.getLastName()); // Log detalhado

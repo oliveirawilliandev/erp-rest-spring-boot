@@ -210,7 +210,7 @@ public class EmailSender implements Serializable { // Implementa Serializable
         <div style="font-family: Arial, sans-serif; font-size: 13px; line-height: 1.8; color: #333;">
           
           <div style="margin-bottom: 15px;">
-            <img src="https://raw.githubusercontent.com/oliveirawilliandev/img/refs/heads/main/erpoliveira.jpg"
+            <img src="https://raw.githubusercontent.com/oliveirawilliandev/img/refs/heads/main/logo.png"
                  width="150"
                  style="display: block; border-radius: 4px;">
           </div>

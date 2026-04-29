@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Wrapper para desserialização de respostas YAML
- * do endpoint paginado de Employees.
+ * do endpoint paginado de Employee.
  *
  * Usado exclusivamente em testes de integração YAML.
  */

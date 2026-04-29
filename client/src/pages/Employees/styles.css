@@ -1,0 +1,583 @@
+/* pages/Employees/styles.css - REFATORADO ESTILO INGREDIENTS */
+.employee-page-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+/* HEADER */
+.employee-page-container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.employee-page-container header img {
+    height: 50px;
+}
+
+.employee-page-container header span {
+    font-size: 16px;
+    margin-left: 16px;
+    color: #555;
+    flex: 1 1 auto;
+}
+
+.employee-page-container header strong {
+    color: #2E8B57;
+}
+
+/* Botão Add New Employee */
+.employee-page-add-button {
+    width: auto;
+    min-width: 160px;
+    padding: 0 20px;
+    height: 42px;
+    line-height: 42px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    background: #2E8B57;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
+.employee-page-add-button:hover {
+    background: #236B43;
+    transform: translateY(-1px);
+    color: #FFF;
+}
+
+/* Botão de logout */
+.employee-page-logout-btn {
+    height: 42px;
+    width: 42px;
+    border-radius: 6px;
+    border: 1px solid #DCDCE6;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+}
+
+.employee-page-logout-btn:hover {
+    border-color: #2E8B57;
+    background: #f5f5f5;
+}
+
+/* Título e botão voltar */
+.employee-page-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 80px;
+    margin-bottom: 24px;
+}
+
+.employee-page-title-row h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.employee-page-back-button {
+    display: flex;
+    align-items: center;
+    color: #2E8B57;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.employee-page-back-button:hover {
+    opacity: 0.7;
+}
+
+/* Search Section - ESTILO INGREDIENTS */
+.employee-page-search-section {
+    margin-bottom: 24px;
+}
+
+.employee-page-search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.employee-page-search-type-select {
+    width: 180px;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.employee-page-search-form input {
+    flex: 1 1 auto;
+    min-width: 250px;
+    height: 48px;
+    margin-top: 0;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Botão Search */
+.employee-page-search-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #2E8B57;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.employee-page-search-btn:hover {
+    background: #236B43;
+    transform: translateY(-1px);
+}
+
+/* Botão Clear */
+.employee-page-clear-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #737380;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.employee-page-clear-btn:hover {
+    background: #5a5a6e;
+}
+
+/* Upload Area */
+.employee-page-upload-area {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.employee-page-upload-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 20px;
+    height: 42px;
+    background: #2E8B57;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.employee-page-upload-btn:hover {
+    background: #236B43;
+    transform: translateY(-1px);
+}
+
+.employee-page-upload-btn input {
+    display: none;
+}
+
+.employee-page-upload-btn.uploading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.employee-page-export-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 20px;
+    height: 42px;
+    background: #251FC5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.employee-page-export-btn:hover {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+}
+
+/* Lista de funcionários - GRID */
+.employee-page-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+}
+
+.employee-page-container ul li {
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.employee-page-container ul li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho do funcionário */
+.employee-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #DCDCE6;
+}
+
+.employee-page-code {
+    font-size: 14px;
+    color: #2E8B57;
+    background: #E8F5E9;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.employee-page-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.employee-page-status.active {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+.employee-page-status.inactive {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+/* Nome */
+.employee-page-name {
+    margin-bottom: 16px;
+}
+
+.employee-page-name strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #41414D;
+    font-size: 12px;
+}
+
+.employee-page-name p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2E8B57;
+    margin: 0;
+}
+
+/* Contato */
+.employee-page-contact {
+    background: #F8F8F8;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.employee-page-contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.employee-page-contact-item svg {
+    color: #2E8B57;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.employee-page-contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.employee-page-contact-item svg {
+    color: #2E8B57;
+    min-width: 14px;
+}
+
+.employee-page-contact-item strong {
+    font-size: 12px;
+    color: #41414D;
+    min-width: 45px;
+}
+
+.employee-page-contact-item p {
+    margin: 0;
+    color: #737380;
+    font-size: 14px;
+}
+
+/* Informações Gerais */
+.employee-page-info {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #F0F0F5;
+}
+
+.employee-page-info div {
+    flex: 1;
+}
+
+.employee-page-info strong {
+    display: block;
+    font-size: 11px;
+    color: #41414D;
+    margin-bottom: 4px;
+}
+
+.employee-page-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #737380;
+}
+
+/* Informações Profissionais */
+.employee-page-professional {
+    background: #F8F8F8;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+
+}
+
+.employee-page-professional-item {
+    display: flex;
+    flex-direction: column;  
+    margin-bottom: 12px;
+}
+
+
+.employee-page-professional-item svg {
+    color: #2E8B57;
+    width: 14px;
+    height: 14px;
+    margin-bottom: 8px;
+    min-width: 14px;
+
+
+}
+
+.employee-page-professional-item:last-child {
+    margin-bottom: 0;
+}
+
+.employee-page-professional-item strong {
+    font-size: 13px;
+    color: #41414D;
+     width: 70px;  /* ← CORRIGIDO */
+    margin-right: 8px
+}
+
+.employee-page-professional-item p {
+    margin: 0;
+    color: #737380;
+    font-size: 14x;
+}
+
+/* Endereço */
+.employee-page-address {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #FFF8E1;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.employee-page-address svg {
+    color: #FFC107;
+    min-width: 14px;
+}
+
+.employee-page-address strong {
+    font-size: 13px;
+    color: #41414D;
+}
+
+.employee-page-address p {
+    margin: 0;
+    font-size: 12px;
+    color: #737380;
+}
+
+/* Botões de ação */
+.employee-page-action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: flex-end;
+    border-top: 1px solid #F0F0F5;
+    padding-top: 16px;
+}
+
+.employee-page-action-buttons button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.employee-page-action-buttons button:hover {
+    background: #F0F0F5;
+}
+
+/* Botão Load More */
+.employee-page-load-more {
+    width: 200px;
+    margin: 30px auto 0;
+    display: block;
+    text-align: center;
+    background: #2E8B57;
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.employee-page-load-more:hover {
+    background: #236B43;
+    transform: translateY(-1px);
+}
+
+/* Mensagem sem resultados */
+.employee-page-no-results {
+    text-align: center;
+    margin-top: 48px;
+    color: #737380;
+    font-size: 18px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .employee-page-container {
+        padding: 0 16px;
+    }
+    
+    .employee-page-container ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .employee-page-search-form {
+        flex-direction: column;
+    }
+    
+    .employee-page-search-type-select,
+    .employee-page-search-form input,
+    .employee-page-search-btn,
+    .employee-page-clear-btn {
+        width: 100%;
+    }
+    
+    .employee-page-info {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .employee-page-upload-area {
+        flex-direction: column;
+    }
+    
+    .employee-page-upload-btn,
+    .employee-page-export-btn {
+        justify-content: center;
+    }
+    
+    /* HEADER MOBILE */
+    .employee-page-container header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    
+    .employee-page-container header span {
+        order: 1;
+        width: 100%;
+        text-align: left;
+        font-size: 12px;
+        margin: 5px 0;
+    }
+    
+    .employee-page-container header img {
+        order: 2;
+        height: 40px;
+    }
+    
+    .employee-page-add-button {
+        order: 3;
+        flex: 1;
+        height: 38px;
+        font-size: 11px;
+        padding: 0 8px;
+        margin: 0;
+        width: auto;
+        min-width: auto;
+    }
+    
+    .employee-page-logout-btn {
+        order: 4;
+        width: 38px;
+        height: 38px;
+        margin: 0;
+    }
+}

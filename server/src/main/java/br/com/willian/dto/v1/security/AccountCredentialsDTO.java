@@ -10,19 +10,17 @@ public class AccountCredentialsDTO implements Serializable {
     private String userName;   // Username usado para autenticação
     private String fullName;   // Nome completo do usuário
     private String password;   // Senha em texto puro (apenas para login/cadastro)
+    private String email;      // Email Cadastrado
 
     public AccountCredentialsDTO() {
         // Construtor padrão necessário para frameworks de serialização (Jackson)
     }
 
-    public AccountCredentialsDTO(
-            String password,  // Senha informada pelo usuário
-            String fullName,  // Nome completo
-            String userName   // Username
-    ) {
-        this.password = password; // Define senha
-        this.fullName = fullName; // Define nome completo
-        this.userName = userName; // Define username
+    public AccountCredentialsDTO(String userName, String fullName, String password, String email) {
+        this.userName = userName;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
     }
 
     public String getFullName() {
@@ -49,20 +47,22 @@ public class AccountCredentialsDTO implements Serializable {
         this.password = password; // Define senha (não persistir em texto puro)
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof AccountCredentialsDTO that)) return false; // Verifica tipo
-        return Objects.equals(userName, that.userName) &&
-                Objects.equals(fullName, that.fullName) &&
-                Objects.equals(password, that.password); // Compara campos
+        if (!(o instanceof AccountCredentialsDTO that)) return false;
+        return Objects.equals(userName, that.userName) && Objects.equals(fullName, that.fullName) && Objects.equals(password, that.password) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                userName,
-                fullName,
-                password
-        ); // Gera hash consistente com equals
+        return Objects.hash(userName, fullName, password, email);
     }
 }

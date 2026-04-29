@@ -1,0 +1,324 @@
+/* pages/Customers/CustomerForm.css - COM LABELS MELHORADOS */
+.customer-form-container {
+    width: 100%;
+    max-width: 1120px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.customer-form-container .customer-form-content {
+    width: 100%;
+    background: #F0F0F5;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 60px;
+}
+
+.customer-form-container .customer-form-content section {
+    width: 100%;
+    max-width: 380px;
+}
+
+.customer-form-container .customer-form-content section h1 {
+    margin: 40px 0 20px;
+    font-size: 32px;
+    color: #333;
+}
+
+.customer-form-container .customer-form-content section p {
+    font-size: 18px;
+    color: #737380;
+    line-height: 32px;
+}
+
+.customer-form-container .customer-form-content form {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Estilo para os grupos de formulário com label */
+.customer-form-container .form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.customer-form-container .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #251fc5;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+}
+
+.customer-form-container .form-group label span {
+    color: #F44336;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+/* Campos do formulário */
+.customer-form-container .customer-form-content form input {
+    width: 100%;
+    height: 56px;
+    padding: 0 20px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.customer-form-container .customer-form-content form input:focus {
+    border-color: #251fc5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 31, 197, 0.1);
+}
+
+/* Hint para campos */
+.customer-form-container .input-hint {
+    font-size: 11px;
+    color: #737380;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Linhas com 2 colunas */
+.customer-form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 0;
+}
+
+.customer-form-row .form-group {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+/* Linha com 3 colunas */
+.customer-form-row.three-columns {
+    gap: 15px;
+}
+
+/* Seção de endereço */
+.customer-form-container .address-section {
+    background: #f8f8fc;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0 10px;
+    border: 1px solid #e0e0e8;
+}
+
+.customer-form-container .address-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #251fc5;
+}
+
+.customer-form-container .address-title span {
+    font-weight: 700;
+    font-size: 16px;
+    color: #251fc5;
+    letter-spacing: 0.5px;
+}
+
+/* ===== STATUS ===== */
+.customer-form-container .status-checkbox {
+    margin: 32px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.customer-form-container .status-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    padding: 12px 24px;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.customer-form-container .status-label:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Toggle Switch */
+.customer-form-container .status-label input[type="checkbox"] {
+    width: 52px;
+    height: 28px;
+    margin: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #e0e0e0;
+    border-radius: 50px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.customer-form-container .status-label input[type="checkbox"]:checked {
+    background: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.customer-form-container .status-label input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.customer-form-container .status-label input[type="checkbox"]:checked::before {
+    left: 26px;
+}
+
+/* Texto do Status */
+.customer-form-container .status-text {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.customer-form-container .status-text.active {
+    color: #4CAF50;
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.customer-form-container .status-text.inactive {
+    color: #F44336;
+    text-shadow: 0 0 8px rgba(244, 67, 54, 0.3);
+}
+
+/* Botão de submit */
+.customer-form-button {
+    width: 100%;
+    height: 56px;
+    background: #251fc5;
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+}
+
+.customer-form-button:hover {
+    background: #1a159e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 31, 197, 0.3);
+}
+
+.customer-form-button:active {
+    transform: translateY(0);
+}
+
+.customer-form-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Link voltar */
+.customer-form-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+    color: #41414D;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.customer-form-back-link:hover {
+    color: #251fc5;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .customer-form-container .customer-form-content {
+        padding: 40px 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .customer-form-container .customer-form-content section {
+        text-align: center;
+    }
+    
+    .customer-form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .customer-form-row.three-columns {
+        gap: 0;
+    }
+    
+    .customer-form-row .form-group {
+        margin-bottom: 16px;
+    }
+    
+    .customer-form-row .form-group:last-child {
+        margin-bottom: 0;
+    }
+    
+    .customer-form-container .status-label {
+        padding: 10px 20px;
+    }
+    
+    .customer-form-container .address-section {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .customer-form-container .customer-form-content {
+        padding: 30px 20px;
+    }
+    
+    .customer-form-container .customer-form-content section h1 {
+        font-size: 24px;
+        margin: 20px 0 15px;
+    }
+    
+    .customer-form-container .status-checkbox {
+        justify-content: stretch;
+    }
+    
+    .customer-form-container .status-label {
+        width: 100%;
+        justify-content: center;
+    }
+}

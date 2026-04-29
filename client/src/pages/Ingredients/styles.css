@@ -1,0 +1,454 @@
+/* pages/Ingredients/styles.css - BASEADO NO PRODUCTS */
+.ingredient-page-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+/* HEADER */
+.ingredient-page-container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ingredient-page-container header img {
+    height: 50px;
+}
+
+.ingredient-page-container header span {
+    font-size: 16px;
+    margin-left: 16px;
+    color: #555;
+    flex: 1 1 auto;
+}
+
+.ingredient-page-container header strong {
+    color: #5aa19e;
+}
+
+/* Botão Add New Ingredient - COR #5aa19e */
+.ingredient-page-add-button {
+    width: auto;
+    min-width: 160px;
+    padding: 0 20px;
+    height: 42px;
+    line-height: 42px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    background: #5aa19e;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
+.ingredient-page-add-button:hover {
+    background: #1a8f88;
+    transform: translateY(-1px);
+    color: #FFF;
+}
+
+/* Botão de logout */
+.ingredient-page-logout-btn {
+    height: 42px;
+    width: 42px;
+    border-radius: 6px;
+    border: 1px solid #DCDCE6;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+}
+
+.ingredient-page-logout-btn:hover {
+    border-color: #5aa19e;
+    background: #f5f5f5;
+}
+
+/* Título e botão voltar */
+.ingredient-page-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 80px;
+    margin-bottom: 24px;
+}
+
+.ingredient-page-title-row h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.ingredient-page-subtitle {
+    color: #5aa19e;
+    font-size: 14px;
+    font-weight: 500;
+    background: #E0F5F3;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.ingredient-page-back-button {
+    display: flex;
+    align-items: center;
+    color: #5aa19e;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.ingredient-page-back-button:hover {
+    opacity: 0.7;
+}
+
+/* Barra de pesquisa */
+.ingredient-page-search-section {
+    margin-bottom: 24px;
+}
+
+.ingredient-page-search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ingredient-page-search-type-select {
+    width: 180px;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.ingredient-page-search-form input {
+    flex: 1 1 auto 1 auto;
+    min-width: 250px;
+    height: 48px;
+    margin-top: 0;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Botão Search - COR #5aa19e */
+.ingredient-page-search-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #5aa19e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ingredient-page-search-btn:hover {
+    background: #1a8f88;
+    transform: translateY(-1px);
+}
+
+/* Botão Clear */
+.ingredient-page-clear-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #737380;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ingredient-page-clear-btn:hover {
+    background: #5a5a6e;
+}
+
+/* Lista de ingredientes - GRID */
+.ingredient-page-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+}
+
+.ingredient-page-container ul li {
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ingredient-page-container ul li.low-stock {
+    border-left: 4px solid #FF8C00;
+}
+
+.ingredient-page-container ul li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho do ingrediente */
+.ingredient-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #DCDCE6;
+}
+
+.ingredient-page-code {
+    font-size: 14px;
+    color: #5aa19e;
+    background: #E0F5F3;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.ingredient-page-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.ingredient-page-status.active {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+.ingredient-page-status.inactive {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+/* Campos do ingrediente */
+.ingredient-page-container ul li strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #41414D;
+    font-size: 14px;
+}
+
+.ingredient-page-container ul li p {
+    color: #737380;
+    line-height: 21px;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.ingredient-page-container ul li p.description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+/* Preço e estoque */
+.ingredient-page-price-stock {
+    display: flex;
+    gap: 24px;
+    margin: 16px 0;
+    padding: 12px 0;
+    border-top: 1px solid #F0F0F5;
+    border-bottom: 1px solid #F0F0F5;
+}
+
+.ingredient-page-price-stock div {
+    flex: 1 1 auto;
+}
+
+.ingredient-page-price {
+    color: #2E8B57;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.ingredient-page-low-stock {
+    color: #FF8C00;
+    font-weight: bold;
+}
+
+.stock-warning {
+    font-size: 12px;
+    color: #FF4444;
+    margin-left: 8px;
+}
+
+/* Fornecedor preferencial */
+.ingredient-page-supplier {
+    margin: 12px 0;
+}
+
+.ingredient-page-supplier strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #41414D;
+    font-size: 12px;
+}
+
+.ingredient-page-supplier p {
+    font-size: 14px;
+    color: #5aa19e;
+    margin-bottom: 0;
+}
+
+/* Botões de ação */
+.ingredient-page-action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: flex-end;
+}
+
+.ingredient-page-action-buttons button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.ingredient-page-action-buttons button:hover {
+    background: #F0F0F5;
+}
+
+/* Botão Load More - COR #5aa19e */
+.ingredient-page-load-more {
+    width: 200px;
+    margin: 30px auto 0;
+    display: block;
+    text-align: center;
+    background: #5aa19e;
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ingredient-page-load-more:hover {
+    background: #1a8f88;
+    transform: translateY(-1px);
+}
+
+/* Mensagem sem resultados */
+.ingredient-page-no-results {
+    text-align: center;
+    margin-top: 48px;
+    color: #737380;
+    font-size: 18px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .ingredient-page-container {
+        padding: 0 16px;
+    }
+    
+    .ingredient-page-container ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .ingredient-page-search-form {
+        flex-direction: column;
+    }
+    
+    .ingredient-page-search-type-select,
+    .ingredient-page-search-form input,
+    .ingredient-page-search-btn,
+    .ingredient-page-clear-btn {
+        width: 100%;
+    }
+    
+    .ingredient-page-price-stock {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    /* HEADER MOBILE - PADRÃO CUSTOMERS */
+    .ingredient-page-container header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        text-align: left;
+    }
+    
+    /* PRIMEIRA LINHA: Welcome, WILLIAN! */
+    .ingredient-page-container header span {
+        order: 1;
+        width: 100%;
+        text-align: left;
+        font-size: 12px;
+        margin: 5px 0;
+    }
+    
+    .ingredient-page-container header span strong {
+        font-size: 12px;
+        display: inline;
+    }
+    
+    /* LOGO - SEGUNDA LINHA, ESQUERDA */
+    .ingredient-page-container header img {
+        order: 2;
+        height: 40px;
+    }
+    
+    /* ADD BUTTON - SEGUNDA LINHA */
+    .ingredient-page-add-button {
+        order: 3;
+        flex: 1;
+        height: 38px;
+        font-size: 11px;
+        padding: 0 8px;
+        margin: 0;
+        width: auto;
+        min-width: auto;
+    }
+    
+    /* LOGOUT - SEGUNDA LINHA, DIREITA */
+    .ingredient-page-logout-btn {
+        order: 4;
+        width: 38px;
+        height: 38px;
+        margin: 0;
+    }
+}

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 // DTO responsável por mapear o nível raiz da resposta JSON
-// utilizada no endpoint de listagem de Employees.
+// utilizada no endpoint de listagem de Employee.
 //
 // Essa classe funciona como um "wrapper" da resposta,
 // sendo usada principalmente quando a API retorna dados
@@ -29,7 +29,7 @@ public class WrapperEmployeesDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // Mapeia o objeto "_embedded" do JSON
-    // Esse campo contém a lista real de Employees
+    // Esse campo contém a lista real de Employee
 
     @JsonProperty("_embedded")
     private EmployeesEmbeddedDTO embedded;
@@ -40,7 +40,7 @@ public class WrapperEmployeesDTO implements Serializable {
     public WrapperEmployeesDTO() {
     }
 
-    // Retorna o objeto Embedded que contém a lista de Employees
+    // Retorna o objeto Embedded que contém a lista de Employee
     public EmployeesEmbeddedDTO getEmbedded() {
         return embedded;
     }

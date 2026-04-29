@@ -1,11 +1,11 @@
 package br.com.willian.file.exporter.impl; // Pacote da implementação de exportadores
 
-import br.com.willian.dto.v1.EmployeesDTO; // DTO de funcionários
+import br.com.willian.dto.v1.EmployeeDTO; // DTO de funcionários
 import br.com.willian.file.exporter.contract.EmployeesExporter; // Contrato para exportadores
 import br.com.willian.model.PurchaseMock; // Mock de compras para teste
 
-import br.com.willian.services.JasperReportCache; // Serviço de cache de relatórios Jasper
-import br.com.willian.services.QRCodeService; // Serviço de geração de QR Code
+import br.com.willian.service.JasperReportCache; // Serviço de cache de relatórios Jasper
+import br.com.willian.service.QRCodeService; // Serviço de geração de QR Code
 import net.sf.jasperreports.engine.*; // Engine do JasperReports
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource; // DataSource a partir de coleções
 import org.slf4j.Logger; // Interface de logging SLF4J
@@ -35,9 +35,9 @@ public class PdfExporter implements EmployeesExporter { // Implementa o contrato
     private JasperReportCache jasperReportCache; // Cache de relatórios compilados
 
     // [EMP-EXPORTER-PDF-004]
-    // Exporta uma lista de Employees
+    // Exporta uma lista de Employee
     @Override // Sobrescreve método da interface
-    public Resource exportEmployees(List<EmployeesDTO> employees) throws Exception {
+    public Resource exportEmployees(List<EmployeeDTO> employees) throws Exception {
 
         logger.info("[EMP-EXPORTER-PDF-004] Exportação PDF de lista iniciada | totalRegistros={}",
                 employees != null ? employees.size() : 0); // Log da quantidade
@@ -102,7 +102,7 @@ public class PdfExporter implements EmployeesExporter { // Implementa o contrato
     // [EMP-EXPORTER-PDF-005]
     // Exporta um employee
     @Override // Sobrescreve método da interface
-    public Resource exportEmployee(EmployeesDTO employees) throws Exception {
+    public Resource exportEmployee(EmployeeDTO employees) throws Exception {
 
         logger.info("[EMP-EXPORTER-PDF-005] Exportação PDF de funcionário único iniciada | id={} | nome={} {}",
                 employees.getId(), employees.getFirstName(), employees.getLastName()); // Log detalhado

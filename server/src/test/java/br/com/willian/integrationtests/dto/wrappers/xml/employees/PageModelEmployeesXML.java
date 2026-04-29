@@ -11,7 +11,7 @@ import java.util.List;
 
 /*
  * DTO responsável por mapear a estrutura raiz da resposta XML
- * retornada pelo endpoint de listagem de Employees.
+ * retornada pelo endpoint de listagem de Employee.
  *
  * Este wrapper representa o <PagedModel>, que é o formato padrão
  * utilizado pelo Spring HATEOAS quando a resposta é serializada em XML.
@@ -57,7 +57,7 @@ public class PageModelEmployeesXML implements Serializable {
      * para a lista de registros retornados.
      *
      * Cada item da lista corresponde a um nó interno <content>,
-     * que representa um EmployeesDTO individual.
+     * que representa um EmployeeDTO individual.
      */
     @JacksonXmlElementWrapper(localName = "content")
     @JacksonXmlProperty(localName = "content")
@@ -72,7 +72,7 @@ public class PageModelEmployeesXML implements Serializable {
     }
 
     /*
-     * Retorna a lista de Employees desserializada a partir
+     * Retorna a lista de Employee desserializada a partir
      * do XML retornado pelo endpoint.
      */
     public List<EmployeesDTO> getContent() {
@@ -80,7 +80,7 @@ public class PageModelEmployeesXML implements Serializable {
     }
 
     /*
-     * Define a lista de Employees.
+     * Define a lista de Employee.
      * Normalmente preenchida automaticamente pelo Jackson
      * durante a conversão XML -> Objeto.
      */

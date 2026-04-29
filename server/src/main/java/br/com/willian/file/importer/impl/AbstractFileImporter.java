@@ -1,8 +1,7 @@
 package br.com.willian.file.importer.impl; // Pacote da implementação de importadores
 
 import br.com.willian.exception.InvalidGenderException; // Exceção para gênero inválido
-import br.com.willian.model.enums.Gender; // Enum de gêneros válidos
-import br.com.willian.services.EmployeesService; // Serviço de funcionários (apenas para logger)
+import br.com.willian.model.enums.GenderType; // Enum de gêneros válidos
 import org.apache.poi.ss.usermodel.Cell; // Célula do Excel
 import org.apache.poi.ss.usermodel.CellType; // Tipo de célula do Excel
 import org.apache.poi.ss.usermodel.DataFormatter; // Formatador de dados do Excel
@@ -173,7 +172,7 @@ public abstract class AbstractFileImporter {
 
     /**
      * [EMP-IMPORTER-ABSTRACT-014]
-     * Valida se o gênero informado é um valor válido do enum Gender
+     * Valida se o gênero informado é um valor válido do enum GenderType
      * @param gender Gênero a ser validado (case insensitive)
      * @throws InvalidGenderException se o gênero for nulo ou inválido
      */
@@ -186,14 +185,14 @@ public abstract class AbstractFileImporter {
                 throw new InvalidGenderException("Gênero não pode ser nulo"); // Exceção
             }
 
-            Gender.valueOf(gender.toUpperCase()); // Tenta converter para enum
+            GenderType.valueOf(gender.toUpperCase()); // Tenta converter para enum
             logger.debug("[EMP-IMPORTER-ABSTRACT-014] Gênero validado com sucesso: {}", gender); // Log de sucesso
             return gender; // Retorna gênero
 
         } catch (Exception e) {
             logger.error("[EMP-IMPORTER-ABSTRACT-014] Tentativa de usar gênero inválido: {}", gender); // Log de erro
 
-            String allowedValues = Arrays.stream(Gender.values()) // Stream dos valores do enum
+            String allowedValues = Arrays.stream(GenderType.values()) // Stream dos valores do enum
                     .map(Enum::name) // Extrai nomes
                     .collect(Collectors.joining(", ")); // Junta com vírgula
 

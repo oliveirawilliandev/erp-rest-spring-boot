@@ -25,6 +25,9 @@ public class User implements UserDetails, Serializable { // Implementa interface
     @Column(name = "full_name") // Coluna para nome completo
     private String fullName; // Nome completo do usuário
 
+    @Column(name = "email", unique = true, length = 150) // Coluna única email com tamanho máximo 150
+    private String email; // email
+
     @Column(name = "account_non_expired", length = 10) // Coluna com tamanho 10
     private Boolean accountNonExpired; // Indica se a conta não expirou
 
@@ -36,6 +39,9 @@ public class User implements UserDetails, Serializable { // Implementa interface
 
     @Column(name = "enabled", length = 10) // Coluna com tamanho 10
     private Boolean enabled; // Indica se a conta está habilitada
+
+    @Column(name = "photo_url", length = 500) // Coluna com tamanho 500
+    private String photoUrl; // Edição de foto
 
     @ManyToMany(fetch = FetchType.EAGER) // Relacionamento muitos-para-muitos com carregamento imediato
     @JoinTable( // Tabela de junção para o relacionamento
@@ -185,25 +191,32 @@ public class User implements UserDetails, Serializable { // Implementa interface
         this.permissions = permissions; // Define lista de permissões
     }
 
-    // equals baseado em todos os campos
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof User user)) return false; // Verifica tipo
-        return Objects.equals(id, user.id) && // Compara ID
-                Objects.equals(userName, user.userName) && // Compara userName
-                Objects.equals(password, user.password) && // Compara password
-                Objects.equals(fullName, user.fullName) && // Compara fullName
-                Objects.equals(accountNonExpired, user.accountNonExpired) && // Compara accountNonExpired
-                Objects.equals(accountNonLocked, user.accountNonLocked) && // Compara accountNonLocked
-                Objects.equals(credentialsNonExpired, user.credentialsNonExpired) && // Compara credentialsNonExpired
-                Objects.equals(enabled, user.enabled) && // Compara enabled
-                Objects.equals(permissions, user.permissions); // Compara permissions
+    public String getEmail() {
+        return email;
     }
 
-    // hashCode baseado em todos os campos
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+    // equals baseado em todos os campos
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(password, user.password) && Objects.equals(fullName, user.fullName) && Objects.equals(email, user.email) && Objects.equals(accountNonExpired, user.accountNonExpired) && Objects.equals(accountNonLocked, user.accountNonLocked) && Objects.equals(credentialsNonExpired, user.credentialsNonExpired) && Objects.equals(enabled, user.enabled) && Objects.equals(photoUrl, user.photoUrl) && Objects.equals(permissions, user.permissions);
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, fullName, accountNonExpired,
-                accountNonLocked, credentialsNonExpired, enabled, permissions); // Gera hash
+        return Objects.hash(id, userName, password, fullName, email, accountNonExpired, accountNonLocked, credentialsNonExpired, enabled, photoUrl, permissions);
     }
 }

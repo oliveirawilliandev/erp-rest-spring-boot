@@ -1,0 +1,903 @@
+/* pages/Orders/OrderForm.css - VERSÃO COMPLETAMENTE CORRIGIDA */
+
+.order-form-container {
+    width: 100%;
+    max-width: 1120px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.order-form-container .order-form-content {
+    width: 100%;
+    background: #F0F0F5;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 60px;
+}
+
+.order-form-container .order-form-content section {
+    width: 100%;
+    max-width: 380px;
+}
+
+.order-form-container .order-form-content section img {
+    width: 60%;
+    margin: 0 auto;
+    display: block;
+}
+
+.order-form-container .order-form-content section h1 {
+    margin: 40px 0 20px;
+    font-size: 32px;
+    color: #333;
+}
+
+.order-form-container .order-form-content section p {
+    font-size: 18px;
+    color: #737380;
+    line-height: 32px;
+}
+
+.order-form-container .order-form-content form {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Form Row */
+.order-form-container .order-form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.order-form-container .order-form-row .order-form-input-group {
+    flex: 1;
+}
+
+/* Input groups */
+.order-form-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.order-form-input-group label {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+/* ============================================ */
+/* CORREÇÃO PRINCIPAL: SELECT COM ALTURA AJUSTÁVEL */
+/* ============================================ */
+.order-form-container .order-form-content form select {
+    width: 100%;
+    min-height: 56px;
+    height: auto;
+    padding: 12px 32px 12px 20px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.4;
+    /* Remove aparência padrão para melhor controle */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Seta personalizada */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+}
+
+/* CORREÇÃO: Options com quebra de texto e altura automática */
+.order-form-container .order-form-content form select option {
+    font-size: 14px;
+    padding: 12px 16px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+    min-height: auto;
+    height: auto;
+    white-space: pre-wrap;
+    background: white;
+}
+
+/* CORREÇÃO: Inputs com altura ajustável */
+.order-form-container .order-form-content form input {
+    width: 100%;
+    min-height: 56px;
+    height: auto;
+    padding: 12px 20px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.order-form-container .order-form-content form input:focus,
+.order-form-container .order-form-content form select:focus {
+    border-color: #DC143C;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+/* Add Item Section */
+.order-form-add-item-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdce6;
+    transition: all 0.3s ease;
+}
+
+.order-form-add-item-section h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 18px;
+}
+
+/* Add Item Row */
+.order-form-add-item-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.order-form-add-item-row .product-select {
+    flex: 3;
+    min-width: 250px;
+}
+
+/* Select de produtos dentro da seção Add Products */
+.order-form-add-item-row .product-select select {
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 32px 10px 16px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.3;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+}
+
+/* Options do select de produtos - COM ALTURA AUTOMÁTICA */
+.order-form-add-item-row .product-select select option {
+    font-size: 13px;
+    padding: 10px 12px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.3;
+    min-height: auto;
+    height: auto;
+    white-space: pre-wrap;
+}
+
+.order-form-add-item-row .quantity-input {
+    flex: 0 0 120px;
+    min-width: 120px;
+}
+
+.order-form-add-item-row .quantity-input input {
+    text-align: center;
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 12px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.order-form-add-item-row select:focus,
+.order-form-add-item-row input:focus {
+    border-color: #DC143C;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+}
+
+/* Botão Add Item - ALTURA CORRIGIDA */
+.order-form-add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 24px;
+    min-height: 48px;
+    height: auto;
+    background: #DC143C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.order-form-add-btn:hover {
+    background: #b01032;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+}
+
+.order-form-add-btn:active {
+    transform: translateY(0);
+}
+
+/* Items List */
+.order-form-items-list {
+    margin-bottom: 20px;
+}
+
+.order-form-items-list h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.order-form-items-table {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.order-form-items-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 0.8fr;
+    background: #f8f9fa;
+    padding: 12px 20px;
+    font-weight: bold;
+    color: #666;
+    border-bottom: 1px solid #e0e0e0;
+    gap: 10px;
+}
+
+.order-form-item-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 0.8fr;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+    transition: background 0.2s ease;
+    gap: 10px;
+}
+
+.order-form-item-row:hover {
+    background: #f9f9f9;
+}
+
+.order-form-item-row:last-child {
+    border-bottom: none;
+}
+
+.order-form-product-name {
+    font-weight: 500;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.order-form-quantity,
+.order-form-unit-price,
+.order-form-subtotal {
+    color: #666;
+}
+
+.order-form-subtotal {
+    font-weight: 500;
+    color: #28a745;
+}
+
+.order-form-items-footer {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 0.8fr;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 2px solid #e0e0e0;
+    font-weight: bold;
+    gap: 10px;
+}
+
+.order-form-total-label {
+    text-align: right;
+    padding-right: 20px;
+    color: #666;
+}
+
+.order-form-grand-total {
+    color: #28a745;
+    font-size: 18px;
+}
+
+.order-form-remove-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    min-width: 36px;
+}
+
+.order-form-remove-btn:hover {
+    color: #c82333;
+    transform: scale(1.1);
+}
+
+/* Submit Button - ALTURA CORRIGIDA */
+.order-form-submit-button {
+    width: 100%;
+    min-height: 56px;
+    height: auto;
+    background: #DC143C;
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 16px;
+    padding: 16px 20px;
+}
+
+.order-form-submit-button:hover:not(:disabled) {
+    background: #b01032;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+}
+
+.order-form-submit-button:active {
+    transform: translateY(0);
+}
+
+.order-form-submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Back Link */
+.order-form-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+    color: #41414D;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.order-form-back-link:hover {
+    color: #DC143C;
+}
+
+/* Order Details Card (View Only) */
+.order-form-details-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.order-form-details-header {
+    background: linear-gradient(135deg, #DC143C 0%, #b01032 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.order-form-details-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.order-form-order-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.order-form-status-cancelled {
+    background: #333;
+    color: white;
+}
+
+.order-form-status-delivered {
+    background: #28a745;
+    color: white;
+}
+
+.order-form-status-pending {
+    background: #ffc107;
+    color: #333;
+}
+
+.order-form-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    background: #f8f9fa;
+}
+
+.order-form-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.order-form-info-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.order-form-info-icon {
+    font-size: 24px;
+    color: #DC143C;
+}
+
+.order-form-info-item label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.order-form-info-value {
+    font-size: 16px;
+    color: #333;
+}
+
+.order-form-info-value strong {
+    color: #DC143C;
+}
+
+.order-form-total-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.order-form-items-section {
+    padding: 30px;
+}
+
+.order-form-items-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.order-form-no-items-message {
+    text-align: center;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #666;
+}
+
+/* ============================================ */
+/* RESPONSIVIDADE COMPLETA */
+/* ============================================ */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+    .order-form-container .order-form-content {
+        padding: 50px 40px;
+    }
+}
+
+/* Tablet e Mobile Grande (768px) */
+@media (max-width: 768px) {
+    .order-form-container .order-form-content {
+        padding: 40px 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .order-form-container .order-form-content section {
+        text-align: center;
+    }
+    
+    .order-form-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .order-form-add-item-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .order-form-add-item-row .product-select,
+    .order-form-add-item-row .quantity-input,
+    .order-form-add-btn {
+        width: 100%;
+        min-width: auto;
+        flex: auto;
+        max-width: none;
+    }
+    
+    .order-form-items-header,
+    .order-form-item-row,
+    .order-form-items-footer {
+        grid-template-columns: 2fr 0.8fr 0.8fr 1fr 0.8fr;
+        font-size: 12px;
+        gap: 8px;
+    }
+    
+    .order-form-product-name {
+        white-space: normal;
+        word-break: break-word;
+    }
+    
+    .order-form-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .order-form-details-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+    .order-form-container {
+        padding: 20px 12px;
+    }
+    
+    .order-form-container .order-form-content {
+        padding: 25px 16px;
+    }
+    
+    .order-form-container .order-form-content section h1 {
+        font-size: 24px;
+        margin: 20px 0 15px;
+    }
+    
+    .order-form-container .order-form-content section p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+    
+    /* CORREÇÃO ESPECÍFICA PARA SELECTS EM MOBILE */
+    .order-form-container .order-form-content form select {
+        min-height: 48px;
+        padding: 10px 32px 10px 16px;
+        font-size: 14px;
+    }
+    
+    .order-form-container .order-form-content form select option {
+        font-size: 12px;
+        padding: 10px 12px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+    
+    /* Tabela em mobile - transforma em cards */
+    .order-form-items-header {
+        display: none;
+    }
+    
+    .order-form-item-row {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        margin-bottom: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: white;
+        gap: 8px;
+    }
+    
+    .order-form-item-row > span {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 6px 0;
+        border-bottom: 1px dashed #eee;
+    }
+    
+    .order-form-item-row > span:last-child {
+        border-bottom: none;
+    }
+    
+    .order-form-item-row > span::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #666;
+        font-size: 12px;
+    }
+    
+    .order-form-items-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 15px;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    
+    .order-form-total-label {
+        text-align: right;
+        padding-right: 0;
+    }
+    
+    /* Adiciona labels aos spans da tabela */
+    .order-form-item-row .order-form-product-name::before {
+        content: "Product:";
+    }
+    
+    .order-form-item-row .order-form-quantity::before {
+        content: "Quantity:";
+    }
+    
+    .order-form-item-row .order-form-unit-price::before {
+        content: "Unit Price:";
+    }
+    
+    .order-form-item-row .order-form-subtotal::before {
+        content: "Subtotal:";
+    }
+    
+    /* Botão remove em mobile */
+    .order-form-remove-btn {
+        margin-top: 8px;
+        justify-content: flex-end;
+        min-height: 44px;
+    }
+    
+    .order-form-add-item-row .product-select select option {
+        font-size: 12px;
+        padding: 10px 12px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+}
+
+/* Mobile muito pequeno (375px) */
+@media (max-width: 375px) {
+    .order-form-container .order-form-content {
+        padding: 20px 12px;
+    }
+    
+    .order-form-container .order-form-content section h1 {
+        font-size: 20px;
+    }
+    
+    .order-form-submit-button {
+        font-size: 14px;
+        padding: 14px 16px;
+    }
+    
+    .order-form-add-btn {
+        font-size: 13px;
+        padding: 0 16px;
+    }
+}
+/* Adicione estas classes ao final do arquivo OrderForm.css */
+
+/* Hint para campos */
+.input-hint {
+    font-size: 11px;
+    color: #737380;
+    margin-top: 6px;
+    display: block;
+}
+
+/* Estilo para os grupos de formulário com label */
+.order-form-container .form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.order-form-container .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #DC143C;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+}
+
+.order-form-container .form-group label span {
+    color: #F44336;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+/* Campo de quantidade no add item */
+.order-form-add-item-row .quantity-input .form-group {
+    width: 100%;
+}
+
+.order-form-add-item-row .quantity-input .form-group input {
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 12px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.order-form-add-item-row .product-select .form-group {
+    width: 100%;
+}
+
+.order-form-add-item-row .product-select .form-group select {
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    padding: 10px 32px 10px 16px;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.3;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+}
+
+/* Empty cart message */
+.order-form-empty-cart {
+    text-align: center;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin: 20px 0;
+    color: #666;
+}
+
+.order-form-empty-cart p {
+    margin: 12px 0 4px;
+    font-weight: 500;
+}
+
+.order-form-empty-cart small {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Labels na seção de input groups do formulário principal */
+.order-form-input-group label {
+    font-weight: 600;
+    color: #DC143C;
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.order-form-input-group label span {
+    color: #F44336;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+/* Título da seção add item */
+.order-form-add-item-section h3 {
+    display: flex;
+    align-items: center;
+    color: #DC143C;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Título da lista de itens */
+.order-form-items-list h3 {
+    display: flex;
+    align-items: center;
+    color: #DC143C;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Responsivo para mobile - ajustes extras */
+@media (max-width: 768px) {
+    .order-form-add-item-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .order-form-add-item-row .product-select,
+    .order-form-add-item-row .quantity-input,
+    .order-form-add-btn {
+        width: 100%;
+        min-width: auto;
+        flex: auto;
+        max-width: none;
+    }
+    
+    .order-form-add-item-row .quantity-input .form-group input {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-form-empty-cart {
+        padding: 30px 20px;
+    }
+    
+    .order-form-empty-cart svg {
+        width: 36px;
+        height: 36px;
+    }
+}

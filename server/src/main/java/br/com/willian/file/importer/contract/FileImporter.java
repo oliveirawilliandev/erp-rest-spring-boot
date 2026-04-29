@@ -1,6 +1,6 @@
 package br.com.willian.file.importer.contract;
 
-import br.com.willian.dto.v1.EmployeesDTO;
+import br.com.willian.dto.v1.EmployeeDTO;
 
 import java.io.InputStream;
 import java.util.List;
@@ -12,8 +12,8 @@ public interface FileImporter {
      * Processa o arquivo de entrada e retorna os dados convertidos.
      *
      * @param inputStream Stream do arquivo a ser processado
-     * @return Lista de EmployeesDTO com os dados do arquivo
+     * @return Lista de EmployeeDTO com os dados do arquivo
      * @throws Exception Erro durante o processamento do arquivo
      */
-    List<EmployeesDTO> importFile(InputStream inputStream) throws Exception;
+    List<EmployeeDTO> importFile(InputStream inputStream) throws Exception;
 }

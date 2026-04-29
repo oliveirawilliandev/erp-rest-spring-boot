@@ -224,4 +224,22 @@ public class CustomEntityReponseHandler extends ResponseEntityExceptionHandler {
         );
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public final ResponseEntity<ExceptionResponse> handleBusinessException(
+            BusinessException ex,
+            WebRequest request
+    ) {
+
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(), // Timestamp
+                ex.getMessage(), // Mensagem da exceção
+                request.getDescription(false) // Detalhes da requisição
+        );
+
+        return new ResponseEntity<>(
+                response // Corpo da resposta
+                , ex.getStatus() //Status
+        );
+    }
+
 }

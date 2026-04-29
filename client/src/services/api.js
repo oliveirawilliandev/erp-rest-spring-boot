@@ -1,10 +1,38 @@
-// [API-001] Importa a biblioteca axios para fazer requisições HTTP
+// services/api.js
 import axios from 'axios';
 
-// [API-002] Cria uma instância configurada do axios
 const api = axios.create({
-     baseURL: 'http://localhost', // URL base do backend (servidor local)
+    baseURL: 'http://192.168.0.2/',
 });
 
-// [API-003] Exporta a instância configurada para ser usada em outros arquivos
+// Interceptor para adicionar token em todas as requisições
+api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('accessToken');
+        if (token && token !== 'undefined' && token !== 'null') {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Interceptor para tratar erros de autenticação
+api.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+            // Token expirado ou inválido
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = '/';
+        }
+        return Promise.reject(error);
+    }
+);
+
 export default api;

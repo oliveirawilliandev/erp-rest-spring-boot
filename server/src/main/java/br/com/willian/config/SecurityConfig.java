@@ -1,7 +1,7 @@
 package br.com.willian.config; // Pacote de configuração
 
-import br.com.willian.security.jwt.JwtTokenFilter; // Filtro JWT
-import br.com.willian.security.jwt.JwtTokenProvider; // Provedor JWT
+import br.com.willian.security.JwtTokenFilter; // Filtro JWT
+import br.com.willian.security.JwtTokenProvider; // Provedor JWT
 import org.slf4j.Logger; // Interface de logging
 import org.slf4j.LoggerFactory; // Factory para logger
 import org.springframework.beans.factory.annotation.Autowired; // Injeção de dependência
@@ -94,9 +94,13 @@ public class SecurityConfig {
                                 "/auth/signin", // Login
                                 "/auth/refresh/**", // Refresh token
                                 "/auth/createUser", // url para criação de user commum "COMMON_USER"
+                                "/api/email/v1/verify/send", // envia um email para verficar se o email informado é valido
+                                "/api/email/v1/verify/validate", // valida o codigo do email
                                 "/swagger-ui/**", // Swagger UI
                                 "/v3/api-docs/**" // OpenAPI docs
                         ).permitAll()
+                        .requestMatchers("/auth/me").authenticated()
+                        .requestMatchers("/auth/update").authenticated()
                         .requestMatchers("/api/**").hasRole("COMMON_USER") // URLs da API requerem autenticação
                         .requestMatchers("/auth/createAdmin").hasRole("CREATE_USERS") // URL createUser da API requerem autenticação para nao deixa qualquer usuario criar conta.
                         .requestMatchers("/users").denyAll() // Bloqueia acesso a /users

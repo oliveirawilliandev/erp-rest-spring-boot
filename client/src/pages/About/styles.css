@@ -1,0 +1,543 @@
+/* pages/About/styles.css - COMPLETO COM NOVOS ESTILOS */
+.about-page-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+/* HEADER - MESMO PADRÃO */
+.about-page-container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.about-page-container header img {
+    height: 50px;
+}
+
+.about-page-container header span {
+    font-size: 16px;
+    margin-left: 16px;
+    color: #555;
+    flex: 1 1 auto;
+}
+
+.about-page-container header strong {
+    color: #E67E22;
+}
+
+/* Botão de logout */
+.about-page-logout-btn {
+    height: 42px;
+    width: 42px;
+    border-radius: 6px;
+    border: 1px solid #DCDCE6;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+}
+
+.about-page-logout-btn:hover {
+    border-color: #E67E22;
+    background: #f5f5f5;
+}
+
+/* Título e botão voltar - MESMO PADRÃO */
+.about-page-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 80px;
+    margin-bottom: 24px;
+}
+
+.about-page-title-row h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.about-page-back-button {
+    display: flex;
+    align-items: center;
+    color: #E67E22;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.about-page-back-button:hover {
+    opacity: 0.7;
+}
+
+.about-page-content {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 30px;
+}
+
+/* Profile Section */
+.about-page-profile-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-page-profile-image {
+    width: 120px;
+    height: 120px;
+    background: #e8eaf6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.about-page-profile-image img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #E67E22;
+    transition: transform 0.3s;
+}
+
+.about-page-profile-image img:hover {
+    transform: scale(1.05);
+}
+
+.about-page-profile-name {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.about-page-age-location {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.about-page-age-location svg {
+    vertical-align: middle;
+}
+
+.about-page-role {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.about-page-social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.about-page-social-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: white;
+    color: #E67E22;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.about-page-social-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background: #E67E22;
+    color: white;
+}
+
+/* Info Grid */
+.about-page-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.about-page-info-card {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.about-page-info-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-page-info-card h3 {
+    margin: 15px 0 10px;
+    color: #333;
+    font-size: 18px;
+}
+
+.about-page-info-card p {
+    color: #666;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.about-page-institution {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}
+
+.about-page-experience-item, 
+.about-page-course-item {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.about-page-experience-item:last-child, 
+.about-page-course-item:last-child {
+    border-bottom: none;
+}
+
+.about-page-period {
+    display: block;
+    font-size: 12px;
+    color: #E67E22;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.about-page-exp-description {
+    font-size: 14px;
+    color: #999;
+}
+
+.about-page-instructor {
+    font-size: 14px;
+    color: #FF8C00;
+    margin-top: 5px;
+}
+
+.about-page-year {
+    font-size: 11px;
+    color: #999;
+    display: inline-block;
+    margin-top: 5px;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.about-page-version {
+    font-size: 12px;
+    color: #999;
+    margin-top: 15px;
+}
+
+/* ===== NOVA SEÇÃO: CURSOS PROFISSIONALIZANTES ===== */
+.about-page-professional-courses-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+}
+
+.about-page-professional-courses-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about-page-professional-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.about-page-professional-course-card {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.about-page-professional-course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.about-page-professional-course-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #E67E22;
+}
+
+.about-page-course-icon {
+    font-size: 40px;
+}
+
+.about-page-professional-course-title h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.about-page-professional-institution {
+    margin: 0;
+    font-size: 13px;
+    color: #E67E22;
+    font-weight: 500;
+}
+
+.about-page-professional-course-modules {
+    margin-top: 15px;
+}
+
+.about-page-modules-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.about-page-modules-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.about-page-module-tag {
+    background: #e8eaf6;
+    color: #251FC5;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.about-page-module-tag:hover {
+    background: #251FC5;
+    color: white;
+    transform: scale(1.02);
+}
+
+/* Disciplines Section */
+.about-page-disciplines-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+}
+
+.about-page-disciplines-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about-page-disciplines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.about-page-discipline-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #E67E22;
+}
+
+.about-page-discipline-card h4 {
+    color: #E67E22;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.about-page-discipline-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about-page-discipline-card li {
+    padding: 5px 0;
+    color: #666;
+    font-size: 13px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.about-page-discipline-card li:last-child {
+    border-bottom: none;
+}
+
+/* Tech Sections */
+.about-page-tech-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+}
+
+.about-page-tech-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about-page-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.about-page-tech-tag {
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.2s;
+}
+
+.about-page-tech-tag:hover {
+    transform: scale(1.05);
+}
+
+.about-page-tech-tag-backend {
+    background: #e8eaf6;
+    color: #251FC5;
+    border: 1px solid #251FC5;
+}
+
+.about-page-tech-tag-frontend {
+    background: #fff3e0;
+    color: #FF8C00;
+    border: 1px solid #FF8C00;
+}
+
+.about-page-tech-tag-devops {
+    background: #e0f2f1;
+    color: #20B2AA;
+    border: 1px solid #20B2AA;
+}
+
+/* Project Info */
+.about-page-project-info {
+    background: linear-gradient(135deg, #E67E22 0%, #D35400 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.about-page-project-info h3 {
+    margin: 15px 0 20px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.about-page-project-info p {
+    line-height: 1.8;
+    text-align: left;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-page-container {
+        padding: 0 16px;
+    }
+    
+    .about-page-content {
+        padding: 20px;
+    }
+    
+    .about-page-profile-name {
+        font-size: 24px;
+    }
+    
+    .about-page-role {
+        font-size: 16px;
+    }
+    
+    .about-page-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-page-professional-courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-page-disciplines-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-page-tech-tag {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .about-page-container header {
+        text-align: center;
+    }
+    
+    .about-page-container header span {
+        margin-left: 0;
+    }
+    
+    .about-page-professional-course-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .about-page-modules-grid {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-page-professional-course-card {
+        padding: 15px;
+    }
+    
+    .about-page-module-tag {
+        font-size: 10px;
+        padding: 4px 10px;
+    }
+}

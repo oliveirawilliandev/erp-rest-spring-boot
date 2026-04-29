@@ -9,6 +9,8 @@ public class TokenDTO {
 
     private String userName;          // Username do usuário autenticado
     private Boolean authenticated;    // Indica se a autenticação foi bem-sucedida
+    private String fullName; //Nome Completo do usuário autenticado
+    private String photoUrl;  // Foto
     private Date created;             // Data/hora de criação do token
     private Date expiration;          // Data/hora de expiração do token
     private String accessToken;       // Token JWT de acesso
@@ -25,7 +27,9 @@ public class TokenDTO {
             Date created,             // Data de criação
             Date expiration,          // Data de expiração
             String accessToken,       // JWT de acesso
-            String refreshToken       // Token de refresh
+            String refreshToken,      // Token de refresh
+            String fullName,          // nome completo
+            String photoUrl          // foto
     ) {
         this.userName = username;     // Define username
         this.authenticated = authenticated; // Define status de autenticação
@@ -33,6 +37,8 @@ public class TokenDTO {
         this.expiration = expiration; // Define data de expiração
         this.accessToken = accessToken; // Define access token
         this.refreshToken = refreshToken; // Define refresh token
+        this.fullName = fullName; // Define o nome completo
+        this.photoUrl = photoUrl; // foto
     }
 
     public Boolean getAuthenticated() {
@@ -83,28 +89,30 @@ public class TokenDTO {
         this.userName = userName; // Define username
     }
 
+    public String getFullName() {
+        return fullName;
+    }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TokenDTO tokenDTO)) return false; // Verifica tipo
-        return Objects.equals(userName, tokenDTO.userName) &&
-                Objects.equals(authenticated, tokenDTO.authenticated) &&
-                Objects.equals(created, tokenDTO.created) &&
-                Objects.equals(expiration, tokenDTO.expiration) &&
-                Objects.equals(accessToken, tokenDTO.accessToken) &&
-                Objects.equals(refreshToken, tokenDTO.refreshToken) ;
+        if (!(o instanceof TokenDTO tokenDTO)) return false;
+        return Objects.equals(userName, tokenDTO.userName) && Objects.equals(authenticated, tokenDTO.authenticated) && Objects.equals(fullName, tokenDTO.fullName) && Objects.equals(photoUrl, tokenDTO.photoUrl) && Objects.equals(created, tokenDTO.created) && Objects.equals(expiration, tokenDTO.expiration) && Objects.equals(accessToken, tokenDTO.accessToken) && Objects.equals(refreshToken, tokenDTO.refreshToken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                userName,
-                authenticated,
-                created,
-                expiration,
-                accessToken,
-                refreshToken
-        ); // Gera hash consistente com equals
+        return Objects.hash(userName, authenticated, fullName, photoUrl, created, expiration, accessToken, refreshToken);
     }
 }

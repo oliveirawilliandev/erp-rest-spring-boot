@@ -1,8 +1,7 @@
 package br.com.willian.file.importer.impl; // Pacote da implementação de importadores
 
-import br.com.willian.dto.v1.EmployeesDTO; // DTO de funcionários
+import br.com.willian.dto.v1.EmployeeDTO;
 import br.com.willian.file.importer.contract.FileImporter; // Contrato para importadores
-import br.com.willian.model.enums.Gender; // Enum de gêneros válidos
 import org.apache.poi.ss.usermodel.Row; // Linha do Excel
 import org.apache.poi.xssf.usermodel.XSSFSheet; // Aba do Excel
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; // Workbook Excel
@@ -26,7 +25,7 @@ public class XlsxImporter extends AbstractFileImporter implements FileImporter {
     // [EMP-IMPORTER-XLSX-015]
     // Importa dados de um arquivo XLSX
     @Override // Sobrescreve método da interface
-    public List<EmployeesDTO> importFile(InputStream inputStream) throws Exception {
+    public List<EmployeeDTO> importFile(InputStream inputStream) throws Exception {
 
         logger.info("[EMP-IMPORTER-XLSX-015] Importação XLSX iniciada"); // Log de início
 
@@ -69,7 +68,7 @@ public class XlsxImporter extends AbstractFileImporter implements FileImporter {
             }
 
             // Processa linhas
-            List<EmployeesDTO> result = parseRowsToEmployeesDtoList(rowIterator, headerRow); // processa linhas
+            List<EmployeeDTO> result = parseRowsToEmployeesDtoList(rowIterator, headerRow); // processa linhas
 
             long endTime = System.currentTimeMillis(); // Finaliza contagem
             long duration = endTime - startTime; // Calcula duração
@@ -86,11 +85,11 @@ public class XlsxImporter extends AbstractFileImporter implements FileImporter {
 
     // [EMP-IMPORTER-XLSX-016]
     // Converte todas as linhas validas em DTOs
-    private List<EmployeesDTO> parseRowsToEmployeesDtoList(Iterator<Row> rowIterator, Row headerRow) throws ParseException {
+    private List<EmployeeDTO> parseRowsToEmployeesDtoList(Iterator<Row> rowIterator, Row headerRow) throws ParseException {
 
         logger.debug("[EMP-IMPORTER-XLSX-016] Iniciando conversão de linhas para DTOs"); // Log de início
 
-        List<EmployeesDTO> employeesDTOS = new ArrayList<>(); // Lista de DTOs
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>(); // Lista de DTOs
         int linhaAtual = 1; // Contador de linhas (cabeçalho é linha 0)
         int registrosProcessados = 0; // Contador de registros processados
         int errosEncontrados = 0; // Contador de erros
@@ -103,8 +102,8 @@ public class XlsxImporter extends AbstractFileImporter implements FileImporter {
                 if (isRowValid(row)) { // metodo da classe pai: verifica se linha tem dados
                     logger.debug("[EMP-IMPORTER-XLSX-016] Processando linha {}", linhaAtual); // Log da linha
 
-                    EmployeesDTO dto = parseRowsToEmployeesDto(row, headerRow); // Converte linha para DTO
-                    employeesDTOS.add(dto); // Adiciona à lista
+                    EmployeeDTO dto = parseRowsToEmployeesDto(row, headerRow); // Converte linha para DTO
+                    employeeDTOS.add(dto); // Adiciona à lista
                     registrosProcessados++; // Incrementa contador de sucesso
 
                     logger.debug("[EMP-IMPORTER-XLSX-016] Linha {} processada com sucesso | email={}",
@@ -133,16 +132,16 @@ public class XlsxImporter extends AbstractFileImporter implements FileImporter {
                     registrosProcessados, errosEncontrados); // Log de aviso
         }
 
-        return employeesDTOS; // Retorna lista de DTOs
+        return employeeDTOS; // Retorna lista de DTOs
     }
 
     // [EMP-IMPORTER-XLSX-017]
-    // Converte uma linha do Excel para EmployeesDTO
-    private EmployeesDTO parseRowsToEmployeesDto(Row row, Row headerRow) throws ParseException {
+    // Converte uma linha do Excel para EmployeeDTO
+    private EmployeeDTO parseRowsToEmployeesDto(Row row, Row headerRow) throws ParseException {
 
         logger.debug("[EMP-IMPORTER-XLSX-017] Convertendo linha para DTO | row={}", row.getRowNum()); // Log da conversão
 
-        EmployeesDTO employees = new EmployeesDTO(); // Cria novo DTO
+        EmployeeDTO employees = new EmployeeDTO(); // Cria novo DTO
 
         // Descobre se a primeira coluna é ID olhando o cabeçalho
         String primeiraColuna = formatter.formatCellValue(headerRow.getCell(0)).toLowerCase(); // Valor da primeira célula

@@ -1,61 +1,77 @@
-/* [CSS-001] Importa a fonte Roboto do Google Fonts (vários pesos e estilos) */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* global.css - Estilos globais para mobile */
 
-/* [CSS-002] Reset CSS - remove margens/paddings padrão e define box-sizing */
+/* Reset e box-sizing consistente */
 * {
-    margin: 0; /* Remove margem padrão */
-    padding: 0; /* Remove padding padrão */
-    outline: 0; /* Remove outline padrão */
-    box-sizing: border-box; /* Inclui bordas e paddings no tamanho total */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* [CSS-003] Estilos globais do corpo da página */
+/* Melhorias de touch para mobile */
+button, 
+a, 
+[role="button"],
+input[type="submit"],
+input[type="button"] {
+    touch-action: manipulation;
+    cursor: pointer;
+}
+
+/* Botões maiores para touch */
+@media (max-width: 768px) {
+    button,
+    .button,
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Espaçamento para inputs em mobile */
+    input,
+    select,
+    textarea {
+        font-size: 16px !important; /* Previne zoom automático no iOS */
+    }
+    
+    /* Melhor rolagem */
+    html {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Previne seleção acidental */
+    .no-select {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+    }
+}
+
+/* Loading melhor para mobile */
+@media (max-width: 768px) {
+    .loading-spinner,
+    .skeleton-loader {
+        width: 100%;
+    }
+}
+
+/* Scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Previne overflow horizontal */
 body {
-    font: 400 14px Roboto, sans-serif; /* Fonte padrão: Roboto, fallback sans-serif */
-    background: #F0f0F5; /* Cor de fundo cinza claro */
-    -webkit-font-smoothing: antialiased; /* Suaviza fontes no WebKit (Chrome/Safari) */
+    overflow-x: hidden;
+    background: #f0f2f5;
+    width: 100%;
+    position: relative;
 }
 
-/* [CSS-004] Estilos para campos de formulário */
-input, button, textarea {
-    font: 400 18px Roboto, sans-serif; /* Fonte maior para campos interativos */
-}
-
-/* [CSS-005] Estilo para botões (cursor pointer) */
-button {
-    cursor: pointer; /* Muda cursor para mão ao passar sobre botões */
-}
-
-/* [CSS-006] Estilo para inputs de formulário */
-form input {
-    width: 100%; /* Largura total do container */
-    height: 60px; /* Altura fixa */
-    color: #333333; /* Cor do texto cinza escuro */
-    border: 1px solid #dcdce6; /* Borda cinza claro */
-    border-radius: 8px; /* Cantos arredondados */
-    padding: 0 24px; /* Padding horizontal */
-    margin-top: 16px; /* Espaçamento superior */
-}
-
-/* [CSS-007] Estilo para botões primários */
-.button { 
-    width: 100%; /* Largura total */
-    height: 60px; /* Altura fixa */
-    background: #251fc5; /* Cor de fundo azul */
-    border: 0; /* Remove borda */
-    border-radius: 8px; /* Cantos arredondados */
-    color: #FFF; /* Texto branco */
-    font-weight: 700; /* Negrito */
-    margin-top: 16px; /* Espaçamento superior */
-    display: inline-block; /* Exibe como bloco inline */
-    text-align: center; /* Centraliza texto */
-    text-decoration: nome; /* Corrigir: provavelmente "none" */
-    font-size: 18px; /* Tamanho da fonte */
-    line-height: 60px; /* Altura da linha igual à altura do botão */
-    transition: filter 0.2s; /* Transição suave para efeito hover */
-}
-
-/* [CSS-008] Efeito hover para botões primários */
-.button:hover {
-    filter: brightness(80%); /* Escurece o botão ao passar o mouse */
+/* Melhora acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

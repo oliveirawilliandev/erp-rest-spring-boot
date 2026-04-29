@@ -1,0 +1,417 @@
+/* pages/Products/styles.css - IGUAL AO CUSTOMER */
+.product-page-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+/* HEADER */
+.product-page-container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.product-page-container header img {
+    height: 50px;
+}
+
+.product-page-container header span {
+    font-size: 16px;
+    margin-left: 16px;
+    color: #555;
+    flex: 1 1 auto;
+}
+
+.product-page-container header strong {
+    color: #FF8C00;
+}
+
+/* Botão Add New Product - COR #FF8C00 */
+.product-page-add-button {
+    width: auto;
+    min-width: 160px;
+    padding: 0 20px;
+    height: 42px;
+    line-height: 42px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    background: #FF8C00;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
+.product-page-add-button:hover {
+    background: #e07e00;
+    transform: translateY(-1px);
+    color: #FFF;
+}
+
+/* Botão de logout */
+.product-page-logout-btn {
+    height: 42px;
+    width: 42px;
+    border-radius: 6px;
+    border: 1px solid #DCDCE6;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+}
+
+.product-page-logout-btn:hover {
+    border-color: #FF8C00;
+    background: #f5f5f5;
+}
+
+/* Título e botão voltar */
+.product-page-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 80px;
+    margin-bottom: 24px;
+}
+
+.product-page-title-row h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.product-page-back-button {
+    display: flex;
+    align-items: center;
+    color: #FF8C00;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.product-page-back-button:hover {
+    opacity: 0.7;
+}
+
+/* Barra de pesquisa */
+.product-page-search-section {
+    margin-bottom: 24px;
+}
+
+.product-page-search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.product-page-search-type-select {
+    width: 180px;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.product-page-search-form input {
+    flex: 1 1 auto;
+    min-width: 250px;
+    height: 48px;
+    margin-top: 0;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Botão Search - COR #FF8C00 */
+.product-page-search-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #FF8C00;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.product-page-search-btn:hover {
+    background: #e07e00;
+    transform: translateY(-1px);
+}
+
+/* Botão Clear */
+.product-page-clear-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #737380;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.product-page-clear-btn:hover {
+    background: #5a5a6e;
+}
+
+/* Lista de produtos - GRID */
+.product-page-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+}
+
+.product-page-container ul li {
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-page-container ul li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho do produto */
+.product-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #DCDCE6;
+}
+
+.product-page-code {
+    font-size: 14px;
+    color: #FF8C00;
+    background: #FFF3E0;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.product-page-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.product-page-status.active {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+.product-page-status.inactive {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+/* Campos do produto */
+.product-page-container ul li strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #41414D;
+    font-size: 14px;
+}
+
+.product-page-container ul li p {
+    color: #737380;
+    line-height: 21px;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.product-page-container ul li p.description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+/* Preço e estoque */
+.product-page-price-stock {
+    display: flex;
+    gap: 24px;
+    margin: 16px 0;
+    padding: 12px 0;
+    border-top: 1px solid #F0F0F5;
+    border-bottom: 1px solid #F0F0F5;
+}
+
+.product-page-price-stock div {
+    flex: 1 1 auto;
+}
+
+.product-page-price {
+    color: #2E8B57;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.product-page-low-stock {
+    color: #FF4444;
+    font-weight: bold;
+}
+
+/* Botões de ação */
+.product-page-action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: flex-end;
+}
+
+.product-page-action-buttons button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.product-page-action-buttons button:hover {
+    background: #F0F0F5;
+}
+
+/* Botão Load More - COR #FF8C00 */
+.product-page-load-more {
+    width: 200px;
+    margin: 30px auto 0;
+    display: block;
+    text-align: center;
+    background: #FF8C00;
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.product-page-load-more:hover {
+    background: #e07e00;
+    transform: translateY(-1px);
+}
+
+/* Mensagem sem resultados */
+.product-page-no-results {
+    text-align: center;
+    margin-top: 48px;
+    color: #737380;
+    font-size: 18px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .product-page-container {
+        padding: 0 16px;
+    }
+    
+    .product-page-container ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-page-search-form {
+        flex-direction: column;
+    }
+    
+    .product-page-search-type-select,
+    .product-page-search-form input,
+    .product-page-search-btn,
+    .product-page-clear-btn {
+        width: 100%;
+    }
+    
+    .product-page-price-stock {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    /* HEADER MOBILE - PADRÃO CUSTOMERS */
+    .product-page-container header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        text-align: left;
+    }
+    
+    /* PRIMEIRA LINHA: Welcome, WILLIAN! */
+    .product-page-container header span {
+        order: 1;
+        width: 100%;
+        text-align: left;
+        font-size: 12px;
+        margin: 5px 0;
+    }
+    
+    .product-page-container header span strong {
+        font-size: 12px;
+        display: inline;
+    }
+    
+    /* LOGO - SEGUNDA LINHA, ESQUERDA */
+    .product-page-container header img {
+        order: 2;
+        height: 40px;
+    }
+    
+    /* ADD BUTTON - SEGUNDA LINHA */
+    .product-page-add-button {
+        order: 3;
+        flex: 1;
+        height: 38px;
+        font-size: 11px;
+        padding: 0 8px;
+        margin: 0;
+        width: auto;
+        min-width: auto;
+    }
+    
+    /* LOGOUT - SEGUNDA LINHA, DIREITA */
+    .product-page-logout-btn {
+        order: 4;
+        width: 38px;
+        height: 38px;
+        margin: 0;
+    }
+}

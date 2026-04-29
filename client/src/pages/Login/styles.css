@@ -1,35 +1,144 @@
-/* [LOGIN-CSS-001] Container principal da tela de login */
-.login-container {
-    width: 100%; /* Largura total do container */
-    max-width: 1120px; /* Largura máxima para telas grandes */
-    height: 100vh; /* Altura total da viewport */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    display: flex; /* Layout flexível */
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: space-between; /* Espaço entre elementos (form e imagem) */
+/* pages/Login/styles.css - VERSÃO SEM CONFLITOS */
+.login-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f2f5;
+    padding: 20px;
 }
 
-/* [LOGIN-CSS-002] Seção do formulário de login */
-.login-container section.form {
-    width: 100%; /* Largura total do container */
-    max-width: 350px; /* Largura máxima do formulário */
-    margin-right: 30px; /* Espaçamento à direita (separação da imagem) */
+.login-page-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
 }
 
-/* [LOGIN-CSS-003] Estilo da logo na seção do formulário */
-.login-container section.form img {
-    width: 120%; /* Largura proporcional ao container */
-    margin-left: auto; /* Margem automática esquerda */
-    margin-right: auto; /* Margem automática direita (centraliza) */
-    display: block; /* Exibe como bloco (permite centralização) */
+.login-page-logo-container {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-/* [LOGIN-CSS-004] Estilo do formulário */
-.login-container section.form form {
-    margin-top: 0px; /* Espaçamento superior (afasta do logo) */
+.login-page-logo-image {
+    max-width: 180px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: inline-block;
 }
 
-/* [LOGIN-CSS-005] Estilo do título do formulário */
-.login-container section.form form h1 {
-    font-size: 32px; /* Tamanho da fonte do título */
+.login-page-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.login-page-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.login-page-input:focus {
+    outline: none;
+    border-color: #2E8B57;
+}
+
+.login-page-input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.login-page-button {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(135deg, #2E8B57 0%, #236B43 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-page-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #236B43 0%, #1a5233 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-page-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.login-page-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.login-page-create-account {
+    margin-top: 20px;
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.login-page-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.login-page-link:hover {
+    color: #2E8B57;
+}
+
+.login-page-link-highlight {
+    color: #2E8B57;
+    font-weight: 600;
+}
+
+.login-page-link:hover .login-page-link-highlight {
+    text-decoration: underline;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .login-page-card {
+        padding: 30px 20px;
+    }
+    
+    .login-page-logo-image {
+        max-width: 150px;
+    }
+    
+    .login-page-title {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+    
+    .login-page-input {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .login-page-button {
+        height: 44px;
+        font-size: 16px;
+    }
 }

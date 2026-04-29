@@ -1,5 +1,7 @@
 package br.com.willian.model;
 
+import java.util.Objects;
+
 public class PurchaseMock {
 
     private String productName;
@@ -39,5 +41,16 @@ public class PurchaseMock {
 
     public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PurchaseMock that)) return false;
+        return Objects.equals(productName, that.productName) && Objects.equals(quantity, that.quantity) && Objects.equals(unitPrice, that.unitPrice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productName, quantity, unitPrice);
     }
 }

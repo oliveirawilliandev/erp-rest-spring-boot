@@ -1,94 +1,105 @@
-// [LOGIN-001] Importa React e hook useState para gerenciamento de estado
+// pages/Login/index.js
 import React, { useState } from 'react';
-
-// [LOGIN-002] Importa hook useNavigate para navegação programática
-import { useNavigate } from 'react-router-dom';
-
-// [LOGIN-003] Importa estilos específicos do componente
+import { useNavigate, Link } from 'react-router-dom';
 import './styles.css';
-
-// [LOGIN-004] Importa instância do axios configurada (API)
 import api from '../../services/api';
+import logoImage from '../../assets/logoerp.png';
 
-// [LOGIN-005] Importa logo da aplicação
-import logoImage from '../../assets/logo.png';
-
-// [LOGIN-006] Importa ícone de cadeado
-import padlock from '../../assets/padlock.png';
-
-// [LOGIN-007] Componente de tela de login
 export default function Login() {
-
-    // [LOGIN-008] Estado para armazenar nome de usuário
     const [userName, setUserName] = useState('');
-    
-    // [LOGIN-009] Estado para armazenar senha
     const [password, setPassword] = useState('');
-    
-    // [LOGIN-010] Hook para redirecionamento após login
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    // [LOGIN-011] Função assíncrona para fazer login
-    async function login(e) {
-        e.preventDefault(); // [LOGIN-012] Previne comportamento padrão do formulário (recarregar página)
+    // Função para tratar a mudança do username
+    const handleUserNameChange = (e) => {
+        // Converte para minúsculas automaticamente
+        const value = e.target.value.toLowerCase();
+        // Opcional: remove caracteres especiais (apenas letras, números e underscore)
+        // const cleanedValue = value.toLowerCase().replace(/[^a-z0-9_]/g, '');
+        setUserName(value);
+    };
 
-        // [LOGIN-013] Monta objeto com os dados do formulário
-        const data = { userName, password };
+    async function login(e) {
+        e.preventDefault();
+
+        if (!userName || !password) {
+            alert("Please enter username and password!");
+            return;
+        }
+
+        setLoading(true);
+        
+        // Garantir que o username está em minúsculas antes de enviar
+        const data = { 
+            userName: userName.toLowerCase(), // Garantia extra
+            password 
+        };
 
         try {
-            // [LOGIN-014] Faz requisição POST para endpoint de autenticação
             const response = await api.post('auth/signin', data);
-            
-            // [LOGIN-015] Salva nome de usuário no localStorage
-            localStorage.setItem('userName', userName);
-            
-            // [LOGIN-016] Salva token de acesso no localStorage
+
+            console.log('Resposta do login:', response.data); // DEBUG
+
+            // Salva todos os dados no localStorage
+            localStorage.setItem('userName', data.userName); // Usa o username em minúsculas
+            localStorage.setItem('fullName', response.data.fullName);
             localStorage.setItem('accessToken', response.data.accessToken);
-            
-            // [LOGIN-017] Redireciona para tela de livros após login bem-sucedido
-            navigate('/books');
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            localStorage.setItem('photoUrl', response.data.photoUrl);
+
+            console.log('PhotoUrl salva:', response.data.photoUrl); // DEBUG
+
+            navigate('/dashboard');
         } catch (err) {
-            // [LOGIN-018] Log do erro no console (para debug)
             console.error(err.response || err);
-            
-            // [LOGIN-019] Alerta de erro para o usuário
-            alert("Login Failed! Try again!");
+            const message = err.response?.data?.message || "Login Failed! Try again!";
+            alert(message);
+        } finally {
+            setLoading(false);
         }
     }
 
-    // [LOGIN-020] Renderiza o formulário de login
     return (
-        <div className="login-container">
-            <section className="form">
-                {/* [LOGIN-021] Logo da aplicação */}
-                <img src={logoImage} alt="Erudio Logo" />
+        <div className="login-page-container">
+            <div className="login-page-card">
+                <div className="login-page-logo-container">
+                    <img src={logoImage} alt="ERP Logo" className="login-page-logo-image" />
+                </div>
                 
-                {/* [LOGIN-022] Formulário com submit handler */}
-                <form onSubmit={login}>
-                    <h1>Access your account</h1>
-                    
-                    {/* [LOGIN-023] Campo de nome de usuário (controlled component) */}
+                <form onSubmit={login} className="login-page-form">
+                    <h1 className="login-page-title">Access your account</h1>
+
                     <input
+                        className="login-page-input"
                         placeholder="Username"
                         value={userName}
-                        onChange={e => setUserName(e.target.value)}
+                        onChange={handleUserNameChange}
+                        disabled={loading}
+                        autoComplete="username"
                     />
-                    
-                    {/* [LOGIN-024] Campo de senha (controlled component) */}
+
                     <input
+                        className="login-page-input"
                         type="password"
                         placeholder="Password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
+                        disabled={loading}
+                        autoComplete="current-password"
                     />
-                    
-                    {/* [LOGIN-025] Botão de submit do formulário */}
-                    <button className="button" type="submit">Login</button>
+
+                    <button className="login-page-button" type="submit" disabled={loading}>
+                        {loading ? 'Loading...' : 'Login'}
+                    </button>
+
+                    <div className="login-page-create-account">
+                        <Link to="/create-user" className="login-page-link">
+                            Don't have an account? <span className="login-page-link-highlight">Create one</span>
+                        </Link>
+                    </div>
                 </form>
-            </section>
-            
-            {/* [LOGIN-026] Imagem decorativa (cadeado) */}
-            <img src={padlock} alt="Login" />
+            </div>
         </div>
     );
 }

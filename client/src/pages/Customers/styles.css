@@ -1,0 +1,501 @@
+/* pages/Customers/styles.css - MESMO ESTILO DO EMPLOYEE */
+.customer-page-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+/* HEADER */
+.customer-page-container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.customer-page-container header img {
+    height: 50px;
+}
+
+.customer-page-container header span {
+    font-size: 16px;
+    margin-left: 16px;
+    color: #555;
+    flex: 1 1 auto;
+}
+
+.customer-page-container header strong {
+    color: #251FC5;
+}
+
+/* Botão Add New Customer */
+.customer-page-add-button {
+    width: auto;
+    min-width: 160px;
+    padding: 0 20px;
+    height: 42px;
+    line-height: 42px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    background: #251FC5;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+
+.customer-page-add-button:hover {
+    background: #1a1796;
+    transform: translateY(-1px);
+    color: #FFF;
+}
+
+/* Botão de logout */
+.customer-page-logout-btn {
+    height: 42px;
+    width: 42px;
+    border-radius: 6px;
+    border: 1px solid #DCDCE6;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    cursor: pointer;
+}
+
+.customer-page-logout-btn:hover {
+    border-color: #251FC5;
+    background: #f5f5f5;
+}
+
+/* Título e botão voltar */
+.customer-page-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 80px;
+    margin-bottom: 24px;
+}
+
+.customer-page-title-row h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.customer-page-back-button {
+    display: flex;
+    align-items: center;
+    color: #251FC5;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.customer-page-back-button:hover {
+    opacity: 0.7;
+}
+
+/* Search Section */
+.customer-page-search-section {
+    margin-bottom: 24px;
+}
+
+.customer-page-search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.customer-page-search-type-select {
+    width: 180px;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.customer-page-search-form input {
+    flex: 1 1 auto;
+    min-width: 250px;
+    height: 48px;
+    margin-top: 0;
+    padding: 0 16px;
+    border: 1px solid #DCDCE6;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Botão Search */
+.customer-page-search-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #251FC5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.customer-page-search-btn:hover {
+    background: #1a1796;
+    transform: translateY(-1px);
+}
+
+/* Botão Clear */
+.customer-page-clear-btn {
+    width: auto;
+    padding: 0 24px;
+    height: 48px;
+    margin-top: 0;
+    background: #737380;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.customer-page-clear-btn:hover {
+    background: #5a5a6e;
+}
+
+/* Lista de clientes - GRID */
+.customer-page-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+}
+
+.customer-page-container ul li {
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.customer-page-container ul li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho do cliente */
+.customer-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #DCDCE6;
+}
+
+.customer-page-code {
+    font-size: 14px;
+    color: #251FC5;
+    background: #E8EEF9;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.customer-page-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.customer-page-status.active {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+.customer-page-status.inactive {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+/* Nome */
+.customer-page-name {
+    margin-bottom: 16px;
+}
+
+.customer-page-name strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #41414D;
+    font-size: 12px;
+}
+
+.customer-page-name p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #251FC5;
+    margin: 0;
+}
+
+/* Contato */
+.customer-page-contact {
+    background: #F8F8F8;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    
+}
+
+.customer-page-contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.customer-page-contact-item svg {
+    color: #251FC5;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.customer-page-contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.customer-page-contact-item svg {
+    color: #251FC5;
+    min-width: 14px;
+}
+
+.customer-page-contact-item strong {
+    font-size: 12px;
+    color: #41414D;
+    min-width: 45px;
+}
+
+.customer-page-contact-item p {
+    margin: 0;
+    color: #737380;
+    font-size: 14px;
+}
+
+/* Informações Gerais */
+.customer-page-info {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #F0F0F5;
+}
+
+.customer-page-info div {
+    flex: 1;
+}
+
+.customer-page-info strong {
+    display: block;
+    font-size: 11px;
+    color: #41414D;
+    margin-bottom: 4px;
+}
+
+.customer-page-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #737380;
+}
+
+/* Endereço */
+.customer-page-address {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #FFF8E1;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.customer-page-address svg {
+    color: #FFC107;
+    min-width: 14px;
+}
+
+.customer-page-address strong {
+    font-size: 13px;
+    color: #41414D;
+}
+
+.customer-page-address p {
+    margin: 0;
+    font-size: 12px;
+    color: #737380;
+}
+
+/* Botões de ação */
+.customer-page-action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: flex-end;
+    border-top: 1px solid #F0F0F5;
+    padding-top: 16px;
+}
+
+.customer-page-action-buttons button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.customer-page-action-buttons button:hover {
+    background: #F0F0F5;
+}
+
+/* Botão Load More */
+.customer-page-load-more {
+    width: 200px;
+    margin: 30px auto 0;
+    display: block;
+    text-align: center;
+    background: #251FC5;
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.customer-page-load-more:hover {
+    background: #1a1796;
+    transform: translateY(-1px);
+}
+
+/* Mensagem sem resultados */
+.customer-page-no-results {
+    text-align: center;
+    margin-top: 48px;
+    color: #737380;
+    font-size: 18px;
+}
+
+/* Resultado de busca única */
+.customer-page-single-result {
+    margin-top: 24px;
+}
+
+.customer-page-single-result h3 {
+    margin-bottom: 16px;
+    color: #251FC5;
+}
+
+.customer-page-single-result-list {
+    display: block;
+}
+
+.customer-page-single-result-list li {
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .customer-page-container {
+        padding: 0 16px;
+    }
+    
+    .customer-page-container ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .customer-page-search-form {
+        flex-direction: column;
+    }
+    
+    .customer-page-search-type-select,
+    .customer-page-search-form input,
+    .customer-page-search-btn,
+    .customer-page-clear-btn {
+        width: 100%;
+    }
+    
+    .customer-page-info {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    /* HEADER MOBILE */
+    .customer-page-container header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    
+    .customer-page-container header span {
+        order: 1;
+        width: 100%;
+        text-align: left;
+        font-size: 12px;
+        margin: 5px 0;
+    }
+    
+    .customer-page-container header span strong {
+        font-size: 12px;
+        display: inline;
+    }
+    
+    .customer-page-container header img {
+        order: 2;
+        height: 40px;
+    }
+    
+    .customer-page-add-button {
+        order: 3;
+        flex: 1;
+        height: 38px;
+        font-size: 11px;
+        padding: 0 8px;
+        margin: 0;
+        width: auto;
+        min-width: auto;
+    }
+    
+    .customer-page-logout-btn {
+        order: 4;
+        width: 38px;
+        height: 38px;
+        margin: 0;
+    }
+}
