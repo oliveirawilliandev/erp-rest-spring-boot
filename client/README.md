@@ -190,22 +190,22 @@ client/
 │   ├── components/
 │   │   └── AuthContext.js      # Context de autenticação
 │   │
-│   ├── pages/
-│   │   ├── Login/              # Página de login
-│   │   ├── Dashboard/          # Dashboard principal
-│   │   ├── Customers/          # Gestão de clientes
-│   │   ├── Products/           # Gestão de produtos
-│   │   ├── Employees/          # Gestão de funcionários
-│   │   ├── Suppliers/          # Gestão de fornecedores
-│   │   ├── Ingredients/        # Gestão de ingredientes
-│   │   ├── Orders/             # Gestão de pedidos
-│   │   ├── Purchases/          # Gestão de compras
-│   │   ├── Reports/            # Relatórios
-│   │   ├── Profile/            # Perfil do usuário
-│   │   ├── About/              # Informações
-│   │   └── CreateUser/         # Criar novo usuário
-│   │
-│   └── styles/                 # Estilos CSS adicionais
+│   └── pages/
+│       ├── Login/              # Página de login
+│       ├── Dashboard/          # Dashboard principal
+│       ├── Customers/          # Gestão de clientes
+│       ├── Products/           # Gestão de produtos
+│       ├── Employees/          # Gestão de funcionários
+│       ├── Suppliers/          # Gestão de fornecedores
+│       ├── Ingredients/        # Gestão de ingredientes
+│       ├── Orders/             # Gestão de pedidos
+│       ├── Purchases/          # Gestão de compras
+│       ├── Reports/            # Relatórios
+│       ├── Profile/            # Perfil do usuário
+│       ├── About/              # Informações
+│       └── CreateUser/         # Criar novo usuário
+│   
+│   
 │
 ├── package.json                # Dependências npm
 ├── .env                        # Variáveis de ambiente (gitignored)
