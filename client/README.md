@@ -11,6 +11,7 @@ Frontend da aplicação ERP desenvolvido com **React 18**, responsável pela int
 
 🌐 Projeto ERP Online: [willianoliveiradev.com.br/erp](http://willianoliveiradev.com.br/erp/)
 
+---
 ## 📋 Índice
 
 - [Visão Geral](#visão-geral)
