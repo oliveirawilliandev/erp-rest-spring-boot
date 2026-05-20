@@ -13,10 +13,10 @@ Um sistema ERP (Enterprise Resource Planning) moderno e escalável desenvolvido 
 
 ## 📋 Índice
 
-- [Visão Geral](#visão-geral)
+- [Visão Geral](#visao-geral)
 - [Arquitetura](#arquitetura)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Pré-requisitos](#pré-requisitos)
+- [Pré-requisitos](#pre-requisitos)
 - [Instalação](#instalação)
 - [Configuração](#configuração)
 - [Como Usar](#como-usar)
@@ -404,7 +404,7 @@ erp-rest-spring-boot/
 Após iniciar o servidor, acesse:
 
 ```
-http://localhost:8080/swagger-ui.index.html
+http://localhost:8080/swagger-ui/index.html
 ```
 
 ### Acessar OpenAPI JSON
