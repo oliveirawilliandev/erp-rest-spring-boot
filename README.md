@@ -13,6 +13,8 @@ Um sistema ERP (Enterprise Resource Planning) moderno e escalável desenvolvido 
 
 🌐 Projeto ERP Online: [willianoliveiradev.com.br/erp](http://willianoliveiradev.com.br/erp/)
 
+---
+
 ## 📋 Índice
 
 - [Visão Geral](#visão-geral)
