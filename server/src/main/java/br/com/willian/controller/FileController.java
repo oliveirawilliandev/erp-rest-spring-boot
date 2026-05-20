@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest; // Interface para acessar dados 
 import org.slf4j.Logger; // Interface de logging SLF4J
 import org.slf4j.LoggerFactory; // Factory para criação de loggers
 import org.springframework.beans.factory.annotation.Autowired; // Injeção de dependência
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource; // Representação de recurso para download
 import org.springframework.http.HttpHeaders; // Constantes para cabeçalhos HTTP
 import org.springframework.http.MediaType; // Constantes para tipos de mídia
@@ -32,6 +33,9 @@ public class FileController implements FileControllerDocs { // Implementa a inte
 
     @Autowired // Injeta dependência do serviço de armazenamento
     private UserService userService; // Serviço para operações com arquivos
+
+    @Value("${app.context-path-photo:}")  // Pega a variável de ambiente de foto
+    private String contextPathPhoto;   // Se vazio, fica com string vazil
 
     //[CTRL-TRACE: FILE-CTRL-001]: Endpoint responsável por realizar o upload de um único arquivo
     @PostMapping( // Mapeia requisições POST
@@ -180,9 +184,12 @@ public class FileController implements FileControllerDocs { // Implementa a inte
 
         var photoUrl = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
+                .path(contextPathPhoto)
                 .path("/api/file/v1/downloadUserPhoto/")  // Mudado para o endpoint correto de fotos
                 .path(fileName)
-                .toUriString();
+                .toUriString()
+                .replace("http://", "https://");
+
 
         userService.updateUserPhoto(id, photoUrl);
 

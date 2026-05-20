@@ -217,7 +217,7 @@ public class EmailSender implements Serializable { // Implementa Serializable
 
           <div style="margin-bottom: 15px;">
             📧 <a href="mailto:oliveira.willian.dev@gmail.com" style="text-decoration: none; color: #333;">oliveira.willian.dev@gmail.com</a><br>
-            🌐 <a href="https://www.erpoliveira.com" target="_blank" style="text-decoration: none; color: #333;">www.erpoliveira.com</a><br>
+            🌐 <a href="https://willianoliveiradev.com.br" target="_blank" style="text-decoration: none; color: #333;">www.willianoliveiradev.com.br</a><br>
             📍 Brasil
           </div>
 

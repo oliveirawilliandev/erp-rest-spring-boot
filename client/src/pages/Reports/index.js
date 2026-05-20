@@ -26,7 +26,7 @@ export default function Reports() {
     const [filterDirection, setFilterDirection] = useState('asc');
     const [actionType, setActionType] = useState(null);
 
-  const API_BASE_URL = api.defaults.baseURL || 'http://192.168.0.2/';
+  const API_BASE_URL = '/server/';
     
     const navigate = useNavigate();
     const fullName = localStorage.getItem('fullName');

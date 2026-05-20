@@ -12,27 +12,27 @@
 	<field name="cpf" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="cpf"/>
 		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
 	</field>
 	<field name="state" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="state"/>
 		<property name="com.jaspersoft.studio.field.label" value="state"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
 	</field>
 	<field name="jobTitle" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="jobtitle"/>
 		<property name="com.jaspersoft.studio.field.label" value="jobtitle"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
 	</field>
 	<field name="department" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="department"/>
 		<property name="com.jaspersoft.studio.field.label" value="department"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
 	</field>
 	<field name="photoUrl" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="photourl"/>
 		<property name="com.jaspersoft.studio.field.label" value="photourl"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
 	</field>
 	<field name="qrCode" class="java.lang.String"/>
 	<field name="items" class="java.util.List"/>

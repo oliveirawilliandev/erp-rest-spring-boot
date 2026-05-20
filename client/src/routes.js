@@ -48,11 +48,9 @@ import CreateUser from './pages/CreateUser';
 // Profille
 import Profile from './pages/Profile';
 
-
-
 export default function AppRoutes() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/erp">   {/* ← ADICIONE ESTA LINHA AQUI */}
             <Routes>
                 {/* Rotas públicas */}
                 <Route path="/" element={<Login />} />
@@ -96,7 +94,8 @@ export default function AppRoutes() {
 
                 {/*Criar User*/}              
                 <Route path="/create-user" element={<CreateUser />} />
-                {/*Criar User*/}              
+                
+                {/*Profile*/}              
                 <Route path="/profile" element={<Profile />} />
             </Routes>
         </BrowserRouter>

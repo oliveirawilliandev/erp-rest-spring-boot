@@ -12,6 +12,7 @@
 	<groupId>br.com.willian</groupId>
 	<artifactId>erp-rest-spring-boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 	<name>erp-rest-spring-boot</name>
 
 
@@ -126,6 +127,10 @@
             <artifactId>jasperreports-pdf</artifactId>
             <version>${jasperreports.version}</version>
         </dependency>
+
+
+
+
         <!-- QR CODE -->
         <!--ZXing Core https://mvnrepository.com/artifact/com.google.zxing/core -->
         <dependency>
@@ -212,11 +217,19 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>ecj</artifactId>
+            <version>3.33.0</version>
+        </dependency>
+
     </dependencies>
 
 
 
     <build>
+
+
         <plugins>
             <!-- Spring Boot Plugin -->
             <plugin>

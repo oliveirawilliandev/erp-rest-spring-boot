@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct; // Importa anotação usada para execut
 import net.sf.jasperreports.engine.JRException; // Exceção padrão do JasperReports
 import net.sf.jasperreports.engine.JasperCompileManager; // Classe responsável por compilar arquivos .jrxml em objetos JasperReport
 import net.sf.jasperreports.engine.JasperReport; // Representa um relatório já compilado e pronto para ser usado
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.springframework.stereotype.Service; // Anotação que registra esta classe como um Service gerenciado pelo Spring
 import java.io.InputStream; // Stream para leitura de arquivos
 import java.util.Map; // Interface Map usada para armazenar os relatórios compilados em memória
@@ -39,62 +40,75 @@ public class JasperReportCache {
     // Se não existir, compila e armazena
     public JasperReport getReport(String path) throws JRException {
 
-        logger.info("[JASPER-SRV-002] Busca por relatório solicitada | path={}", path); // Log da solicitação
+        logger.info("[JASPER-SRV] Solicitação de relatório | path={}", path);
 
-        // Verifica se o relatório já foi compilado anteriormente
-        // Isso evita recompilar o JRXML a cada requisição
-        JasperReport report = cache.get(path);
+        // Sempre trabalhar com .jasper como chave única
+        String jasperPath = path.replace(".jrxml", ".jasper");
+        String cacheKey = jasperPath;
+
+        // 🔹 Verifica cache primeiro
+        JasperReport report = cache.get(cacheKey);
         if (report != null) {
-            logger.debug("[JASPER-SRV-002] Relatório encontrado no cache | path={}", path); // Log de cache hit
-            logger.info("[JASPER-SRV-002] Retornando relatório do cache | path={}", path); // Log de retorno
-            return report; // Retorna relatório do cache
+            logger.info("[JASPER-SRV] CACHE HIT | {}", cacheKey);
+            return report;
         }
 
-        logger.debug("[JASPER-SRV-002] Relatório não encontrado no cache | path={}", path); // Log de cache miss
-        logger.info("[JASPER-SRV-002] Iniciando compilação do relatório | path={}", path); // Log de início de compilação
+        logger.info("[JASPER-SRV] CACHE MISS | {}", cacheKey);
 
-        // Carrega o arquivo JRXML a partir do classpath da aplicação
-        // Exemplo de path: "/templates/employee.jrxml"
-        InputStream stream = getClass().getResourceAsStream(path);
+        // 🔹 Tenta carregar .jasper pré-compilado
+        try (InputStream jasperStream = getClass().getResourceAsStream(jasperPath)) {
 
-        if (stream == null) {
-            logger.error("[JASPER-SRV-002] Template não encontrado | path={}", path); // Log de erro
-            // Caso o arquivo não seja encontrado, lança exceção
-            // Isso evita NullPointerException mais à frente
-            throw new RuntimeException("Template not found: " + path); // Exceção
+            if (jasperStream != null) {
+                logger.info("[JASPER-SRV] Carregando .jasper pré-compilado | {}", jasperPath);
+
+                long start = System.currentTimeMillis();
+
+                report = (JasperReport) JRLoader.loadObject(jasperStream);
+
+                long time = System.currentTimeMillis() - start;
+
+                cache.put(cacheKey, report);
+
+                logger.info("[JASPER-SRV] .jasper carregado e cacheado | tempo={}ms | cacheSize={}",
+                        time, cache.size());
+
+                return report;
+            }
+
+        } catch (Exception e) {
+            logger.warn("[JASPER-SRV] Erro ao carregar .jasper | {}", e.getMessage());
         }
 
-        logger.debug("[JASPER-SRV-002] Template carregado com sucesso | path={} | stream={}", path, stream); // Log de carregamento
+        // 🔴 Fallback: compilar .jrxml (somente se não existir .jasper)
+        logger.warn("[JASPER-SRV] .jasper não encontrado, compilando .jrxml | {}", path);
 
-        try {
-            // Compila o arquivo JRXML em um objeto JasperReport
-            // Esse processo é pesado e por isso não deve acontecer toda requisição
-            long startTime = System.currentTimeMillis(); // Inicia contagem
-            report = JasperCompileManager.compileReport(stream); // Compila o relatório
-            long endTime = System.currentTimeMillis(); // Finaliza contagem
-            long duration = endTime - startTime; // Calcula duração
+        try (InputStream jrxmlStream = getClass().getResourceAsStream(path)) {
 
-            logger.debug("[JASPER-SRV-002] Compilação concluída | path={} | tempoCompilacao={}ms", path, duration); // Log de compilação
+            if (jrxmlStream == null) {
+                logger.error("[JASPER-SRV] Template não encontrado | {}", path);
+                throw new RuntimeException("Template not found: " + path);
+            }
 
-            // Armazena o relatório compilado no cache
-            // Assim nas próximas chamadas ele será reutilizado
-            cache.put(path, report);
-            logger.debug("[JASPER-SRV-002] Relatório armazenado no cache | path={} | cacheSize={}", path, cache.size()); // Log de armazenamento
+            long start = System.currentTimeMillis();
 
-            logger.info("[JASPER-SRV-002] Relatório compilado e cacheado com sucesso | path={} | tempoCompilacao={}ms",
-                    path, duration); // Log de sucesso com tempo
+            report = JasperCompileManager.compileReport(jrxmlStream);
 
-            // Retorna o relatório compilado para uso na geração do PDF
-            return report; // Retorna relatório compilado
+            long time = System.currentTimeMillis() - start;
+
+            // 🔹 salva no mesmo cacheKey (.jasper)
+            cache.put(cacheKey, report);
+
+            logger.info("[JASPER-SRV] .jrxml compilado e cacheado | tempo={}ms | cacheSize={}",
+                    time, cache.size());
+
+            return report;
 
         } catch (JRException e) {
-            logger.error("[JASPER-SRV-002] Erro na compilação do relatório | path={} | erro={}",
-                    path, e.getMessage(), e); // Log de erro detalhado
-            throw e; // Relança exceção
+            logger.error("[JASPER-SRV] Erro ao compilar relatório | {}", e.getMessage(), e);
+            throw e;
         } catch (Exception e) {
-            logger.error("[JASPER-SRV-002] Erro inesperado | path={} | erro={}",
-                    path, e.getMessage(), e); // Log de erro inesperado
-            throw new RuntimeException("Erro ao processar relatório: " + path, e); // Exceção
+            logger.error("[JASPER-SRV] Erro inesperado | {}", e.getMessage(), e);
+            throw new RuntimeException("Erro ao processar relatório: " + path, e);
         }
     }
 

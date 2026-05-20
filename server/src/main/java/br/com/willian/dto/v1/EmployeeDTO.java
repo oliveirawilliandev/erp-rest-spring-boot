@@ -2,6 +2,7 @@ package br.com.willian.dto.v1;
 
 import br.com.willian.model.PurchaseMock;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +68,7 @@ public class EmployeeDTO extends RepresentationModel<EmployeeDTO> implements Ser
             regexp = "^\\+?[0-9\\s\\-\\(\\)]{10,20}$",
             message = "Invalid mobile phone format"
     )
+    @JsonProperty("mobile_phone")
     private String mobilePhone;
 
     // =====================================================
@@ -145,6 +147,7 @@ public class EmployeeDTO extends RepresentationModel<EmployeeDTO> implements Ser
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
 
     public String getLastName() {
         return lastName;

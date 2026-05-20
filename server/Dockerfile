@@ -1,12 +1,22 @@
-# Dockerfile para a aplicação Spring Boot
-
-# [DOCKER-001] Define a imagem base com JDK 21 (Eclipse Temurin - OpenJDK)
 FROM eclipse-temurin:21-jdk
 
-# [DOCKER-002] Copia o arquivo JAR gerado pelo Maven/Gradle para o container
-# O wildcard (*) captura qualquer versão do JAR (ex: app-1.0.0.jar)
+# Evita prompts interativos
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Aceita licença ANTES
+RUN echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" \
+    | debconf-set-selections
+
+# Instala dependências + Arial
+RUN apt-get update && apt-get install -y \
+    wget \
+    cabextract \
+    xfonts-utils \
+    fontconfig \
+    ttf-mscorefonts-installer \
+    && fc-cache -f -v \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY target/*.jar app.jar
 
-# [DOCKER-003] Define o comando de entrada para executar a aplicação
-# java -jar /app.jar -> inicia a aplicação Spring Boot
 ENTRYPOINT ["java", "-jar", "/app.jar"]

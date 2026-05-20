@@ -3,7 +3,11 @@
 # -------------------------
 server:
   # Porta onde a aplicação Spring Boot irá subir
-  port: 80
+  port: 8080
+
+  # Propriedade customizada para o caminho da foto
+app:
+    context-path-photo: ${CONTEXT_PATH_FOTO:}
 
 
 # -------------------------
@@ -12,8 +16,9 @@ server:
 cors:
   # Lista de origens permitidas para acessar a API
   # Ex: front-end React (3000) e aplicações locais (8080)
-  originPatterns: http://localhost:3000,http://localhost:8080,https://oliveirawilliandev.com.br,http://192.168.0.2:3000
-
+  # originPatterns: http://localhost:3000,http://localhost:8080,https://oliveirawilliandev.com.br,http://192.168.0.2:3000
+  #originPatterns: http://80.225.219.199:3000,http://148.116.78.219:8080,https://oliveirawilliandev.com.br,http://192.168.0.2:3000
+  originPatterns: ${CORS_ORIGIN_PATTERNS}
 
 # -------------------------
 # CONFIGURAÇÕES DE UPLOAD
@@ -69,16 +74,16 @@ spring:
     drive-class-name: org.postgresql.Driver
 
     # URL de conexão com o banco
-    url: jdbc:postgresql://localhost:5432/erp_oliveira
+    url: jdbc:postgresql://${URL_BANCO}:5432/erp_oliveira
 
     # Alternativa para uso via variável de ambiente
     # url: ${JDBC_URL}
 
     # Usuário do banco
-    username: postgres
+    username: ${DB_USER}
 
     # Senha do banco
-    password: 123456
+    password: ${DB_PASSWORD}
 
 
   # -------------------------------
@@ -151,13 +156,13 @@ spring:
 # -------------------------
 flyway:
   # URL base do banco (sem schema)
-  url: jdbc:postgresql://localhost:5432/
+  url: jdbc:postgresql://${URL_BANCO}:5432/
   # Schema que será versionado
   schemas: erp_oliveira
   # Usuário do banco
-  user: postgres
+  user: ${DB_USER}
   # Senha do banco
-  password: admin123
+  password: ${DB_PASSWORD}
 
 
 # -------------------------
@@ -166,7 +171,7 @@ flyway:
 logging:
   level:
     # Nível padrão de log da aplicação
-    root: INFO
+    root: DEBUG
 
     # Exemplos para debug específico:
     # org.springframework.boot: TRACE
