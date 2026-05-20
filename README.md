@@ -13,7 +13,7 @@ Um sistema ERP (Enterprise Resource Planning) moderno e escalável desenvolvido 
 
 ## 📋 Índice
 
-- [Visão Geral](#visão-geral)
+- [Visão Geral](#🎯visão-geral)
 - [Arquitetura](#arquitetura)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Pré-requisitos](#pré-requisitos)
@@ -30,7 +30,7 @@ Um sistema ERP (Enterprise Resource Planning) moderno e escalável desenvolvido 
 
 ---
 
-## Visão Geral
+## 🎯 Visão Geral
 
 ERP Rest Spring Boot é uma solução completa de gerenciamento empresarial que oferece:
 
