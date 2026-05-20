@@ -323,16 +323,6 @@ npm run build
 # - Imagens otimizadas
 ```
 
-### Deploy
-
-Após `npm run build`, você pode fazer deploy da pasta `build/` para:
-
-- **Vercel** - `vercel deploy`
-- **Netlify** - Drag & drop da pasta `build/`
-- **AWS S3 + CloudFront**
-- **Docker** - [Ver Dockerfile](../Dockerfile)
-- **Nginx** - Servir arquivos estáticos
-
 ### Variáveis de Ambiente para Produção
 
 ```bash
