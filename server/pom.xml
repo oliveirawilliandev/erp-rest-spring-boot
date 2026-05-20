@@ -243,8 +243,10 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <configuration>
                     <url>jdbc:postgresql://localhost:5432/erp_oliveira?useTimezone=true&amp;serverTimezone=UTC</url>
-                    <user>postgres</user>
-                    <password>123456</password>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <user>${DB_USER}</user>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <password>${DB_PASSWORD}</password>
                 </configuration>
                 <dependencies>
                     <dependency>
