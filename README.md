@@ -174,7 +174,6 @@ CONTEXT_PATH_FOTO =/server
 CORS_ORIGIN_PATTERNS=localhost
 EMAIL_USERNAMA=seu_user_do_email
 EMAIL_PASSWORD=seu_password_aqui
-JWT_SECRET=sua_chave_secreta_bem_longa_aqui
 EOF
 ```
 
