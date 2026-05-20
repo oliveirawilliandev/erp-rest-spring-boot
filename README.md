@@ -13,7 +13,7 @@ Um sistema ERP (Enterprise Resource Planning) moderno e escalável desenvolvido 
 
 ## 📋 Índice
 
-- [Visão Geral](#🎯visão-geral)
+- [Visão Geral](#visão-geral)
 - [Arquitetura](#arquitetura)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Pré-requisitos](#pré-requisitos)
@@ -30,7 +30,7 @@ Um sistema ERP (Enterprise Resource Planning) moderno e escalável desenvolvido 
 
 ---
 
-## 🎯 Visão Geral
+## Visão Geral
 
 ERP Rest Spring Boot é uma solução completa de gerenciamento empresarial que oferece:
 
@@ -47,7 +47,7 @@ ERP Rest Spring Boot é uma solução completa de gerenciamento empresarial que 
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -70,7 +70,7 @@ ERP Rest Spring Boot é uma solução completa de gerenciamento empresarial que 
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Backend
 | Tecnologia | Versão | Descrição |
@@ -106,7 +106,7 @@ ERP Rest Spring Boot é uma solução completa de gerenciamento empresarial que 
 
 ---
 
-## 📦 Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, verifique se você tem instalado:
 
@@ -136,7 +136,7 @@ psql --version
 
 ---
 
-## 🚀 Instalação
+## Instalação
 
 ### 1. Clonar o Repositório
 
@@ -211,7 +211,7 @@ A aplicação abrirá automaticamente em: `http://localhost:3000`
 ---
 
 
-## 💻 Como Usar
+## Como Usar
 
 ### Backend
 
@@ -252,7 +252,7 @@ npm test
 
 ---
 
-## 📡 Endpoints da API
+## Endpoints da API
 
 ### Autenticação
 ```
@@ -329,7 +329,7 @@ GET    /api/file/v1/downloadUserPhoto/{fileName}  # Download foto usuário
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 erp-rest-spring-boot/
@@ -367,7 +367,7 @@ erp-rest-spring-boot/
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 ### 🔐 Segurança
 - ✅ Autenticação com JWT
@@ -397,7 +397,7 @@ erp-rest-spring-boot/
 
 ---
 
-## 📖 Documentação da API
+## Documentação da API
 
 ### Acessar Swagger UI
 
@@ -437,7 +437,7 @@ curl -X GET "http://localhost:8080/api/employee/v1?page=0&size=10" \
 
 ---
 
-## 🐳 Docker
+## Docker
 
 ### Executar com Docker Compose
 
@@ -464,7 +464,7 @@ docker build -t erp-frontend:latest ./client
 
 ---
 
-## 🤝 Contribuindo
+## Contribuindo
 
 Contribuições são bem-vindas! Por favor, siga os passos abaixo:
 
@@ -483,7 +483,7 @@ Contribuições são bem-vindas! Por favor, siga os passos abaixo:
 
 ---
 
-## 📝 Licença
+## Licença
 
 Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
