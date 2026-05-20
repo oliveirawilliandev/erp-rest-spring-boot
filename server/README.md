@@ -166,6 +166,8 @@ GET    /api/order/v1            # Listar pedidos
 GET    /api/employee/v1         # Listar funcionários
 GET    /api/supplier/v1         # Listar fornecedores
 GET    /api/ingredient/v1       # Listar ingredientes
+GET    /api/purchase/v1         # Listar compras
+GET    /api/customer/v1         # Listar clientes
 ```
 
 Veja [README.md](../README.md) para lista completa de endpoints.
