@@ -51,20 +51,20 @@ ERP Rest Spring Boot é uma solução completa de gerenciamento empresarial que 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    CLIENT (React)                            │
-│                  :3000                                       │
+│                    CLIENT (React)                           │
+│                       :3000                                 │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                       REST API
                            │
 ┌──────────────────────────▼──────────────────────────────────┐
-│              SERVER (Spring Boot 3)                          │
-│                  :8080                                       │
+│              SERVER (Spring Boot 3)                         │
+│                  :8080                                      │
 ├─────────────────────────────────────────────────────────────┤
 │ Controllers    → DTOs → Services → Repositories → Entities  │
 ├─────────────────────────────────────────────────────────────┤
-│              PostgreSQL Database                             │
-│              (Flyway Migrations)                             │
+│              PostgreSQL Database                            │
+│              (Flyway Migrations)                            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -167,11 +167,13 @@ Crie arquivo `.env` na raiz do servidor:
 ```bash
 # Linux/Mac
 cat > server/.env << EOF
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=erp_oliveira
+URL_BANCO=localhost
 DB_USER=postgres
 DB_PASSWORD=seu_password_aqui
+CONTEXT_PATH_FOTO =/server
+CORS_ORIGIN_PATTERNS=localhost
+EMAIL_USERNAMA=seu_user_do_email
+EMAIL_PASSWORD=seu_password_aqui
 JWT_SECRET=sua_chave_secreta_bem_longa_aqui
 EOF
 ```
@@ -209,59 +211,6 @@ A aplicação abrirá automaticamente em: `http://localhost:3000`
 
 ---
 
-## ⚙️ Configuração
-
-### Variáveis de Ambiente (Backend)
-
-Crie um arquivo `application.properties` em `server/src/main/resources/`:
-
-```properties
-# Banco de Dados
-spring.datasource.url=jdbc:postgresql://localhost:5432/erp_oliveira
-spring.datasource.username=postgres
-spring.datasource.password=seu_password
-spring.jpa.hibernate.ddl-auto=validate
-spring.jpa.show-sql=false
-
-# Flyway
-spring.flyway.enabled=true
-spring.flyway.locations=classpath:db/migration
-
-# JWT
-app.jwt.secret=sua_chave_secreta_bem_longa_aqui
-app.jwt.expiration=86400000
-
-# Upload de Arquivos
-spring.servlet.multipart.max-file-size=10MB
-spring.servlet.multipart.max-request-size=10MB
-app.file.upload-dir=./uploads
-
-# Logging
-logging.level.root=INFO
-logging.level.br.com.willian=DEBUG
-
-# OpenAPI/Swagger
-springdoc.api-docs.path=/v3/api-docs
-springdoc.swagger-ui.path=/swagger-ui.html
-```
-
-### Configuração de Credenciais Seguras
-
-⚠️ **IMPORTANTE**: Nunca commite credenciais diretamente no código!
-
-Use variáveis de ambiente:
-
-```bash
-# Linux/Mac
-export DB_PASSWORD=seu_password
-export JWT_SECRET=sua_chave_secreta
-
-# Windows
-set DB_PASSWORD=seu_password
-set JWT_SECRET=sua_chave_secreta
-```
-
----
 
 ## 💻 Como Usar
 
@@ -456,7 +405,7 @@ erp-rest-spring-boot/
 Após iniciar o servidor, acesse:
 
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui.index.html
 ```
 
 ### Acessar OpenAPI JSON
